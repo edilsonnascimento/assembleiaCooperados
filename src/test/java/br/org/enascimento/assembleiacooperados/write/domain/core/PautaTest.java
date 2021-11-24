@@ -2,8 +2,6 @@ package br.org.enascimento.assembleiacooperados.write.domain.core;
 
 import org.junit.jupiter.api.Test;
 
-import java.nio.charset.Charset;
-import java.util.Random;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;

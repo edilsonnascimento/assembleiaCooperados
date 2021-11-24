@@ -4,6 +4,7 @@ import br.org.enascimento.assembleiacooperados.write.domain.application.CreatePa
 import br.org.enascimento.assembleiacooperados.write.domain.application.CreatePautaCommandHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -17,7 +18,7 @@ public class PautaController {
     private CreatePautaCommandHandler handler;
 
     @PostMapping
-    public ResponseEntity create(@RequestBody CreatePautaCommand commad) throws URISyntaxException {
+    public ResponseEntity create(@RequestBody @Validated CreatePautaCommand commad) throws URISyntaxException {
         handler.handle(commad);
         return (ResponseEntity) ResponseEntity.created(new URI("")).build();
     }
