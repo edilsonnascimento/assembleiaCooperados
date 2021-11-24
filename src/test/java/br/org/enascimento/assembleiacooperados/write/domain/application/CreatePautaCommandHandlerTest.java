@@ -2,15 +2,14 @@ package br.org.enascimento.assembleiacooperados.write.domain.application;
 
 import br.org.enascimento.assembleiacooperados.write.adapter.out.PautaRepositoryImpl;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
-import br.org.enascimento.assembleiacooperados.write.domain.core.PautaRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class CreatePautaCommandHandlerTest {
 

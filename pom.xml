@@ -85,6 +85,8 @@
                 <configuration>
                     <release>${java.version}</release>
                     <compilerArgs>--enable-preview</compilerArgs>
+                    <source>16</source>
+                    <target>16</target>
                 </configuration>
             </plugin>
 

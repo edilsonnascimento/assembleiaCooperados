@@ -6,4 +6,6 @@ import java.util.UUID;
 public interface PautaRepository {
 
     void create(Pauta pauta);
+
+    Optional<Pauta> findByUuid(UUID uuid);
 }

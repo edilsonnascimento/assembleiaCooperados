@@ -1,6 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.domain.core;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Pauta {
@@ -9,8 +10,6 @@ public class Pauta {
     private UUID uuid;
     private String titulo;
     private String descricao;
-    private LocalDateTime creatAt;
-    private LocalDateTime updateAt;
 
     public Pauta() {
     }
@@ -51,21 +50,26 @@ public class Pauta {
         return this;
     }
 
-    public LocalDateTime getCreatAt() {
-        return creatAt;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pauta pauta = (Pauta) o;
+        return uuid.equals(pauta.uuid) && titulo.equals(pauta.titulo);
     }
 
-    public Pauta setCreatAt(LocalDateTime creatAt) {
-        this.creatAt = creatAt;
-        return this;
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, titulo);
     }
 
-    public LocalDateTime getUpdateAt() {
-        return updateAt;
-    }
-
-    public Pauta setUpdateAt(LocalDateTime updateAt) {
-        this.updateAt = updateAt;
-        return this;
+    @Override
+    public String toString() {
+        return "Pauta{" +
+                "id=" + id +
+                ", uuid=" + uuid +
+                ", titulo='" + titulo + '\'' +
+                ", descricao='" + descricao + '\'' +
+                '}';
     }
 }

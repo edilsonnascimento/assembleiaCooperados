@@ -2,9 +2,9 @@ package br.org.enascimento.assembleiacooperados.write.domain.application;
 
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.PautaRepository;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-
+@Service
 public class CreatePautaCommandHandler {
 
     private PautaRepository repository;

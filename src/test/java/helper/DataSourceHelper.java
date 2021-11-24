@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public abstract class DataSourceHelper {
 
-    protected BasicDataSource dataSource = new BasicDataSource();
+    protected BasicDataSource dataSource = new BasicDataSource();;
 
     @BeforeEach
     void init() {
