@@ -3,20 +3,17 @@ package br.org.enascimento.assembleiacooperados.write.adapter.out;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.PautaRepository;
 import helper.DataSourceHelper;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.rmi.server.UID;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class PautaRepositoryImplTest extends DataSourceHelper {
@@ -34,17 +31,22 @@ class PautaRepositoryImplTest extends DataSourceHelper {
                                                String titulo,
                                                String descricao){
         //given
-        var pauta = new Pauta()
+        var expected = new Pauta()
                 .setUuid(uuid)
                 .setTitulo(titulo)
                 .setDescricao(descricao);
 
         //when
-        repository.create(pauta);
+        repository.create(expected);
 
         //then
         var createdPauta = repository.findByUuid(uuid);
-        assertThat(createdPauta.get()).isEqualTo(pauta);
+        var actual = createdPauta.get();
+        assertThat(actual.getUuid()).isEqualTo(expected.getUuid());
+        assertThat(actual.getTitulo()).isEqualTo(expected.getTitulo());
+        assertThat(actual.getDescricao()).isEqualTo(expected.getDescricao());
+        assertThat(actual.getCreatedAt()).isNotNull();
+        assertThat(actual.getUpdatedAt()).isNotNull();
     }
 
     @ParameterizedTest

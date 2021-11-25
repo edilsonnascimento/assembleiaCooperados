@@ -2,5 +2,7 @@ CREATE TABLE pauta (
     id SERIAL PRIMARY KEY,
     uuid UUID UNIQUE NOT NULL,
     titulo VARCHAR UNIQUE NOT NULL,
-    descricao VARCHAR NOT NULL
+    descricao VARCHAR NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );

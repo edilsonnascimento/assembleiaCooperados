@@ -38,7 +38,7 @@ public class PautaRepositoryImpl implements PautaRepository {
     @Override
     public Optional<Pauta> findByUuid(UUID uuid) {
         String sql = """
-            SELECT id, uuid, titulo, descricao
+            SELECT id, uuid, titulo, descricao, created_at, updated_at
             FROM pauta
             WHERE uuid = :uuid""";
 
@@ -51,7 +51,9 @@ public class PautaRepositoryImpl implements PautaRepository {
                         setId(resultSet.getInt("id")).
                         setUuid(UUID.fromString(resultSet.getString("uuid"))).
                         setTitulo(resultSet.getString("titulo")).
-                        setDescricao(resultSet.getString("descricao"))
+                        setDescricao(resultSet.getString("descricao")).
+                        setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
+                        setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime())
                 );
             }
             return Optional.empty();
