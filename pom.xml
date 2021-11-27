@@ -66,6 +66,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
 		<!-- TEST -->
 
         <dependency>
@@ -99,6 +106,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <arguments>--enable-preview</arguments>
+                    <jvmArguments>--enable-preview</jvmArguments>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -110,6 +121,15 @@
                     <compilerArgs>--enable-preview</compilerArgs>
                     <source>16</source>
                     <target>16</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <argLine>--enable-preview</argLine>
                 </configuration>
             </plugin>
 

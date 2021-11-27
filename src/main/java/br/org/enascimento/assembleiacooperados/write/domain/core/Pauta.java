@@ -1,6 +1,5 @@
 package br.org.enascimento.assembleiacooperados.write.domain.core;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 

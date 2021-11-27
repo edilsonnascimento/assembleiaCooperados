@@ -2,6 +2,7 @@ package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.PautaRepository;
+import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
 import helper.DataSourceHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ class PautaRepositoryImplTest extends DataSourceHelper {
     private PautaRepository repository;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         repository = new PautaRepositoryImpl(dataSource);
     }
 
@@ -29,7 +30,7 @@ class PautaRepositoryImplTest extends DataSourceHelper {
     @MethodSource("validDataProvider")
     void GIVEN_ValidPauta_MUST_PersistDataBase(UUID uuid,
                                                String titulo,
-                                               String descricao){
+                                               String descricao) {
         //given
         var expected = new Pauta()
                 .setUuid(uuid)
@@ -52,20 +53,24 @@ class PautaRepositoryImplTest extends DataSourceHelper {
     @ParameterizedTest
     @MethodSource("inValidDataProvider")
     void GIVEN_AlreadyExtentPauta_MUST_ThowExcepetion(UUID uuid,
-                                               String titulo,
-                                               String descricao){
+                                                      String titulo,
+                                                      String descricao,
+                                                      String errorField) {
         //given
         var pauta = new Pauta()
                 .setUuid(uuid)
                 .setTitulo(titulo)
                 .setDescricao(descricao);
 
+        //when
+        var exception = assertThrows(DuplicatedDataException.class, () -> repository.create(pauta));
+
         //then
-        assertThrows(RuntimeException.class, ()-> repository.create(pauta));
+        assertThat(exception.getMessage()).isEqualTo("Invalid duplicated data: " + errorField);
     }
 
     @Test
-    void GIVEN_AlredyExistePauta_MUST_ThrowException(){
+    void GIVEN_AlredyExistePauta_MUST_ThrowException() {
         //given
         var pauta = new Pauta()
                 .setId(1)
@@ -77,18 +82,18 @@ class PautaRepositoryImplTest extends DataSourceHelper {
         assertThrows(RuntimeException.class, () -> repository.create(pauta));
     }
 
-    private static Stream<Arguments> validDataProvider(){
+    private static Stream<Arguments> validDataProvider() {
         return Stream.of(
-            arguments(UUID.randomUUID(), "Título 1", "Descricao 1"),
-            arguments(UUID.randomUUID(), "Título 2", "Descricao 2"),
-            arguments(UUID.randomUUID(), "Título 3", "Descricao 3")
+                arguments(UUID.randomUUID(), "Título 1", "Descricao 1"),
+                arguments(UUID.randomUUID(), "Título 2", "Descricao 2"),
+                arguments(UUID.randomUUID(), "Título 3", "Descricao 3")
         );
     }
 
-    private static Stream<Arguments> inValidDataProvider(){
+    private static Stream<Arguments> inValidDataProvider() {
         return Stream.of(
-                arguments(UUID.randomUUID(), "Título Existe", "Descrição Existe"),
-                arguments("1e73cdb3-0923-4452-a190-3c7eb7857e20", "Título Não Existe", "Descrição não Existe")
+                arguments(UUID.randomUUID(), "Título Existe", "Descrição valida", "titulo"),
+                arguments("1e73cdb3-0923-4452-a190-3c7eb7857e20", "Título valido", "Descrição valida", "uuid")
         );
     }
 

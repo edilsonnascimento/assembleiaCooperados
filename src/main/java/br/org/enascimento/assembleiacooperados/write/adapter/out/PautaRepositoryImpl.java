@@ -2,6 +2,8 @@ package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.PautaRepository;
+import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -23,24 +25,28 @@ public class PautaRepositoryImpl implements PautaRepository {
 
     @Override
     public void create(Pauta pauta) {
-        String sql = """
-            INSERT INTO pauta(uuid, titulo, descricao)
-            values (:uuid, :titulo, :descricao)""";
+        try {
+            String sql = """
+                    INSERT INTO pauta(uuid, titulo, descricao)
+                    values (:uuid, :titulo, :descricao)""";
 
-        var parameters = new MapSqlParameterSource()
-                .addValue("uuid", pauta.getUuid())
-                .addValue("titulo", pauta.getTitulo())
-                .addValue("descricao", pauta.getDescricao());
+            var parameters = new MapSqlParameterSource()
+                    .addValue("uuid", pauta.getUuid())
+                    .addValue("titulo", pauta.getTitulo())
+                    .addValue("descricao", pauta.getDescricao());
 
-        jdbcTemplate.update(sql, parameters);
+            jdbcTemplate.update(sql, parameters);
+        } catch (DuplicateKeyException exception) {
+            throw new DuplicatedDataException(exception.getMessage());
+        }
     }
 
     @Override
     public Optional<Pauta> findByUuid(UUID uuid) {
         String sql = """
-            SELECT id, uuid, titulo, descricao, created_at, updated_at
-            FROM pauta
-            WHERE uuid = :uuid""";
+                SELECT id, uuid, titulo, descricao, created_at, updated_at
+                FROM pauta
+                WHERE uuid = :uuid""";
 
         MapSqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("uuid", uuid);

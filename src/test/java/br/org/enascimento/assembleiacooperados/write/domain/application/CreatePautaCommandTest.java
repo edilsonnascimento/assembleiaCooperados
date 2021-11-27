@@ -12,12 +12,12 @@ public class CreatePautaCommandTest {
     @Test
     void GIVEN_ValidData_Must_RetrieveSameDate(){
         // given
-        UUID uuid = UUID.randomUUID();
-        String titulo = "Aumento da segurança";
-        String descricao = "Contratar 5 seguranças fixos.";
+        var uuid = UUID.randomUUID();
+        var titulo = "Aumento da segurança";
+        var descricao = "Contratar 5 seguranças fixos.";
 
         //when
-        CreatePautaCommand command = new CreatePautaCommand(uuid, titulo, descricao);
+        var command = new CreatePautaCommand(uuid, titulo, descricao);
 
         //then
         assertTrue(command.uuid().equals(uuid));
