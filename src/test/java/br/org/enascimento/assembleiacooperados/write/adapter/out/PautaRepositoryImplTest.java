@@ -19,7 +19,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class PautaRepositoryImplTest extends DataSourceHelper {
 
-    private PautaRepository repository;
+    private PautaRepositoryImpl repository;
 
     @BeforeEach
     void setup() {
@@ -93,8 +93,8 @@ class PautaRepositoryImplTest extends DataSourceHelper {
     private static Stream<Arguments> inValidDataProvider() {
         return Stream.of(
                 arguments(UUID.randomUUID(), "Título Existe", "Descrição valida", "titulo"),
-                arguments("1e73cdb3-0923-4452-a190-3c7eb7857e20", "Título valido", "Descrição valida", "uuid")
+                arguments("1e73cdb3-0923-4452-a190-3c7eb7857e20", "Título valido", "Descrição valida", "uuid"),
+                arguments("1e73cdb3-0923-4452-a190-3c7eb7857e20", "Título Existe", "Descrição valida", "uuid")
         );
     }
-
 }

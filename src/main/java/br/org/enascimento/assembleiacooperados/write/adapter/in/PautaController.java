@@ -2,6 +2,7 @@ package br.org.enascimento.assembleiacooperados.write.adapter.in;
 
 import br.org.enascimento.assembleiacooperados.write.domain.application.CreatePautaCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.application.CreatePautaCommandHandler;
+import br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class PautaController {
 
         try {
             handler.handle(commad);
-        }catch (DuplicatedDataException exception){
+        }catch (DomainException exception){
             return (ResponseEntity) ResponseEntity.badRequest().body(exception.getMessage());
         }
         return (ResponseEntity) ResponseEntity.created(new URI("v1/pautas/"+commad.uuid())).build();

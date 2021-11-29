@@ -7,5 +7,7 @@ public interface PautaRepository {
 
     void create(Pauta pauta);
 
+    Optional<Pauta> findByUuidOrTitulo(UUID uuid, String titulo);
+
     Optional<Pauta> findByUuid(UUID uuid);
 }

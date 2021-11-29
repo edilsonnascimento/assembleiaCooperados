@@ -37,18 +37,54 @@ public class PautaRepositoryImpl implements PautaRepository {
 
             jdbcTemplate.update(sql, parameters);
         } catch (DuplicateKeyException exception) {
-            throw new DuplicatedDataException(exception.getMessage());
+
+            var duplicateField = "";
+            var existentPauta = findByUuidOrTitulo(pauta.getUuid(), pauta.getTitulo()).get();
+
+            if(existentPauta.getTitulo().equals(pauta.getTitulo()))
+                duplicateField = "titulo";
+
+            if(existentPauta.getUuid().equals(pauta.getUuid()))
+                duplicateField = "uuid";
+
+            throw new DuplicatedDataException("Invalid duplicated data: " + duplicateField);
         }
     }
 
     @Override
+    public Optional<Pauta> findByUuidOrTitulo(UUID uuid, String titulo) {
+        var sql = """
+                SELECT id, uuid, titulo, descricao, created_at, updated_at
+                FROM pauta
+                WHERE uuid = :uuid OR titulo = :titulo """;
+
+        var parameters = new MapSqlParameterSource()
+                .addValue("uuid", uuid)
+                .addValue("titulo", titulo);
+
+        return jdbcTemplate.query(sql, parameters, resultSet -> {
+            if (resultSet.next()) {
+                return Optional.of(new Pauta().
+                        setId(resultSet.getInt("id")).
+                        setUuid(UUID.fromString(resultSet.getString("uuid"))).
+                        setTitulo(resultSet.getString("titulo")).
+                        setDescricao(resultSet.getString("descricao")).
+                        setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
+                        setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime())
+                );
+            }
+            return Optional.empty();
+        });
+    }
+
+    @Override
     public Optional<Pauta> findByUuid(UUID uuid) {
-        String sql = """
+        var sql = """
                 SELECT id, uuid, titulo, descricao, created_at, updated_at
                 FROM pauta
                 WHERE uuid = :uuid""";
 
-        MapSqlParameterSource parameters = new MapSqlParameterSource()
+        var parameters = new MapSqlParameterSource()
                 .addValue("uuid", uuid);
 
         return jdbcTemplate.query(sql, parameters, resultSet -> {
