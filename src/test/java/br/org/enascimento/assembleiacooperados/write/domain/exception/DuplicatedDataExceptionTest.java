@@ -8,7 +8,7 @@ class DuplicatedDataExceptionTest {
     @Test
     void DuplicateDateException_MUST_Extends_DomainException(){
         //given
-        var exception = new DuplicatedDataException("Teste");
+        var exception = new DuplicatedDataException("Teste", new RuntimeException());
 
         //then
         Assertions.assertThat(exception).isInstanceOf(DomainException.class);

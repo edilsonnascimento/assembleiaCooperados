@@ -1,7 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
-import br.org.enascimento.assembleiacooperados.write.domain.core.PautaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
 import helper.DataSourceHelper;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +9,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -55,18 +56,21 @@ class PautaRepositoryImplTest extends DataSourceHelper {
     void GIVEN_AlreadyExtentPauta_MUST_ThowExcepetion(UUID uuid,
                                                       String titulo,
                                                       String descricao,
-                                                      String errorField) {
+                                                      Map<String, Object> expectedError) {
         //given
-        var pauta = new Pauta()
+        var expected = new Pauta()
                 .setUuid(uuid)
                 .setTitulo(titulo)
                 .setDescricao(descricao);
 
+
+
         //when
-        var exception = assertThrows(DuplicatedDataException.class, () -> repository.create(pauta));
+        var exception = assertThrows(DuplicatedDataException.class, () -> repository.create(expected));
 
         //then
-        assertThat(exception.getMessage()).isEqualTo("Invalid duplicated data: " + errorField);
+        assertThat(exception.getMessage()).isEqualTo("Invalid duplicated data");
+        assertThat(exception.getErrors()).containsExactlyInAnyOrderEntriesOf(expectedError);
     }
 
     @Test
@@ -91,10 +95,16 @@ class PautaRepositoryImplTest extends DataSourceHelper {
     }
 
     private static Stream<Arguments> inValidDataProvider() {
+
+        UUID existenUuid = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
+        String existenTitulo = "Título Existe";
+        String validDescicao = "Descrição valida";
+        Map<String, Object> message = new HashMap<>();
+        String messageError = "Invalid duplicated data";
         return Stream.of(
-                arguments(UUID.randomUUID(), "Título Existe", "Descrição valida", "titulo"),
-                arguments("1e73cdb3-0923-4452-a190-3c7eb7857e20", "Título valido", "Descrição valida", "uuid"),
-                arguments("1e73cdb3-0923-4452-a190-3c7eb7857e20", "Título Existe", "Descrição valida", "uuid")
+                arguments(UUID.randomUUID(), existenTitulo, validDescicao, Map.of("message", messageError,"titulo", existenTitulo)),
+                arguments(existenUuid, "Título valido", validDescicao, Map.of("message", messageError,"uuid", existenUuid)),
+                arguments(existenUuid, existenTitulo, validDescicao, Map.of("message", messageError,"titulo", existenTitulo, "uuid", existenUuid))
         );
     }
 }

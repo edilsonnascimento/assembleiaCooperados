@@ -21,12 +21,7 @@ public class PautaController {
 
     @PostMapping
     public ResponseEntity create(@RequestBody @Validated CreatePautaCommand commad) throws URISyntaxException {
-
-        try {
-            handler.handle(commad);
-        }catch (DomainException exception){
-            return (ResponseEntity) ResponseEntity.badRequest().body(exception.getMessage());
-        }
+        handler.handle(commad);
         return (ResponseEntity) ResponseEntity.created(new URI("v1/pautas/"+commad.uuid())).build();
     }
 }

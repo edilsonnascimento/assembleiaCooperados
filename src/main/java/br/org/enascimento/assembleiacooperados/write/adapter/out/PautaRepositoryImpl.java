@@ -38,16 +38,20 @@ public class PautaRepositoryImpl implements PautaRepository {
             jdbcTemplate.update(sql, parameters);
         } catch (DuplicateKeyException exception) {
 
-            var duplicateField = "";
+            DuplicatedDataException duplicatedDataException = new DuplicatedDataException("Invalid duplicated data", exception);
             var existentPauta = findByUuidOrTitulo(pauta.getUuid(), pauta.getTitulo()).get();
 
-            if(existentPauta.getTitulo().equals(pauta.getTitulo()))
-                duplicateField = "titulo";
+            duplicatedDataException.addErrors("message", duplicatedDataException.getMessage());
 
-            if(existentPauta.getUuid().equals(pauta.getUuid()))
-                duplicateField = "uuid";
+            if(existentPauta.getTitulo().equals(pauta.getTitulo())) {
+                duplicatedDataException.addErrors("titulo", pauta.getTitulo());
+            }
 
-            throw new DuplicatedDataException("Invalid duplicated data: " + duplicateField);
+            if(existentPauta.getUuid().equals(pauta.getUuid())) {
+                duplicatedDataException.addErrors("uuid", pauta.getUuid());
+            }
+
+            throw duplicatedDataException;
         }
     }
 
