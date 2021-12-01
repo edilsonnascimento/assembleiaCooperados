@@ -5,7 +5,7 @@ import br.org.enascimento.assembleiacooperados.write.domain.core.PautaRepository
 import org.springframework.stereotype.Service;
 
 @Service
-public class CreatePautaCommandHandler {
+public class CreatePautaCommandHandler implements Handler<CreatePautaCommand>{
 
     private PautaRepository repository;
 

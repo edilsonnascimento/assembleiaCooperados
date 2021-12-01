@@ -2,7 +2,6 @@ package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.PautaRepository;
-import br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

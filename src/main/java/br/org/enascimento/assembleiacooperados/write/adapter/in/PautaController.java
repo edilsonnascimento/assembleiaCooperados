@@ -1,5 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.in;
 
+import br.org.enascimento.assembleiacooperados.write.CommandBus;
 import br.org.enascimento.assembleiacooperados.write.domain.application.CreatePautaCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.application.CreatePautaCommandHandler;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException;
@@ -17,11 +18,11 @@ import java.net.URISyntaxException;
 public class PautaController {
 
     @Autowired
-    private CreatePautaCommandHandler handler;
+    private CommandBus commandBusbus;
 
     @PostMapping
     public ResponseEntity create(@RequestBody @Validated CreatePautaCommand commad) throws URISyntaxException {
-        handler.handle(commad);
+        commandBusbus.execute(commad);
         return (ResponseEntity) ResponseEntity.created(new URI("v1/pautas/"+commad.uuid())).build();
     }
 }

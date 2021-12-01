@@ -13,5 +13,5 @@ public record CreatePautaCommand(
         String titulo,
 
         @NotBlank
-        String descricao)
+        String descricao) implements Command
 {}
