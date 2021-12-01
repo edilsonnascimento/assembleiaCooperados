@@ -27,7 +27,6 @@ public class WriteExceptionHandler {
         return new ResponseEntity<>(mapErrors, BAD_REQUEST);
     }
 
-
     @ExceptionHandler(DuplicatedDataException.class)
     public ResponseEntity<Object> onDuplicatedDataException(DuplicatedDataException exception) {
             exception.addErrors("message", exception.getMessage());

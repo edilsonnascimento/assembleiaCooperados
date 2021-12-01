@@ -7,7 +7,7 @@ public class DuplicatedDataException extends DomainException{
 
     private Map<String, Object> errors = new LinkedHashMap<>();
 
-    public DuplicatedDataException(String message, Throwable exception) {
+    public DuplicatedDataException(Error message, Throwable exception) {
         super(message, exception);
     }
 
