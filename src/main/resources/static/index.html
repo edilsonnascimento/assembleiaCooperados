@@ -1,46 +1,37 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto|PT+Mono">
+        <link rel="stylesheet" href="/style.css">
+        <title>JAVA das Ruas</title>
         <meta charset="UTF-8">
     </head>
     <body>
-
-    <div class="ui container">
-        <h1>Lita de Pautas</h1>
-        <div id="app">
+        <div class="ui container">
+            <h2>Lita de Pautas</h2>
+            <div id="app" />
         </div>
-    </div>
-
+    </body>
     <script id="pautas-list" type="text/x-handlebars-template">
-
-        <table class="table table-sm">
-            <thead>
-            <tr>
-                <th scope="uuid">UUID</th>
-                <th scope="titulo">Título</th>
-                <th scope="descricao">Descrição</th>
-            </tr>
-            </thead>
-            <tbody>
+        <div class="list">
+            <div class="divTable">
+                <div class="headRow">
+                    <div class="divCell" align="center">UUID</div>
+                    <div  class="divCell">Título Pauta</div>
+                    <div  class="divCell">Descrição da Pauta</div>
+                </div>
                 {{#each pautas}}
-                <tr>
-                    <td>{{uuid}}</td>
-                    <td>{{titulo}}</td>
-                    <td>{{descricao}}</td>
-                </tr>
+                <div class="divRow" align="center">
+                    <div class="divCell">{{uuid}}</div>
+                    <div class="divCell">{{titulo}}</div>
+                    <div class="divCell">{{descricao}}</div>
+                </div>
                 {{/each}}
-            </tbody>
-        </table>
-
+            </div>
+        </div>
     </script>
-
-
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
     <script src="/app.js"></script>
-
-    </body>
 </html>
