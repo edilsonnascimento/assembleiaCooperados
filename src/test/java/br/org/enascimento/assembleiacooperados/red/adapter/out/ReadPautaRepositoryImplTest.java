@@ -1,6 +1,5 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.out;
 
-import br.org.enascimento.assembleiacooperados.write.domain.core.PautaRepository;
 import helper.DataSourceHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

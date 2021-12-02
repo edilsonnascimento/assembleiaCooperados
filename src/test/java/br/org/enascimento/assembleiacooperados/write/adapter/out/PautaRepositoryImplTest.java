@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
-import br.org.enascimento.assembleiacooperados.write.domain.core.PautaRepository;
+import br.org.enascimento.assembleiacooperados.write.domain.core.WritePautaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
 import helper.DataSourceHelper;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +10,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -30,7 +29,7 @@ class PautaRepositoryImplTest extends DataSourceHelper {
 
     @Test
     void MUST_ImplementInterface(){
-        assertThat(repository).isInstanceOf(PautaRepository.class);
+        assertThat(repository).isInstanceOf(WritePautaRepository.class);
     }
 
     @ParameterizedTest
@@ -105,12 +104,10 @@ class PautaRepositoryImplTest extends DataSourceHelper {
         UUID existenUuid = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
         String existenTitulo = "Título Existe";
         String validDescicao = "Descrição valida";
-        Map<String, Object> message = new HashMap<>();
-        String messageError = "Invalid duplicated data";
         return Stream.of(
-                arguments(UUID.randomUUID(), existenTitulo, validDescicao, Map.of("message", messageError,"titulo", existenTitulo)),
-                arguments(existenUuid, "Título valido", validDescicao, Map.of("message", messageError,"uuid", existenUuid)),
-                arguments(existenUuid, existenTitulo, validDescicao, Map.of("message", messageError,"titulo", existenTitulo, "uuid", existenUuid))
+                arguments(UUID.randomUUID(), existenTitulo, validDescicao, Map.of("titulo", existenTitulo)),
+                arguments(existenUuid, "Título valido", validDescicao, Map.of("uuid", existenUuid)),
+                arguments(existenUuid, existenTitulo, validDescicao, Map.of("titulo", existenTitulo, "uuid", existenUuid))
         );
     }
 }

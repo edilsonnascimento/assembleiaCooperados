@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
-import br.org.enascimento.assembleiacooperados.write.domain.core.PautaRepository;
+import br.org.enascimento.assembleiacooperados.write.domain.core.WritePautaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -17,7 +17,7 @@ import java.util.UUID;
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.INVALID_DUPLICATE_DATA;
 
 @Repository
-public class PautaRepositoryImpl implements PautaRepository {
+public class PautaRepositoryImpl implements WritePautaRepository {
 
     private NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -42,8 +42,6 @@ public class PautaRepositoryImpl implements PautaRepository {
 
             DuplicatedDataException duplicatedDataException = new DuplicatedDataException(INVALID_DUPLICATE_DATA, exception);
             var existentPauta = findByUuidOrTitulo(pauta.getUuid(), pauta.getTitulo()).get();
-
-            duplicatedDataException.addErrors("message", duplicatedDataException.getMessage());
 
             if(existentPauta.getTitulo().equals(pauta.getTitulo())) {
                 duplicatedDataException.addErrors("titulo", pauta.getTitulo());
