@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Assembleia de Cooperado </title>
-</head>
-<body>
-       <h1>Bem vindos a Assembleia</h1>
-</body>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+    </head>
+    <body>
+
+    <div class="ui container">
+        <h1>Lita de Pautas</h1>
+        <div id="app">
+        </div>
+    </div>
+
+    <script id="pautas-list" type="text/x-handlebars-template">
+
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th scope="uuid">UUID</th>
+                <th scope="titulo">Título</th>
+                <th scope="descricao">Descrição</th>
+            </tr>
+            </thead>
+            <tbody>
+                {{#each pautas}}
+                <tr>
+                    <td>{{uuid}}</td>
+                    <td>{{titulo}}</td>
+                    <td>{{descricao}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+    </script>
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="/app.js"></script>
+
+    </body>
 </html>
