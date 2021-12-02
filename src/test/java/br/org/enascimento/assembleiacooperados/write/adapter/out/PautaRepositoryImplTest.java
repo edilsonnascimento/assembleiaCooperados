@@ -1,6 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
+import br.org.enascimento.assembleiacooperados.write.domain.core.PautaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
 import helper.DataSourceHelper;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +26,11 @@ class PautaRepositoryImplTest extends DataSourceHelper {
     @BeforeEach
     void setup() {
         repository = new PautaRepositoryImpl(dataSource);
+    }
+
+    @Test
+    void MUST_ImplementInterface(){
+        assertThat(repository).isInstanceOf(PautaRepository.class);
     }
 
     @ParameterizedTest
