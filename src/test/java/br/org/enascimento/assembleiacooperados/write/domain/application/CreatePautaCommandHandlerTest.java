@@ -1,7 +1,9 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application;
 
-import br.org.enascimento.assembleiacooperados.write.adapter.out.PautaRepositoryImpl;
+import br.org.enascimento.assembleiacooperados.write.adapter.out.WritePautaRepositoryImpl;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
+import helper.TestHelper;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -11,7 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-public class CreatePautaCommandHandlerTest {
+@Tag("unit")
+public class CreatePautaCommandHandlerTest extends TestHelper {
 
     ArgumentCaptor<Pauta> captor = ArgumentCaptor.forClass(Pauta.class);
 
@@ -19,10 +22,10 @@ public class CreatePautaCommandHandlerTest {
     void Given_ValidCommand_Must_DelegateToHeadler(){
         // given
         var uuid = UUID.randomUUID();
-        var titulo = "Aumento da segurança";
-        var descricao = "Contratar 5 seguranças fixos.";
+        var titulo = faker.lorem().characters();
+        var descricao = faker.lorem().characters();
         var command = new CreatePautaCommand(uuid, titulo, descricao);
-        var repository = mock(PautaRepositoryImpl.class);
+        var repository = mock(WritePautaRepositoryImpl.class);
 
         // when
         var handler = new CreatePautaCommandHandler(repository);

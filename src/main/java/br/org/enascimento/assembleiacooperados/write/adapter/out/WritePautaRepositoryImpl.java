@@ -17,11 +17,11 @@ import java.util.UUID;
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.INVALID_DUPLICATE_DATA;
 
 @Repository
-public class PautaRepositoryImpl implements WritePautaRepository {
+public class WritePautaRepositoryImpl implements WritePautaRepository {
 
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public PautaRepositoryImpl(DataSource dataSource) {
+    public WritePautaRepositoryImpl(DataSource dataSource) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 

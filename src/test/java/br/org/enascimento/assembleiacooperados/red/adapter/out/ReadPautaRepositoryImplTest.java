@@ -9,27 +9,36 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+
 public class ReadPautaRepositoryImplTest extends DataSourceHelper {
 
-    private ReadPautaRespositoryImpl repository;
+    private ReadPautaRepositoryImpl repository;
+
+    public ReadPautaRepositoryImplTest() {
+        dataSetName = "ReadPautaRepositoryImplTest";
+    }
 
     @BeforeEach
-    void setup(){
-        repository = new ReadPautaRespositoryImpl(dataSource);
+    void setup() {
+        repository = new ReadPautaRepositoryImpl(dataSource);
+    }
+
+    @Test
+    void MUST_ImplementInterface() {
+        assertThat(repository).isInstanceOf(ReadPautaRepositoryImpl.class);
     }
 
     @Test
     void WHEN_QueryAllPauta_MUST_RetriveSuccessful(){
-
         //given
-        var expected = new PautaDto(UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20"),
-                           "Título Existe",
-                           "Descrição Existe");
+        var expected = List.of(
+                                    new PautaDto(UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20"), "PRIMEIRO-TITULO", "PRIMEIRA-DESCICAO"),
+                                    new PautaDto(UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db"), "SEGUNDO-TITULO", "SEGUNDA-DESCICAO"));
 
         //when
         var actual = repository.findAll();
 
         //then
-        assertThat(actual).containsExactlyInAnyOrderElementsOf(List.of(expected));
+        assertThat(actual).containsExactlyElementsOf(expected);
     }
  }

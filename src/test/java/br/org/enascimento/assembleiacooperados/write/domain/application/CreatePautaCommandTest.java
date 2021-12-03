@@ -1,20 +1,23 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application;
 
+import helper.TestHelper;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CreatePautaCommandTest {
+@Tag("unit")
+public class CreatePautaCommandTest extends TestHelper {
 
     @Test
     void GIVEN_ValidData_Must_RetrieveSameDate(){
         // given
         var uuid = UUID.randomUUID();
-        var titulo = "Aumento da segurança";
-        var descricao = "Contratar 5 seguranças fixos.";
+        var titulo = faker.lorem().characters();
+        var descricao = faker.lorem().characters();
 
         //when
         var command = new CreatePautaCommand(uuid, titulo, descricao);

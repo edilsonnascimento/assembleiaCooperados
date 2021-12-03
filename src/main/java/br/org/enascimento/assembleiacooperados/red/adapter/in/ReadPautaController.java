@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.in;
 
 import br.org.enascimento.assembleiacooperados.red.adapter.out.PautaDto;
-import br.org.enascimento.assembleiacooperados.red.adapter.out.ReadPautaRespositoryImpl;
+import br.org.enascimento.assembleiacooperados.red.adapter.out.ReadPautaRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,7 @@ import java.util.List;
 public class ReadPautaController {
 
     @Autowired
-    private ReadPautaRespositoryImpl respository;
+    private ReadPautaRepositoryImpl respository;
 
     @GetMapping
     public ResponseEntity<List<PautaDto>> getAll(){

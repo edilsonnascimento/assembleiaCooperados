@@ -18,13 +18,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-class PautaRepositoryImplTest extends DataSourceHelper {
+class WritePautaRepositoryImplTest extends DataSourceHelper {
 
-    private PautaRepositoryImpl repository;
+    private WritePautaRepositoryImpl repository;
+
+    public WritePautaRepositoryImplTest() {
+        dataSetName = "WritePautaRepositoryImplTest";
+    }
 
     @BeforeEach
     void setup() {
-        repository = new PautaRepositoryImpl(dataSource);
+        repository = new WritePautaRepositoryImpl(dataSource);
     }
 
     @Test
@@ -78,32 +82,20 @@ class PautaRepositoryImplTest extends DataSourceHelper {
         assertThat(exception.getErrors()).containsExactlyInAnyOrderEntriesOf(expectedError);
     }
 
-    @Test
-    void GIVEN_AlredyExistePauta_MUST_ThrowException() {
-        //given
-        var pauta = new Pauta()
-                .setId(1)
-                .setUuid(UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20"))
-                .setTitulo("Título outro")
-                .setDescricao("Descrição outra");
-
-        //then
-        assertThrows(RuntimeException.class, () -> repository.create(pauta));
-    }
-
     private static Stream<Arguments> validDataProvider() {
         return Stream.of(
-                arguments(UUID.randomUUID(), "Título 1", "Descricao 1"),
-                arguments(UUID.randomUUID(), "Título 2", "Descricao 2"),
-                arguments(UUID.randomUUID(), "Título 3", "Descricao 3")
+                arguments(UUID.randomUUID(), "Titulo " + faker.pokemon().name() , "Descricao " + faker.pokemon().name()),
+                arguments(UUID.randomUUID(), "Titulo " + faker.pokemon().name(), "Descricao " + faker.pokemon().name()),
+                arguments(UUID.randomUUID(), "Titulo " + faker.pokemon().name(), "Descricao " + faker.pokemon().name())
         );
     }
 
     private static Stream<Arguments> inValidDataProvider() {
 
-        UUID existenUuid = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
-        String existenTitulo = "Título Existe";
-        String validDescicao = "Descrição valida";
+        UUID existenUuid = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
+        String existenTitulo = "PRIMEIRO-TITULO";
+        String validDescicao = "PRIMEIRA-DESCICAO";
+
         return Stream.of(
                 arguments(UUID.randomUUID(), existenTitulo, validDescicao, Map.of("titulo", existenTitulo)),
                 arguments(existenUuid, "Título valido", validDescicao, Map.of("uuid", existenUuid)),

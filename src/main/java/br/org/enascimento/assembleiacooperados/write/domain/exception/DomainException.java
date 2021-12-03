@@ -6,7 +6,9 @@ import java.util.Map;
 public abstract class DomainException extends RuntimeException{
 
     public enum Error{
-        INVALID_DUPLICATE_DATA("Invalid duplicated data");
+        INVALID_DUPLICATE_DATA("Invalid duplicated data"),
+        BUCKET_NOT_EXIST("Bucket not exist");
+
         private String message;
         Error(String message) {
             this.message = message;
@@ -15,6 +17,9 @@ public abstract class DomainException extends RuntimeException{
 
     private Map<String, Object> errors = new LinkedHashMap<>();
 
+    public DomainException(Error error){
+        super(error.message);
+    }
     public DomainException(Error error, Throwable cause) {
         super(error.message , cause);
     }
