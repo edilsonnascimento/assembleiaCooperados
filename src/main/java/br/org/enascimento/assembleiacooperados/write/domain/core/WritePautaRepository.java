@@ -10,4 +10,6 @@ public interface WritePautaRepository {
     Optional<Pauta> findByUuidOrTitulo(UUID uuid, String titulo);
 
     Optional<Pauta> findByUuid(UUID uuid);
+
+    void update(Pauta pauta);
 }

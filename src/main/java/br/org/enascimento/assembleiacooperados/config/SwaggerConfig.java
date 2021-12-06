@@ -16,7 +16,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                //.apis(basePackage("br.org.enascimento.assembleiaCooperados"))
+                .apis(basePackage("br.org.enascimento.assembleiacooperados"))
                 .build();
     }
 }
