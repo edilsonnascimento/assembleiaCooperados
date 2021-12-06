@@ -1,4 +1,4 @@
-package br.org.enascimento.assembleiacooperados.red.adapter.out;
+package br.org.enascimento.assembleiacooperados.red.domain.core;
 
 import java.util.UUID;
 

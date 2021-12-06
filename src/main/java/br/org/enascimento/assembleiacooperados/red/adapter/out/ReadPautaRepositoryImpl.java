@@ -1,5 +1,7 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.out;
 
+import br.org.enascimento.assembleiacooperados.red.domain.core.PautaDto;
+import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public class ReadPautaRepositoryImpl {
+public class ReadPautaRepositoryImpl implements ReadPautaRepository {
 
     private NamedParameterJdbcTemplate jdbcTemplate;
 

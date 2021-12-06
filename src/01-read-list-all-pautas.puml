@@ -1,9 +1,9 @@
 @startuml
 Frontend -> PautaController: GET /v1/pautas
 PautaController -> ReadPautaRepository
-ReadPautaRepositoryImpl -> DATABASE: select statement
-DATABASE -> ReadPautaRepositoryImpl
-ReadPautaRepositoryImpl -> PautaController: List<PautaDTO>
+ReadPautaRepository -> DATABASE: select statement
+DATABASE -> ReadPautaRepository
+ReadPautaRepository -> PautaController: List<PautaDTO>
 PautaController --> Frontend: HTTP 200 ok
 PautaController -> Frontend: JSON
 @enduml

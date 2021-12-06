@@ -1,5 +1,7 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.out;
 
+import br.org.enascimento.assembleiacooperados.red.domain.core.PautaDto;
+import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
 import helper.DataSourceHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +27,7 @@ public class ReadPautaRepositoryImplTest extends DataSourceHelper {
 
     @Test
     void MUST_ImplementInterface() {
-        assertThat(repository).isInstanceOf(ReadPautaRepositoryImpl.class);
+        assertThat(repository).isInstanceOf(ReadPautaRepository.class);
     }
 
     @Test
