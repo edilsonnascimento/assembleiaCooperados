@@ -43,11 +43,11 @@ public class WriteExceptionHandler {
 
         Map<String, Object> errorResult = new HashMap<>(Map.of("message", message));
 
-        if (detailedErrors != null && !detailedErrors.isEmpty()) {
+        if (detailedErrors != null && !detailedErrors.isEmpty())
             errorResult.put("errors", detailedErrors);
-        }
 
-        logger.warn(errorResult.toString());
+        if(logger.isWarnEnabled())
+            logger.warn(errorResult.toString());
 
         return new ResponseEntity<>(errorResult, status);
     }

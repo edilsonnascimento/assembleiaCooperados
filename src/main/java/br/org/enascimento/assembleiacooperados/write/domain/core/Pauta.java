@@ -12,9 +12,6 @@ public class Pauta {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Pauta() {
-    }
-
     public int getId() {
         return id;
     }

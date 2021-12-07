@@ -16,7 +16,7 @@ import static org.mockito.Mockito.verify;
 @Tag("unit")
 public class CreatePautaCommandHandlerTest extends TestHelper {
 
-    ArgumentCaptor<Pauta> captor = ArgumentCaptor.forClass(Pauta.class);
+    private ArgumentCaptor<Pauta> captor = ArgumentCaptor.forClass(Pauta.class);
 
     @Test
     void Given_ValidCommand_Must_DelegateToHeadler(){

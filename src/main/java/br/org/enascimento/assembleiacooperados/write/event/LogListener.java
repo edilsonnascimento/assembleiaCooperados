@@ -17,11 +17,11 @@ public class LogListener {
     void onEventOccur(CommandEvent event) {
 
         if (event.isSuccess()) {
-            logger.info(event.toJson());
+            if(logger.isInfoEnabled()) logger.info(event.toJson());
         } else if (event.getException() instanceof DomainException) {
-            logger.warn(event.toJson());
+            if(logger.isWarnEnabled()) logger.warn(event.toJson());
         } else {
-            logger.error(event.toJson());
+            if(logger.isErrorEnabled()) logger.error(event.toJson());
         }
     }
 }
