@@ -1,8 +1,10 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application;
 
-import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WritePautaRepository;
+import br.org.enascimento.assembleiacooperados.write.domain.exception.PautaNotExistentException;
 import org.springframework.stereotype.Service;
+
+import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.BUCKET_NOT_EXIST;
 
 @Service
 public class UpdatePautaCommandHandler implements Handler<UpdatePautaCommand> {
@@ -16,7 +18,12 @@ public class UpdatePautaCommandHandler implements Handler<UpdatePautaCommand> {
     @Override
     public void handle(UpdatePautaCommand command) {
 
-        var pauta = repository.findByUuid(command.uuid()).get();
+        var pautaOptional = repository.findByUuid(command.uuid());
+
+        if(!pautaOptional.isPresent())
+            throw new PautaNotExistentException(BUCKET_NOT_EXIST);
+
+        var pauta = pautaOptional.get();
 
         pauta
             .setTitulo(command.titulo())

@@ -7,7 +7,7 @@ public abstract class DomainException extends RuntimeException{
 
     public enum Error{
         INVALID_DUPLICATE_DATA("Invalid duplicated data"),
-        BUCKET_NOT_EXIST("Bucket not exist");
+        BUCKET_NOT_EXIST("Pauta not exist");
 
         private String message;
         Error(String message) {
