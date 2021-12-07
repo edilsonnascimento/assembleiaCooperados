@@ -26,13 +26,19 @@ class WritePautaControllerIT extends IntegrationHelper {
         var titulo = faker.team().sport();
         var descricao = faker.lorem().characters();
         var uuid = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
-        var command = new UpdatePautaCommand(uuid, titulo, descricao);
 
+        var payload =
+                """
+                   {
+                      "titulo": "%s",
+                      "descricao": "%s"
+                   }
+                """.formatted(titulo, descricao);
         //when
         mockMvc
                 .perform(put("/v1/pautas/{uuid}", uuid)
                         .contentType(APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(command)))
+                        .content(payload))
                 .andExpect(status().isOk());
 
         //then
