@@ -61,8 +61,5 @@ public class UpdatePautaCommandHandlerTest extends TestHelper {
         // then
         verify(repository).findByUuid(uuid);
         assertThat(exceptionExpected.getMessage()).isEqualTo("Pauta not exist");
-
     }
-
-
 }
