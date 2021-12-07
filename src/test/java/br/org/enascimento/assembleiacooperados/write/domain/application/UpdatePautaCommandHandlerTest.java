@@ -48,15 +48,16 @@ public class UpdatePautaCommandHandlerTest extends TestHelper {
     void GIVEN_NotExistPauta_MUST_ThrowException() {
 
         // given
-        var titulo = "TITULO-QUALQUER";
-        var descricao = "DESCRICAO-QUALQUER";
-        var uuid = UUID.fromString("6d9db741-ef57-4d5a-ac0f-34f68fb0ab5e");
+        var titulo = faker.team().name();
+        var descricao = faker.lorem().characters();
+        var uuid = UUID.randomUUID();
         var command = new UpdatePautaCommand(uuid, titulo, descricao);
         var repository = mock(WritePautaRepository.class);
         when(repository.findByUuid(any())).thenReturn(Optional.empty());
         // when
         var handler = new UpdatePautaCommandHandler(repository);
-        var exceptionExpected = assertThrows(PautaNotExistentException.class, ()-> handler.handle(command));
+        var exceptionExpected =
+                assertThrows(PautaNotExistentException.class, ()-> handler.handle(command));
 
         // then
         verify(repository).findByUuid(uuid);

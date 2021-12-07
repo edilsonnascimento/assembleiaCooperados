@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import helper.IntegrationHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.UUID;
 
@@ -13,6 +14,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@TestPropertySource(properties = "test.dataset=WritePautaControllerIT")
 class WritePautaControllerIT extends IntegrationHelper {
 
     @Autowired
@@ -21,8 +23,8 @@ class WritePautaControllerIT extends IntegrationHelper {
     @Test
     void GIVEN_ValidData_MUST_UpdatePauta() throws Exception {
         //given
-        var titulo = "TITULO ESPERADO";
-        var descricao = "DESCRICAO ESPERADO";
+        var titulo = faker.team().sport();
+        var descricao = faker.lorem().characters();
         var uuid = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
         var command = new UpdatePautaCommand(uuid, titulo, descricao);
 
@@ -38,6 +40,8 @@ class WritePautaControllerIT extends IntegrationHelper {
                 .perform(get("/v1/pautas/"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON))
-                .andExpect(jsonPath("$[*].titulo", containsInRelativeOrder("TITULO ESPERADO", "DESCRICAO ESPERADO")));
+                .andExpect(jsonPath("$[*].uuid", containsInRelativeOrder(uuid)))
+                .andExpect(jsonPath("$[*].titulo", containsInRelativeOrder(titulo)))
+                .andExpect(jsonPath("$[*].descricao", containsInRelativeOrder(descricao)));
     }
 }
