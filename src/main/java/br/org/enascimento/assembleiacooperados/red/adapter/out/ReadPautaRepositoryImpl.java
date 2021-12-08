@@ -20,7 +20,7 @@ public class ReadPautaRepositoryImpl implements ReadPautaRepository {
 
     public List<PautaDto> findAll() {
 
-        var sql = "SELECT uuid, titulo, descricao FROM pauta";
+        var sql = "SELECT uuid, titulo, descricao, created_at FROM pauta ORDER BY created_at";
 
         return jdbcTemplate.query(sql, (rs, rowNum) ->
                 new PautaDto(

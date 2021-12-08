@@ -1,14 +1,13 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.in;
 
-import br.org.enascimento.assembleiacooperados.write.domain.application.UpdatePautaCommand;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import helper.IntegrationHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestPropertySource;
 
-import java.util.UUID;
-
+import static java.util.UUID.fromString;
+import static java.util.UUID.randomUUID;
 import static org.hamcrest.Matchers.containsInRelativeOrder;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -21,11 +20,46 @@ class WritePautaControllerIT extends IntegrationHelper {
     private ObjectMapper mapper;
 
     @Test
+    void GIVEN_ValidData_MUST_CreatePauta() throws Exception {
+        //given
+        var uuid = randomUUID().toString();
+        var titulo = faker.team().sport();
+        var descricao = faker.lorem().characters();
+
+        var payload =
+                """
+                   {
+                      "uuid": "%s",
+                      "titulo": "%s",
+                      "descricao": "%s"
+                   }
+                """.formatted(uuid, titulo, descricao);
+        //when
+        mockMvc
+                .perform(post("/v1/pautas/", uuid)
+                        .contentType(APPLICATION_JSON)
+                        .content(payload))
+                .andExpect(status().isCreated());
+
+        //then
+        mockMvc
+                .perform(get("/v1/pautas/"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(APPLICATION_JSON))
+                .andExpect(jsonPath("$[*].uuid",
+                        containsInRelativeOrder("3731c747-ea27-42e5-a52b-1dfbfa9617db", "6d9db741-ef57-4d5a-ac0f-34f68fb0ab5e", uuid)))
+                .andExpect(jsonPath("$[*].titulo",
+                        containsInRelativeOrder("PRIMEIRO-TITULO", "SEGUNDO-TITULO", titulo)))
+                .andExpect(jsonPath("$[*].descricao",
+                        containsInRelativeOrder("PRIMEIRA-DESCICAO", "SEGUNDA-DESCICAO", descricao)));
+    }
+
+    @Test
     void GIVEN_ValidData_MUST_UpdatePauta() throws Exception {
         //given
         var titulo = faker.team().sport();
         var descricao = faker.lorem().characters();
-        var uuid = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
+        var uuid = fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
 
         var payload =
                 """

@@ -1,4 +1,3 @@
-INSERT INTO pauta(uuid, titulo, descricao)
-    VALUES ('1e73cdb3-0923-4452-a190-3c7eb7857e20', 'PRIMEIRO-TITULO', 'PRIMEIRA-DESCICAO');
-INSERT INTO pauta(uuid, titulo, descricao)
-    VALUES ('3731c747-ea27-42e5-a52b-1dfbfa9617db', 'SEGUNDO-TITULO', 'SEGUNDA-DESCICAO');
+INSERT INTO pauta(uuid, titulo, descricao, created_at, updated_at) VALUES
+     ('3731c747-ea27-42e5-a52b-1dfbfa9617db', 'PRIMEIRO-TITULO', 'PRIMEIRA-DESCICAO', '2021-12-08 05:53:00.901884', '2021-12-08 05:53:00.901884'),
+     ('6d9db741-ef57-4d5a-ac0f-34f68fb0ab5e', 'SEGUNDO-TITULO', 'SEGUNDA-DESCICAO', '2021-12-08 05:54:09.854376', '2021-12-08 05:54:09.854376');
