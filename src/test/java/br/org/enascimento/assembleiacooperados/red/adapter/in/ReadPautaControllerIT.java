@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ReadPautaControllerIT extends IntegrationHelper {
 
     @Test
-    void WHEN_GetAllPautas_MUST_ListByTituloOrder() throws Exception {
+    void WHEN_GetAllPautas_MUST_ListByCreated_atOrder() throws Exception {
         mockMvc
                 .perform(get("/v1/pautas"))
                 .andExpect(status().isOk())

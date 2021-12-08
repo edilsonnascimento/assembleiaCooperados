@@ -55,6 +55,30 @@ class WritePautaControllerIT extends IntegrationHelper {
     }
 
     @Test
+    void GIVEN_InvalidData_MUST_ReturError() throws Exception {
+        //given
+        var uuid = randomUUID().toString();
+        var titulo = faker.lorem().characters();
+        var descricao = faker.lorem().characters();
+
+        var payload =
+                """
+                   {
+                      "uuid": "%s",
+                      "titulo": "%s",
+                      "descricao": "%s"
+                   }
+                """.formatted(uuid, titulo, descricao);
+        //when
+        mockMvc
+                .perform(post("/v1/pautas/", uuid)
+                        .contentType(APPLICATION_JSON)
+                        .content(payload))
+                .andExpect(status().isBadRequest());
+
+    }
+
+    @Test
     void GIVEN_ValidData_MUST_UpdatePauta() throws Exception {
         //given
         var titulo = faker.team().sport();
