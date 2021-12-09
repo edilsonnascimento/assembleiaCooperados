@@ -97,15 +97,16 @@ class WritePautaControllerIT extends IntegrationHelper {
                 .perform(put("/v1/pautas/{uuid}", uuid)
                         .contentType(APPLICATION_JSON)
                         .content(payload))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
 
         //then
         mockMvc
                 .perform(get("/v1/pautas/"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON))
-                .andExpect(jsonPath("$[*].uuid", containsInRelativeOrder(uuid)))
-                .andExpect(jsonPath("$[*].titulo", containsInRelativeOrder(titulo)))
-                .andExpect(jsonPath("$[*].descricao", containsInRelativeOrder(descricao)));
+                .andExpect(jsonPath("$[*].uuid",
+                        containsInRelativeOrder(uuid.toString(), "6d9db741-ef57-4d5a-ac0f-34f68fb0ab5e")))
+                .andExpect(jsonPath("$[*].titulo", containsInRelativeOrder(titulo, "SEGUNDO-TITULO")))
+                .andExpect(jsonPath("$[*].descricao", containsInRelativeOrder( descricao,"SEGUNDA-DESCICAO")));
     }
 }

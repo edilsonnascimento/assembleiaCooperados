@@ -18,7 +18,7 @@ public class ReadPautaController {
     private ReadPautaRepositoryImpl respository;
 
     @GetMapping
-    public ResponseEntity<List<PautaDto>> getAll(){
+    public ResponseEntity<List<PautaDto>> listAll(){
         return ResponseEntity.ok(respository.findAll());
     }
 }
