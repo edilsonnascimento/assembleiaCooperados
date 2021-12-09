@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class CreatePautaIT extends IntegrationHelper {
 
     @Test
-    void GIVEN_ValidData_MUST_Created() throws Exception {
+    void GIVEN_ValidPayload_MUST_ReturnCreated() throws Exception {
         //given
         var uuid = randomUUID().toString();
         var titulo = faker.team().sport();
