@@ -31,9 +31,12 @@ public class WritePautaController {
     }
 
     @PutMapping("/{uuid}")
-    public ResponseEntity update(@PathVariable UUID uuid, @RequestBody Map<String, Object> payload){
-        var command = new UpdatePautaCommand(uuid, (String) payload.get("titulo"), (String) payload.get("descricao"));
-        commandBusbus.execute(command);
+    public ResponseEntity update(@PathVariable UUID uuid, @RequestBody PautaDto pautaDto){
+
+        commandBusbus.execute(new UpdatePautaCommand(uuid,
+                                                     pautaDto.titulo(),
+                                                     pautaDto.descricao()));
+
         return ResponseEntity.noContent().build();
     }
 }
