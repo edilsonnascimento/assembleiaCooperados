@@ -117,8 +117,8 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
     private static Stream<Arguments> inValidDataProvider() {
 
         UUID existenUuid = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
-        String existenTitulo = "PRIMEIRO-TITULO";
-        String validDescicao = "PRIMEIRA-DESCICAO";
+        String existenTitulo = "TITULO-EXISTENTE";
+        String validDescicao = "DESCICAO-EXISTENTE";
 
         return Stream.of(
                 arguments(UUID.randomUUID(), existenTitulo, validDescicao, Map.of("titulo", existenTitulo)),
