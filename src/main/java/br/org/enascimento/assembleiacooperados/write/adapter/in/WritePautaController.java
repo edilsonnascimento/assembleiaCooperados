@@ -31,7 +31,7 @@ public class WritePautaController {
     }
 
     @PutMapping("/{uuid}")
-    public ResponseEntity update(@PathVariable UUID uuid, @RequestBody PautaDto pautaDto){
+    public ResponseEntity<String> update(@PathVariable UUID uuid, @RequestBody @Validated PautaDto pautaDto){
 
         commandBusbus.execute(new UpdatePautaCommand(uuid,
                                                      pautaDto.titulo(),
