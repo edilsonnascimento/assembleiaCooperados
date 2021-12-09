@@ -38,7 +38,7 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
 
     @ParameterizedTest
     @MethodSource("validDataProvider")
-    void GIVEN_ValidPauta_MUST_PersistDataBase(UUID uuid,
+    void WHEN_CreatingPauta_GIVEN_ValidData_MUST_PersistOnDatabase(UUID uuid,
                                                String titulo,
                                                String descricao) {
         //given
@@ -60,9 +60,33 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
         assertThat(actual.getUpdatedAt()).isNotNull();
     }
 
+    @Test
+    void WHEN_UpdatingPauta_WITH_ValidData_MUST_SaveOnDatabase() {
+        // given
+        var id = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
+        var actualPauta = repository.findByUuid(id).get();
+        assertThat(actualPauta.getTitulo()).isEqualTo("TITULO-EXISTENTE");
+        assertThat(actualPauta.getDescricao()).isEqualTo("DESCICAO-EXISTENTE");
+
+        var titulo = faker.pokemon().name();
+        var descricao = faker.lorem().characters(5, 100);
+        actualPauta.setTitulo(titulo).setDescricao(descricao);
+
+        // when
+        repository.update(actualPauta);
+
+        // then
+        var expectedPauta = repository.findByUuid(id).get();
+        assertThat(expectedPauta.getUuid()).isEqualTo(id);
+        assertThat(expectedPauta.getTitulo()).isEqualTo(titulo);
+        assertThat(expectedPauta.getDescricao()).isEqualTo(descricao);
+        assertThat(expectedPauta.getCreatedAt()).isNotNull();
+        assertThat(expectedPauta.getUpdatedAt()).isNotNull();
+    }
+
     @ParameterizedTest
     @MethodSource("inValidDataProvider")
-    void GIVEN_AlreadyExtentPauta_MUST_ThowExcepetion(UUID uuid,
+    void WHEN_CreatingPauta_GIVEN_AlreadyExistentPauta_MUST_ThrowException(UUID uuid,
                                                       String titulo,
                                                       String descricao,
                                                       Map<String, Object> expectedError) {

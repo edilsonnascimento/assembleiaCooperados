@@ -108,8 +108,17 @@ public class WritePautaRepositoryImpl implements WritePautaRepository {
 
     @Override
     public void update(Pauta pauta) {
+        String sql = """
+            UPDATE pauta
+            SET titulo = :titulo, descricao = :descricao
+            WHERE uuid = :uuid""";
 
+        MapSqlParameterSource parameters = new MapSqlParameterSource()
+                .addValue("uuid", pauta.getUuid())
+                .addValue("titulo", pauta.getTitulo())
+                .addValue("descricao", pauta.getDescricao());
 
+        jdbcTemplate.update(sql, parameters);
     }
 
     public List<Pauta> findAll() {
