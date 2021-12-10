@@ -46,11 +46,4 @@ class CreatePautaIT extends IntegrationHelper {
                 .andExpect(exists(titulo))
                 .andExpect(exists(descricao));
     }
-
-    public ResultMatcher exists(final String expectedFieldValue) {
-        return mvcResult -> {
-            String json = mvcResult.getResponse().getContentAsString();
-            assertThat(json.contains(expectedFieldValue)).isTrue();
-        };
-    }
 }
