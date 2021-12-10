@@ -14,7 +14,7 @@ public class PautaTest extends TestHelper {
     @Test
     void GIVEN_ValidData_MUST_RestrieveSameData(){
         //given
-        var id = 1;
+        var id = 1l;
         var uuid = UUID.randomUUID();
         var titulo = faker.lorem().fixedString(60);
         var descricao = faker.lorem().characters();;

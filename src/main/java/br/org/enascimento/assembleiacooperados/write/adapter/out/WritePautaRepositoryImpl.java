@@ -69,7 +69,7 @@ public class WritePautaRepositoryImpl implements WritePautaRepository {
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
                 return Optional.of(new Pauta().
-                        setId(resultSet.getInt("id")).
+                        setId(resultSet.getLong("id")).
                         setUuid(UUID.fromString(resultSet.getString("uuid"))).
                         setTitulo(resultSet.getString("titulo")).
                         setDescricao(resultSet.getString("descricao")).
@@ -94,7 +94,7 @@ public class WritePautaRepositoryImpl implements WritePautaRepository {
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
                 return Optional.of(new Pauta().
-                        setId(resultSet.getInt("id")).
+                        setId(resultSet.getLong("id")).
                         setUuid(UUID.fromString(resultSet.getString("uuid"))).
                         setTitulo(resultSet.getString("titulo")).
                         setDescricao(resultSet.getString("descricao")).

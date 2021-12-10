@@ -13,7 +13,7 @@ public class CooperadoTest extends TestHelper {
     @Test
     void GIVEN_ValidDataCooperado_MUST_RestrieveSameData(){
         //given
-        var id = 1;
+        var id = 1l;
         var uuid = randomUUID();
         var nome = faker.name().fullName();
         var cpf = faker.number().digits(11);

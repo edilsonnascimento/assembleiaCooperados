@@ -5,18 +5,18 @@ import java.util.UUID;
 
 public class Pauta {
 
-    private int id;
+    private Long id;
     private UUID uuid;
     private String titulo;
     private String descricao;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public Pauta setId(int id) {
+    public Pauta setId(Long id) {
         this.id = id;
         return this;
     }

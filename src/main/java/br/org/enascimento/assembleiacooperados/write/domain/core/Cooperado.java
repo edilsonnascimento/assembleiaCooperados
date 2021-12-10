@@ -5,18 +5,19 @@ import java.util.UUID;
 
 public class Cooperado {
 
-    private int id;
+    private Long id;
     private UUID uuid;
     private String nome;
     private String cpf;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public int getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public Cooperado setId(int id) {
+    public Cooperado setId(Long id) {
         this.id = id;
         return this;
     }

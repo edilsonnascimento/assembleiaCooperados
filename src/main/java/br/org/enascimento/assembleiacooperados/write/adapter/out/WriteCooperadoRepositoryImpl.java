@@ -46,7 +46,7 @@ public class WriteCooperadoRepositoryImpl implements WriteCooperadoRepository {
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
                 return Optional.of(new Cooperado().
-                        setId(resultSet.getInt("id")).
+                        setId(resultSet.getLong("id")).
                         setUuid(UUID.fromString(resultSet.getString("uuid"))).
                         setNome(resultSet.getString("nome")).
                         setCpf(resultSet.getString("cpf")).

@@ -27,7 +27,7 @@ public class UpdatePautaCommandHandlerTest extends TestHelper {
         var command = new UpdatePautaCommand(uuid, titulo, descricao);
         var repository = mock(WritePautaRepository.class);
         var pautaMock = new Pauta()
-                .setId(1)
+                .setId(1l)
                 .setUuid(uuid)
                 .setTitulo("TITULO-ATUAL")
                 .setDescricao("DESCRICAO-ATUAL");
