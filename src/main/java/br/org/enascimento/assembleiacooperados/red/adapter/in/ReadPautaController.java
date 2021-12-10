@@ -1,7 +1,6 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.in;
 
 import br.org.enascimento.assembleiacooperados.red.adapter.out.ReadPautaRepositoryImpl;
-import br.org.enascimento.assembleiacooperados.red.domain.core.PautaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
