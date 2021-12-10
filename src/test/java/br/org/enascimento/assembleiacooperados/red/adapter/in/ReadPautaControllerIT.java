@@ -2,7 +2,7 @@ package br.org.enascimento.assembleiacooperados.red.adapter.in;
 
 import helper.IntegrationHelper;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 
 import static org.hamcrest.Matchers.containsInRelativeOrder;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-@TestPropertySource(properties = "test.dataset=ReadPautaControllerIT")
 class ReadPautaControllerIT extends IntegrationHelper {
 
     @Test
