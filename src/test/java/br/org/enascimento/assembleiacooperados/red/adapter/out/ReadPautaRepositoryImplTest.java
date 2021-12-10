@@ -16,10 +16,6 @@ public class ReadPautaRepositoryImplTest extends DataSourceHelper {
 
     private ReadPautaRepositoryImpl repository;
 
-    public ReadPautaRepositoryImplTest() {
-        dataSetName = "ReadPautaRepositoryImplTest";
-    }
-
     @BeforeEach
     void setup() {
         repository = new ReadPautaRepositoryImpl(dataSource);
