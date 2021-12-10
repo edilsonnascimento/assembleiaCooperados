@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ReadPautaRepositoryImplTest extends DataSourceHelper {
 
-    private ReadPautaRepositoryImpl repository;
+    private ReadPautaRepository repository;
 
     @BeforeEach
     void setup() {
