@@ -10,6 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -76,8 +77,8 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
         assertThat(expectedPauta.getUuid()).isEqualTo(id);
         assertThat(expectedPauta.getTitulo()).isEqualTo(titulo);
         assertThat(expectedPauta.getDescricao()).isEqualTo(descricao);
-        assertThat(expectedPauta.getCreatedAt()).isNotNull();
-        assertThat(expectedPauta.getUpdatedAt()).isNotNull();
+        assertThat(expectedPauta.getCreatedAt()).isBeforeOrEqualTo(LocalDateTime.now());
+        assertThat(expectedPauta.getUpdatedAt()).isBeforeOrEqualTo(LocalDateTime.now());
     }
 
     @ParameterizedTest
