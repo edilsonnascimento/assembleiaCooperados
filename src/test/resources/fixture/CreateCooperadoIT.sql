@@ -1,0 +1,2 @@
+INSERT INTO cooperado(uuid, nome, cpf, created_at, updated_at) VALUES
+    ('1e73cdb3-0923-4452-a190-3c7eb7857e20', 'NOME-EXISTENTE', '999999999', '2021-12-08 05:53:00.901884', '2021-12-08 05:53:00.901884');
