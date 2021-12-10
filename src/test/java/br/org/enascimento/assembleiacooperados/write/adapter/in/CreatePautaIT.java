@@ -10,8 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class CreatePautaIT extends IntegrationHelper {
 
@@ -35,7 +34,8 @@ class CreatePautaIT extends IntegrationHelper {
                 .perform(post("/v1/pautas/", uuid)
                         .contentType(APPLICATION_JSON)
                         .content(payload))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andExpect(header().string("Location", "v1/pautas/" + uuid));
 
         //then
         mockMvc
