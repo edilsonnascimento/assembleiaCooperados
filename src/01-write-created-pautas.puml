@@ -1,13 +1,13 @@
 @startuml
-Frontend -> PautaController: JSON Payload
-PautaController -> CommandBus: CreatePautaCommand
+Frontend -> WritePautaController: JSON Payload
+WritePautaController -> CommandBus: CreatePautaCommand
 CommandBus -> CreatePautaCommandHandler: CreatePautaCommand
-CreatePautaCommandHandler -> PautaRepository: Pauta
-PautaRepository -> DATABASE: create statement
-DATABASE -> PautaRepository
-PautaRepository -> CreatePautaCommandHandler
+CreatePautaCommandHandler -> WritePautaRepository: Pauta
+WritePautaRepository -> DATABASE: create statement
+DATABASE -> WritePautaRepository
+WritePautaRepository -> CreatePautaCommandHandler
 CreatePautaCommandHandler -> CommandBus
-CommandBus -> PautaController
+CommandBus -> WritePautaController
 CommandBus --> CommandBus: EventPublisher::CommandEvent
-PautaController -> Frontend: HTTP 201 created
+WritePautaController -> Frontend: HTTP 201 created
 @enduml
