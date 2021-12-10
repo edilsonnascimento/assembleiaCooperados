@@ -2,6 +2,7 @@ package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
+import br.org.enascimento.assembleiacooperados.write.domain.core.WriteCooperadoRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
 import helper.DataSourceHelper;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
 
-    private WriteCooperadoRepositoryImpl repository;
+    private WriteCooperadoRepository repository;
 
     @BeforeEach
     void setup() {
@@ -44,7 +45,7 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
         repository.create(expected);
 
         //then
-        var createdCooperado = repository.findByUuid(uuid);
+        var createdCooperado = repository.findByUuidOrCpf(uuid, cpf);
         var actual = createdCooperado.get();
         assertThat(actual.getUuid()).isEqualTo(expected.getUuid());
         assertThat(actual.getNome()).isEqualTo(expected.getNome());

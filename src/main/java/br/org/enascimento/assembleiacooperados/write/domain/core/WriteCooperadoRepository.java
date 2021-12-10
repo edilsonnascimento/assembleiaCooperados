@@ -7,5 +7,5 @@ public interface WriteCooperadoRepository {
 
     void create(Cooperado capture);
 
-    Optional<Cooperado> findByUuid(UUID uuid);
+    Optional<Cooperado> findByUuidOrCpf(UUID uuid, String cpf);
 }
