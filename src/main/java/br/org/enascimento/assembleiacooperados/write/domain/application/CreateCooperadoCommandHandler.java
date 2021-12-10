@@ -5,7 +5,7 @@ import br.org.enascimento.assembleiacooperados.write.domain.core.WriteCooperadoR
 import org.springframework.stereotype.Service;
 
 @Service
-public class CreateCooperadoCommandHandler {
+public class CreateCooperadoCommandHandler implements Handler<CreateCooperadoCommand>{
 
     private final WriteCooperadoRepository repository;
 

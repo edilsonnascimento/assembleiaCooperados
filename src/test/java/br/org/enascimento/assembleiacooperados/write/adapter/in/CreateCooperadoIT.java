@@ -37,21 +37,6 @@ class CreateCooperadoIT extends IntegrationHelper {
                         .contentType(APPLICATION_JSON)
                         .content(payload))
                 .andExpect(status().isCreated());
-
-        //then
-        mockMvc
-                .perform(get("/v1/cooperados/"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(APPLICATION_JSON))
-                .andExpect(exists(uuid))
-                .andExpect(exists(nome))
-                .andExpect(exists(cpf));
     }
 
-    public ResultMatcher exists(final String expectedFieldValue) {
-        return mvcResult -> {
-            String json = mvcResult.getResponse().getContentAsString();
-            assertThat(json.contains(expectedFieldValue)).isTrue();
-        };
-    }
 }
