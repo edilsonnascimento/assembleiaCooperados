@@ -25,10 +25,6 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
 
     private WriteCooperadoRepositoryImpl repository;
 
-    public WriteCooperadoRepositoryImplTest() {
-        dataSetName = "WriteCooperadoRepositoryImplTest";
-    }
-
     @BeforeEach
     void setup() {
         repository = new WriteCooperadoRepositoryImpl(dataSource);

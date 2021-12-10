@@ -22,10 +22,6 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
 
     private WritePautaRepositoryImpl repository;
 
-    public WritePautaRepositoryImplTest() {
-        dataSetName = "WritePautaRepositoryImplTest";
-    }
-
     @BeforeEach
     void setup() {
         repository = new WritePautaRepositoryImpl(dataSource);
@@ -63,10 +59,10 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
     @Test
     void WHEN_UpdatingPauta_WITH_ValidData_MUST_SaveOnDatabase() {
         // given
-        var id = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
+        var id = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
         var actualPauta = repository.findByUuid(id).get();
-        assertThat(actualPauta.getTitulo()).isEqualTo("TITULO-EXISTENTE");
-        assertThat(actualPauta.getDescricao()).isEqualTo("DESCICAO-EXISTENTE");
+        assertThat(actualPauta.getTitulo()).isEqualTo("PRIMEIRO-TITULO");
+        assertThat(actualPauta.getDescricao()).isEqualTo("PRIMEIRA-DESCICAO");
 
         var titulo = faker.pokemon().name();
         var descricao = faker.lorem().characters(5, 100);
@@ -116,9 +112,9 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
 
     private static Stream<Arguments> inValidDataProvider() {
 
-        UUID existenUuid = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
-        String existenTitulo = "TITULO-EXISTENTE";
-        String validDescicao = "DESCICAO-EXISTENTE";
+        UUID existenUuid = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
+        String existenTitulo = "PRIMEIRO-TITULO";
+        String validDescicao = "PRIMEIRA-DESCICAO";
 
         return Stream.of(
                 arguments(UUID.randomUUID(), existenTitulo, validDescicao, Map.of("titulo", existenTitulo)),
