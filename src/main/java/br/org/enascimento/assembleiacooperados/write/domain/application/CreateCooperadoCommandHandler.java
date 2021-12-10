@@ -2,7 +2,9 @@ package br.org.enascimento.assembleiacooperados.write.domain.application;
 
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteCooperadoRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CreateCooperadoCommandHandler {
 
     private final WriteCooperadoRepository repository;
