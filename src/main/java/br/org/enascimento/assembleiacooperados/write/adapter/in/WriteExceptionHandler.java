@@ -11,7 +11,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -25,21 +27,27 @@ public class WriteExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> onMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
 
-        Map<String, String> mapErrors = exception
+        List<FieldValidationError> mapErrors = exception
                 .getBindingResult()
                 .getFieldErrors()
-                .stream()
-                .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+                .stream().map(fieldError -> {
+                    return new FieldValidationError(fieldError.getField(), fieldError.getDefaultMessage());
+                })
+                .collect(Collectors.toList());
 
         return new ResponseEntity<>(mapErrors, BAD_REQUEST);
     }
 
     @ExceptionHandler(DomainException.class)
     public ResponseEntity<Object> onDuplicatedDataException(DomainException exception) {
-               return getResponseEntity(exception.getMessage(), exception.getErrors(), BAD_REQUEST);
+               List<FieldValidationError> errors = new ArrayList<>();
+                exception
+                    .getErrors()
+                    .forEach((k, v) -> errors.add(new FieldValidationError(k, v.toString())));
+               return getResponseEntity(exception.getMessage(), errors, BAD_REQUEST);
     }
 
-    private ResponseEntity<Object> getResponseEntity(String message, Map<String, Object> detailedErrors, HttpStatus status) {
+    private ResponseEntity<Object> getResponseEntity(String message, List<FieldValidationError> detailedErrors, HttpStatus status) {
 
         Map<String, Object> errorResult = new HashMap<>(Map.of("message", message));
 
@@ -50,5 +58,24 @@ public class WriteExceptionHandler {
             logger.warn(errorResult.toString());
 
         return new ResponseEntity<>(errorResult, status);
+    }
+
+    static class FieldValidationError {
+
+        private final String field;
+        private final String detail;
+
+        public FieldValidationError(String field, String detail) {
+            this.field = field;
+            this.detail = detail;
+        }
+
+        public String getField() {
+            return field;
+        }
+
+        public String getDetail() {
+            return detail;
+        }
     }
 }
