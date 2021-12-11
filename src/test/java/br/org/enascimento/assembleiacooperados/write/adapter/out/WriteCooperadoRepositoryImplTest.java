@@ -1,7 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
-import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteCooperadoRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
 import helper.DataSourceHelper;
@@ -12,6 +11,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -33,6 +33,9 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
     @Test
     void WHEN_CreatingCooperado_GIVEN_ValidData_MUST_PersistOnDatabase() {
         //given
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss");
+        LocalDateTime otherDate = LocalDateTime.now();
+        String other = otherDate.format(formatter);
         var uuid = randomUUID();
         var nome = faker.name().fullName();
         var cpf = faker.number().digits(11);
@@ -47,11 +50,8 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
         //then
         var createdCooperado = repository.findByUuidOrCpf(uuid, cpf);
         var actual = createdCooperado.get();
-        assertThat(actual.getUuid()).isEqualTo(expected.getUuid());
-        assertThat(actual.getNome()).isEqualTo(expected.getNome());
-        assertThat(actual.getCpf()).isEqualTo(expected.getCpf());
-        assertThat(actual.getCreatedAt()).isBeforeOrEqualTo(LocalDateTime.now());
-        assertThat(actual.getUpdatedAt()).isBeforeOrEqualTo(LocalDateTime.now());
+        assertThat(actual.getCreatedAt().format(formatter)).isEqualTo(other);
+        assertThat(actual.getUpdatedAt().format(formatter)).isEqualTo(other);
     }
 
     @ParameterizedTest
