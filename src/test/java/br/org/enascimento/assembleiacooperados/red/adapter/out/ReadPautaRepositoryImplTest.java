@@ -1,7 +1,8 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.out;
 
+import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.PautaInDto;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
-import br.org.enascimento.assembleiacooperados.write.domain.core.PautaDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.PautaDto;
 import helper.DataSourceHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,8 +31,8 @@ public class ReadPautaRepositoryImplTest extends DataSourceHelper {
     void WHEN_QueryAllPauta_MUST_RetriveSuccessful(){
         //given
         var expected = List.of(
-                                    new PautaDto(UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20"), "PRIMEIRO-TITULO", "PRIMEIRA-DESCICAO"),
-                                    new PautaDto(UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db"), "SEGUNDO-TITULO", "SEGUNDA-DESCICAO"));
+                                    new PautaInDto(UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20"), "PRIMEIRO-TITULO", "PRIMEIRA-DESCICAO"),
+                                    new PautaInDto(UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db"), "SEGUNDO-TITULO", "SEGUNDA-DESCICAO"));
 
         //when
         var actual = repository.findAll();

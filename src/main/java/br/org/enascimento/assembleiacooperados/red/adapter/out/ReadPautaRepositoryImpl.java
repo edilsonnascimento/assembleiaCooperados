@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.out;
 
+import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.PautaInDto;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
-import br.org.enascimento.assembleiacooperados.write.domain.core.PautaDto;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -18,12 +18,12 @@ public class ReadPautaRepositoryImpl implements ReadPautaRepository {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public List<PautaDto> findAll() {
+    public List<PautaInDto> findAll() {
 
         var sql = "SELECT uuid, titulo, descricao, created_at FROM pauta ORDER BY created_at";
 
         return jdbcTemplate.query(sql, (rs, rowNum) ->
-                new PautaDto(
+                new PautaInDto(
                         UUID.fromString(rs.getString("uuid")),
                         rs.getString("titulo"),
                         rs.getString("descricao"))

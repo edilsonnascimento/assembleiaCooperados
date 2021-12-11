@@ -1,4 +1,4 @@
-package br.org.enascimento.assembleiacooperados.write.domain.core;
+package br.org.enascimento.assembleiacooperados.write.adapter.in.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

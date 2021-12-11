@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.out;
 
+import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.CooperadoInDto;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
-import br.org.enascimento.assembleiacooperados.write.domain.core.CooperadoDto;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -20,11 +20,11 @@ public class ReadCooperadoRepositoryImpl implements ReadCooperadoRepository {
 
 
     @Override
-    public List<CooperadoDto> findAll() {
+    public List<CooperadoInDto> findAll() {
         var sql = "SELECT uuid, nome, cpf, created_at FROM cooperado ORDER BY created_at";
 
         return jdbcTemplate.query(sql, (rs, rowNum) ->
-                new CooperadoDto(
+                new CooperadoInDto(
                         UUID.fromString(rs.getString("uuid")),
                         rs.getString("nome"),
                         rs.getString("cpf"))

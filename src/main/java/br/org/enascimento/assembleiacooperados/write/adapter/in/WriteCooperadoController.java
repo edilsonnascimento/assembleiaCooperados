@@ -1,8 +1,8 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.in;
 
 import br.org.enascimento.assembleiacooperados.write.CommandBus;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.CooperadoDto;
 import br.org.enascimento.assembleiacooperados.write.domain.application.CreateCooperadoCommand;
-import br.org.enascimento.assembleiacooperados.write.domain.core.CooperadoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

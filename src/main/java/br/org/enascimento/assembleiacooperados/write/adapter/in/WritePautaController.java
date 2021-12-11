@@ -1,9 +1,9 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.in;
 
 import br.org.enascimento.assembleiacooperados.write.CommandBus;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.PautaDto;
 import br.org.enascimento.assembleiacooperados.write.domain.application.CreatePautaCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.application.UpdatePautaCommand;
-import br.org.enascimento.assembleiacooperados.write.domain.core.PautaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
