@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.out;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.in.PautaDto;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
+import br.org.enascimento.assembleiacooperados.write.domain.core.PautaDto;
 import helper.DataSourceHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

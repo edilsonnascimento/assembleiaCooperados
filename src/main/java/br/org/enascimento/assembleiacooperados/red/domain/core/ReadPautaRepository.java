@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.red.domain.core;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.in.PautaDto;
+import br.org.enascimento.assembleiacooperados.write.domain.core.PautaDto;
 
 import java.util.List;
 

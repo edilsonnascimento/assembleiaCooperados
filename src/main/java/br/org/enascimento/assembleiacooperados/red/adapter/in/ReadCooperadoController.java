@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.in;
 
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.CooperadoDto;
+import br.org.enascimento.assembleiacooperados.write.domain.core.CooperadoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
