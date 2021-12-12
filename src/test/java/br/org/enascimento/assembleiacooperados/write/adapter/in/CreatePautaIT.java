@@ -2,17 +2,20 @@ package br.org.enascimento.assembleiacooperados.write.adapter.in;
 
 import helper.IntegrationHelper;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.web.servlet.ResultMatcher;
+
+import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class CreatePautaIT extends IntegrationHelper {
+
+    private static final String URI_PATH = "/v1/pautas/";
 
     @Test
     void GIVEN_ValidPayload_MUST_ReturnCreated() throws Exception {
@@ -23,15 +26,15 @@ class CreatePautaIT extends IntegrationHelper {
 
         var payload =
                 """
-                   {
-                      "uuid": "%s",
-                      "titulo": "%s",
-                      "descricao": "%s"
-                   }
-                """.formatted(uuid, titulo, descricao);
+                           {
+                              "uuid": "%s",
+                              "titulo": "%s",
+                              "descricao": "%s"
+                           }
+                        """.formatted(uuid, titulo, descricao);
         //when
         mockMvc
-                .perform(post("/v1/pautas/", uuid)
+                .perform(post(URI_PATH, uuid)
                         .contentType(APPLICATION_JSON)
                         .content(payload))
                 .andExpect(status().isCreated())
@@ -39,11 +42,39 @@ class CreatePautaIT extends IntegrationHelper {
 
         //then
         mockMvc
-                .perform(get("/v1/pautas/"))
+                .perform(get(URI_PATH))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(exists(uuid))
                 .andExpect(exists(titulo))
                 .andExpect(exists(descricao));
     }
+
+    @Test
+    void GIVEN_DuplicatedKey_MUST_ReturnBadRequest() throws Exception {
+        //given
+        var duplicatedExternalUuid = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
+        var titulo = faker.team().sport();
+        var descricao = faker.lorem().characters(10);
+
+        var malformedJson =
+                """
+                           {
+                              "uuid": "%s",
+                              "titulo": "%s",
+                              "descricao": "%s"
+                           }
+                        """.formatted(duplicatedExternalUuid, titulo, descricao);
+        //when
+        mockMvc
+                .perform(post("/v1/pautas/", duplicatedExternalUuid)
+                        .contentType(APPLICATION_JSON)
+                        .content(malformedJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(APPLICATION_JSON))
+                .andExpect(jsonPath("$.message", is("Invalid duplicated data")))
+                .andExpect(jsonPath("$.errors[*].field", containsInAnyOrder("code")))
+                .andExpect(jsonPath("$.errors[*].detail", containsInAnyOrder("1000")));
+    }
+
 }

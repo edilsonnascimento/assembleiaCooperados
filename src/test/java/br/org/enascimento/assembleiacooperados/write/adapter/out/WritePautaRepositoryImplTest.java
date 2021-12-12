@@ -83,15 +83,14 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
 
     @ParameterizedTest
     @MethodSource("inValidDataProvider")
-    void WHEN_CreatingPauta_GIVEN_AlreadyExistentPauta_MUST_ThrowException(UUID uuid,
+    void WHEN_CreatingPauta_GIVEN_AlreadyExistentKey_MUST_ThrowException(UUID uuid,
                                                       String titulo,
-                                                      String descricao,
                                                       Map<String, Object> expectedError) {
         //given
         var expected = new Pauta()
                 .setUuid(uuid)
                 .setTitulo(titulo)
-                .setDescricao(descricao);
+                .setDescricao("Qualquer");
 
 
 
@@ -100,6 +99,7 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
 
         //then
         assertThat(exception.getMessage()).isEqualTo("Invalid duplicated data");
+        assertThat(exception.getCode()).isEqualTo(1000);
         assertThat(exception.getErrors()).containsExactlyInAnyOrderEntriesOf(expectedError);
     }
 
@@ -115,12 +115,11 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
 
         UUID existenUuid = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
         String existenTitulo = "PRIMEIRO-TITULO";
-        String validDescicao = "PRIMEIRA-DESCICAO";
 
         return Stream.of(
-                arguments(UUID.randomUUID(), existenTitulo, validDescicao, Map.of("titulo", existenTitulo)),
-                arguments(existenUuid, "Título valido", validDescicao, Map.of("uuid", existenUuid)),
-                arguments(existenUuid, existenTitulo, validDescicao, Map.of("titulo", existenTitulo, "uuid", existenUuid))
+                arguments(UUID.randomUUID(), existenTitulo, Map.of("titulo", existenTitulo)),
+                arguments(existenUuid, "Título valido", Map.of("uuid", existenUuid)),
+                arguments(existenUuid, existenTitulo, Map.of("titulo", existenTitulo, "uuid", existenUuid))
         );
     }
 }

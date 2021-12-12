@@ -40,7 +40,7 @@ public class WritePautaRepositoryImpl implements WritePautaRepository {
             jdbcTemplate.update(sql, parameters);
         } catch (DuplicateKeyException exception) {
 
-            DuplicatedDataException duplicatedDataException = new DuplicatedDataException(INVALID_DUPLICATE_DATA, exception);
+            var duplicatedDataException = new DuplicatedDataException(INVALID_DUPLICATE_DATA, exception);
             var existentPauta = findByUuidOrTitulo(pauta.getUuid(), pauta.getTitulo()).get();
 
             if(existentPauta.getTitulo().equals(pauta.getTitulo())) {

@@ -1,28 +1,36 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.in;
 
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException;
-import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static java.lang.String.valueOf;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
-@ControllerAdvice
+@RestController
 public class WriteExceptionHandler {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<Object> onMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException exception) {
+
+        var errors = List
+                .of(new FieldValidationError(exception.getName(), exception.getValue().toString()));
+
+        return getResponseEntity(exception.getMessage(), errors, BAD_REQUEST);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> onMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
@@ -39,12 +47,11 @@ public class WriteExceptionHandler {
     }
 
     @ExceptionHandler(DomainException.class)
-    public ResponseEntity<Object> onDuplicatedDataException(DomainException exception) {
-               List<FieldValidationError> errors = new ArrayList<>();
-                exception
-                    .getErrors()
-                    .forEach((k, v) -> errors.add(new FieldValidationError(k, v.toString())));
-               return getResponseEntity(exception.getMessage(), errors, BAD_REQUEST);
+    public ResponseEntity<Object> onDomainException(DomainException exception) {
+
+        var errors = List.of(new FieldValidationError("code", valueOf(exception.getCode())));
+
+        return getResponseEntity(exception.getMessage(), errors, BAD_REQUEST);
     }
 
     private ResponseEntity<Object> getResponseEntity(String message, List<FieldValidationError> detailedErrors, HttpStatus status) {
@@ -54,7 +61,7 @@ public class WriteExceptionHandler {
         if (detailedErrors != null && !detailedErrors.isEmpty())
             errorResult.put("errors", detailedErrors);
 
-        if(logger.isWarnEnabled())
+        if (logger.isWarnEnabled())
             logger.warn(errorResult.toString());
 
         return new ResponseEntity<>(errorResult, status);
@@ -76,6 +83,12 @@ public class WriteExceptionHandler {
 
         public String getDetail() {
             return detail;
+        }
+
+        @Override
+        public String toString() {
+            return "field='" + field + '\'' +
+                    ", detail='" + detail;
         }
     }
 }

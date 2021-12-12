@@ -5,13 +5,17 @@ import java.util.Map;
 
 public abstract class DomainException extends RuntimeException{
 
+   private int code;
+
     public enum Error{
-        INVALID_DUPLICATE_DATA("Invalid duplicated data"),
-        BUCKET_NOT_EXIST("Pauta not exist");
+        INVALID_DUPLICATE_DATA("Invalid duplicated data", 1000),
+        BUCKET_NOT_EXIST("Pauta not exist", 1001);
 
         private String message;
-        Error(String message) {
+        private int code;
+        Error(String message, int code) {
             this.message = message;
+            this.code = code;
         }
     }
 
@@ -19,9 +23,12 @@ public abstract class DomainException extends RuntimeException{
 
     public DomainException(Error error){
         super(error.message);
+        code = error.code;
+
     }
     public DomainException(Error error, Throwable cause) {
         super(error.message , cause);
+        code = error.code;
     }
 
     public Map<String, Object> getErrors() {
@@ -34,5 +41,9 @@ public abstract class DomainException extends RuntimeException{
 
     public boolean hasError() {
         return !errors.isEmpty();
+    }
+
+    public int getCode() {
+        return code;
     }
 }
