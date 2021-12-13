@@ -1,9 +1,14 @@
 @startuml
 Frontend -> ReadPautaController: GET /v1/pautas
-ReadPautaController -> ReadPautaRepository
-ReadPautaRepository -> DATABASE: select statement
-DATABASE -> ReadPautaRepository
-ReadPautaRepository -> ReadPautaController: List<PautaDTO>
-ReadPautaController --> Frontend: HTTP 200 ok
-ReadPautaController -> Frontend: JSON
+ReadPautaController -> ServicedBus: ListAllPautasQuery
+ServicedBus -> ServicedBus : try: exec event
+ServicedBus -> ListAllPautasResolver: ListAllPautasQuery
+ListAllPautasResolver -> ReadPautaRepository
+ReadPautaRepository -> DATABASE: findAll()
+DATABASE -> ReadPautaRepository: List<PautaInDto>
+ReadPautaRepository -> ListAllPautasResolver: List<PautaInDto>
+ListAllPautasResolver -> ServicedBus: List<PautaInDto>
+ServicedBus -> ReadPautaController: ListAllPautasQuery
+ReadPautaController -> ReadPautaController: query.getResult()
+ReadPautaController -> Frontend: HTTP 200: Json Result
 @enduml
