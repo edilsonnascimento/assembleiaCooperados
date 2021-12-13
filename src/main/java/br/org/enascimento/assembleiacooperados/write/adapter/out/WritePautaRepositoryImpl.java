@@ -19,6 +19,10 @@ import static br.org.enascimento.assembleiacooperados.write.domain.exception.Dom
 @Repository
 public class WritePautaRepositoryImpl implements WritePautaRepository {
 
+    private static final String TITULO_FIELD = "titulo";
+    private static final String DESCRICAO_FIELD = "descricao";
+    private static final String UUID_FIELD = "uuid";
+
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     public WritePautaRepositoryImpl(DataSource dataSource) {
@@ -109,14 +113,18 @@ public class WritePautaRepositoryImpl implements WritePautaRepository {
     @Override
     public void update(Pauta pauta) {
         String sql = """
-            UPDATE pauta
-            SET titulo = :titulo, descricao = :descricao
-            WHERE uuid = :uuid""";
+                UPDATE pauta
+                SET %s = :%s, 
+                    %s = :%s
+                WHERE %s = :%s
+            """.formatted(TITULO_FIELD, TITULO_FIELD,
+                          DESCRICAO_FIELD, DESCRICAO_FIELD,
+                          UUID_FIELD, UUID_FIELD);
 
         MapSqlParameterSource parameters = new MapSqlParameterSource()
-                .addValue("uuid", pauta.getUuid())
-                .addValue("titulo", pauta.getTitulo())
-                .addValue("descricao", pauta.getDescricao());
+                .addValue(TITULO_FIELD, pauta.getTitulo())
+                .addValue(DESCRICAO_FIELD, pauta.getDescricao())
+                .addValue(UUID_FIELD, pauta.getUuid());
 
         jdbcTemplate.update(sql, parameters);
     }

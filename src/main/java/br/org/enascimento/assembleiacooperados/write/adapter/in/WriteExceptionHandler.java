@@ -3,7 +3,9 @@ package br.org.enascimento.assembleiacooperados.write.adapter.in;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -21,6 +23,21 @@ public class WriteExceptionHandler {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+
+    @ExceptionHandler
+    public ResponseEntity<Object> onDataIntegrityViolationException(DataIntegrityViolationException exception){
+        var errors = List
+                .of(new FieldValidationError(exception.getClass().getSimpleName(),exception.getMessage()));
+
+        return getResponseEntity("invalid Request", errors);
+    }
+    @ExceptionHandler
+    public ResponseEntity<Object> onHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException exception){
+        var errors = List
+                .of(new FieldValidationError(exception.getMethod(),exception.getMessage()));
+
+        return getResponseEntity("invalid Request", errors);
+    }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> onMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
 
