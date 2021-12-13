@@ -1,4 +1,4 @@
-package br.org.enascimento.assembleiacooperados.write.event;
+package br.org.enascimento.assembleiacooperados.write.observable;
 
 import br.org.enascimento.assembleiacooperados.write.domain.application.Command;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException;

@@ -2,7 +2,7 @@ package br.org.enascimento.assembleiacooperados.write;
 
 import br.org.enascimento.assembleiacooperados.write.domain.application.Command;
 import br.org.enascimento.assembleiacooperados.write.domain.application.Handler;
-import br.org.enascimento.assembleiacooperados.write.event.CommandEvent;
+import br.org.enascimento.assembleiacooperados.write.observable.CommandEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;

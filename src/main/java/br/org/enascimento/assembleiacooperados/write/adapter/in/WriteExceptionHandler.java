@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -25,7 +24,7 @@ public class WriteExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> onMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
 
-        List<FieldValidationError> mapErrors = exception
+            var mapErrors = exception
                 .getBindingResult()
                 .getFieldErrors()
                 .stream()
@@ -57,10 +56,5 @@ public class WriteExceptionHandler {
     }
 
     record FieldValidationError(String field, String detail) {
-        @Override
-        public String toString() {
-            return "field='" + field + '\'' +
-                    ", detail='" + detail;
-        }
     }
 }
