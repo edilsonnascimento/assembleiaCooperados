@@ -1,7 +1,7 @@
-package br.org.enascimento.assembleiacooperados.write.observable;
+package br.org.enascimento.assembleiacooperados.red.observable;
 
 import br.org.enascimento.assembleiacooperados.common.InternalEvent;
-import br.org.enascimento.assembleiacooperados.write.domain.application.Command;
+import br.org.enascimento.assembleiacooperados.red.application.Query;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,30 +9,31 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommandEvent extends InternalEvent {
+public class QueryEvent extends InternalEvent {
 
-    private final Command command;
+    private final Query query;
 
-    public CommandEvent(Command command) {
+    public QueryEvent(Query query) {
         startTimer();
-        this.command = command;
+        this.query = query;
     }
 
-    public Command getCommand() {
-        return command;
+    public Query getQuery() {
+        return query;
     }
 
     @Override
     public Object getSource() {
-        return getCommand();
+        return getQuery();
     }
 
+    @Override
     public String toJson() {
 
         try {
             var mapper = new ObjectMapper();
             Map<String, Object> message = new HashMap<>(Map.of("event", getOrigin()));
-            message.put("content", getCommand());
+            message.put("content", getQuery());
             message.put("elapsedTimeInMilli", getElapsedTimeInMilli());
 
             if (hasError()) {
@@ -46,7 +47,8 @@ public class CommandEvent extends InternalEvent {
             return mapper.writeValueAsString(message);
 
         } catch (JsonProcessingException jsonException) {
-            return String.format("%s - %s", command, jsonException);
+            return String.format("%s - %s", query, jsonException);
         }
     }
+
 }

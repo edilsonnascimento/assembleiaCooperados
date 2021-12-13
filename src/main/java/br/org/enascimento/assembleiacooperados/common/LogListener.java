@@ -1,4 +1,4 @@
-package br.org.enascimento.assembleiacooperados.write.observable;
+package br.org.enascimento.assembleiacooperados.common;
 
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ public class LogListener {
 
     @Async
     @EventListener
-    void onEventOccur(CommandEvent event) {
+    void onEventOccur(InternalEvent event) {
 
         if (event.isSuccess()) {
             if(logger.isInfoEnabled()) logger.info(event.toJson());

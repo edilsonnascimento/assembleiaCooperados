@@ -5,11 +5,11 @@ import br.org.enascimento.assembleiacooperados.write.domain.core.WritePautaRepos
 import org.springframework.stereotype.Service;
 
 @Service
-public class CreatePautaCommandHandler implements Handler<CreatePautaCommand>{
+public class CreatePautaHandler implements Handler<CreatePautaCommand>{
 
     private WritePautaRepository repository;
 
-    public CreatePautaCommandHandler(WritePautaRepository repository) {
+    public CreatePautaHandler(WritePautaRepository repository) {
         this.repository = repository;
     }
 

@@ -28,7 +28,7 @@ public class CreatePautaCommandHandlerTest extends TestHelper {
         var repository = mock(WritePautaRepositoryImpl.class);
 
         // when
-        var handler = new CreatePautaCommandHandler(repository);
+        var handler = new CreatePautaHandler(repository);
         handler.handle(command);
 
         //then

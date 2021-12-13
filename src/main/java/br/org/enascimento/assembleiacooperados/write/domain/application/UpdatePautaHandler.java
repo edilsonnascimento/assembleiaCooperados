@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.BUCKET_NOT_EXIST;
 
 @Service
-public class UpdatePautaCommandHandler implements Handler<UpdatePautaCommand> {
+public class UpdatePautaHandler implements Handler<UpdatePautaCommand> {
 
     private WritePautaRepository repository;
 
-    public UpdatePautaCommandHandler(WritePautaRepository repository) {
+    public UpdatePautaHandler(WritePautaRepository repository) {
         this.repository = repository;
     }
 

@@ -25,7 +25,7 @@ public class CreateCooperadoHandlerTest extends TestHelper {
         var repository = mock(WriteCooperadoRepositoryImpl.class);
 
         // when
-        var handler = new CreateCooperadoCommandHandler(repository);
+        var handler = new CreateCooperadoHandler(repository);
         handler.handle(command);
 
         //then

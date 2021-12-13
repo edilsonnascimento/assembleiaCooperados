@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.in;
 
-import br.org.enascimento.assembleiacooperados.write.CommandBus;
+import br.org.enascimento.assembleiacooperados.common.ServiceBus;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.CooperadoDto;
 import br.org.enascimento.assembleiacooperados.write.domain.application.CreateCooperadoCommand;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,12 @@ import java.net.URISyntaxException;
 public class WriteCooperadoController {
 
     @Autowired
-    private CommandBus commandBusbus;
+    private ServiceBus serviceBus;
 
     @PostMapping
     public ResponseEntity create(@RequestBody @Validated CooperadoDto cooperadoDto) throws URISyntaxException {
 
-        commandBusbus.execute(new CreateCooperadoCommand(cooperadoDto.uuid(),
+        serviceBus.execute(new CreateCooperadoCommand(cooperadoDto.uuid(),
                                                      cooperadoDto.nome(),
                                                      cooperadoDto.cpf()));
 
