@@ -24,14 +24,13 @@ class CreatePautaIT extends IntegrationHelper {
         var titulo = faker.team().sport();
         var descricao = faker.lorem().characters(10);
 
-        var payload =
-                """
-                           {
-                              "uuid": "%s",
-                              "titulo": "%s",
-                              "descricao": "%s"
-                           }
-                        """.formatted(uuid, titulo, descricao);
+        var payload ="""
+                              {
+                                  "uuid": "%s",
+                                  "titulo": "%s",
+                                  "descricao": "%s"
+                              }
+                            """.formatted(uuid, titulo, descricao);
         //when
         mockMvc
                 .perform(post(URI_PATH, uuid)
@@ -57,24 +56,29 @@ class CreatePautaIT extends IntegrationHelper {
         var titulo = faker.team().sport();
         var descricao = faker.lorem().characters(10);
 
-        var malformedJson =
+        var payload =
                 """
-                           {
-                              "uuid": "%s",
-                              "titulo": "%s",
-                              "descricao": "%s"
-                           }
+                               {
+                                  "uuid": "%s",
+                                  "titulo": "%s",
+                                  "descricao": "%s"
+                               }
                         """.formatted(duplicatedExternalUuid, titulo, descricao);
         //when
         mockMvc
-                .perform(post("/v1/pautas/", duplicatedExternalUuid)
+                .perform(post(URI_PATH)
                         .contentType(APPLICATION_JSON)
-                        .content(malformedJson))
+                        .content(payload))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$.message", is("Invalid duplicated data")))
                 .andExpect(jsonPath("$.errors[*].field", containsInAnyOrder("code")))
                 .andExpect(jsonPath("$.errors[*].detail", containsInAnyOrder("1000")));
+    }
+
+    @Test
+    void GIVEN_MalformedJson_MUST_ReturnBadRequest() throws Exception {
+
     }
 
 }

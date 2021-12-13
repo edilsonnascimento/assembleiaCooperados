@@ -34,7 +34,7 @@ public class UpdatePautaCommandHandlerTest extends TestHelper {
         when(repository.findByUuid(uuid)).thenReturn(Optional.of(pautaMock));
 
         // when
-        var handler = new UpdatePautaCommandHandler(repository);
+        var handler = new UpdatePautaHandler(repository);
         handler.handle(command);
 
         // then
@@ -55,7 +55,7 @@ public class UpdatePautaCommandHandlerTest extends TestHelper {
         var repository = mock(WritePautaRepository.class);
         when(repository.findByUuid(any())).thenReturn(Optional.empty());
         // when
-        var handler = new UpdatePautaCommandHandler(repository);
+        var handler = new UpdatePautaHandler(repository);
         var exceptionExpected =
                 assertThrows(PautaNotExistentException.class, ()-> handler.handle(command));
 
