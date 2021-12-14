@@ -2,7 +2,6 @@ package br.org.enascimento.assembleiacooperados.red.adapter.in;
 
 import helper.IntegrationHelper;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.jdbc.Sql;
 
 import static org.hamcrest.Matchers.containsInRelativeOrder;
 import static org.springframework.http.MediaType.APPLICATION_JSON;

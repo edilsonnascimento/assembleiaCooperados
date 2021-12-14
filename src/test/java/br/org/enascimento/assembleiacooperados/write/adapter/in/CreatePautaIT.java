@@ -76,9 +76,4 @@ class CreatePautaIT extends IntegrationHelper {
                 .andExpect(jsonPath("$.errors[*].detail", containsInAnyOrder("1000")));
     }
 
-    @Test
-    void GIVEN_MalformedJson_MUST_ReturnBadRequest() throws Exception {
-
-    }
-
 }
