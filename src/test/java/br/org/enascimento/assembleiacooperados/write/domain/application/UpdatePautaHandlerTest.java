@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
-public class UpdatePautaCommandHandlerTest extends TestHelper {
+public class UpdatePautaHandlerTest extends TestHelper {
 
     @Test
     void GIVEN_ValidCommand_MUST_UpdatePautaInDatabase() {

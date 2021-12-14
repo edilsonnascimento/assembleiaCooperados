@@ -14,7 +14,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @Tag("unit")
-public class CreatePautaCommandHandlerTest extends TestHelper {
+public class CreatePautaHandlerTest extends TestHelper {
 
     private ArgumentCaptor<Pauta> captor = ArgumentCaptor.forClass(Pauta.class);
 
