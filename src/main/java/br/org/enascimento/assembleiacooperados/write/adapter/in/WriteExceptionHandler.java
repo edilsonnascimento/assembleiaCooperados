@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,7 +24,12 @@ public class WriteExceptionHandler {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @ExceptionHandler
+    public ResponseEntity<Object> onHttpMessageNotReadableException(HttpMessageNotReadableException exception){
 
+        return getResponseEntity("Malformed JSON", null);
+
+    }
     @ExceptionHandler
     public ResponseEntity<Object> onDataIntegrityViolationException(DataIntegrityViolationException exception){
         var errors = List
