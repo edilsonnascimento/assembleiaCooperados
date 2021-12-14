@@ -12,11 +12,11 @@ public class UpdatePautaIT extends IntegrationHelper {
 
 
     @Test
-    void GIVEN_InvalidDataFieldTituloBigger_MUST_ReturError() throws Exception {
+    void GIVEN_ValidDataCooperado_MUST_ReturnSucess() throws Exception {
         //given
         var uuid = randomUUID().toString();
-        var titulo = faker.lorem().characters();
-        var descricao = faker.lorem().characters();
+        var nome = faker.name().fullName();
+        var cpf = faker.number().digits(11);
 
         var payload =
                 """
@@ -25,7 +25,7 @@ public class UpdatePautaIT extends IntegrationHelper {
                       "titulo": "%s",
                       "descricao": "%s"
                    }
-                """.formatted(uuid, titulo, descricao);
+                """.formatted(uuid, nome, cpf);
         //when
         mockMvc
                 .perform(put("/v1/pautas/", uuid)
