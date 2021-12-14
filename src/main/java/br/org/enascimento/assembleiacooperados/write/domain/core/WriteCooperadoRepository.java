@@ -8,4 +8,6 @@ public interface WriteCooperadoRepository {
     void create(Cooperado capture);
 
     Optional<Cooperado> findByUuidOrCpf(UUID uuid, String cpf);
+
+    void update(Cooperado cooperado);
 }

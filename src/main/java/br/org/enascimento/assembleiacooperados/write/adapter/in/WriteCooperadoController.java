@@ -1,18 +1,18 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.in;
 
 import br.org.enascimento.assembleiacooperados.common.ServiceBus;
+import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.CooperadoInDto;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.CooperadoDto;
 import br.org.enascimento.assembleiacooperados.write.domain.application.CreateCooperadoCommand;
+import br.org.enascimento.assembleiacooperados.write.domain.application.UpdateCooperadoCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("v1/cooperados")
@@ -29,6 +29,15 @@ public class WriteCooperadoController {
                                                      cooperadoDto.cpf()));
 
         return (ResponseEntity) ResponseEntity.created(new URI("v1/cooperados/" + cooperadoDto.uuid())).build();
+    }
+
+    @PutMapping("/{uuid}")
+    public ResponseEntity<String> update(@PathVariable UUID uuid, @RequestBody CooperadoInDto cooperadoInDto){
+
+        serviceBus.execute(new UpdateCooperadoCommand(uuid,
+                                                      cooperadoInDto.nome(),
+                                                      cooperadoInDto.cpf()));
+        return ResponseEntity.noContent().build();
     }
 
 }

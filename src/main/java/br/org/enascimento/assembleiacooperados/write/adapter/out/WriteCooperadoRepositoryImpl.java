@@ -17,6 +17,10 @@ import static br.org.enascimento.assembleiacooperados.write.domain.exception.Dom
 @Repository
 public class WriteCooperadoRepositoryImpl implements WriteCooperadoRepository {
 
+    private static final String NOME_FIELD = "nome";
+    private static final String CPF_FIELD = "cpf";
+    private static final String UUID_FIELD = "uuid";
+
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     public WriteCooperadoRepositoryImpl(DataSource dataSource) {
@@ -80,5 +84,24 @@ public class WriteCooperadoRepositoryImpl implements WriteCooperadoRepository {
             }
             return Optional.empty();
         });
+    }
+
+    @Override
+    public void update(Cooperado cooperado) {
+        var sql = """
+                UPDATE cooperado
+                SET %s = :%s, 
+                    %s = :%s
+                WHERE %s = :%s
+            """.formatted(NOME_FIELD, NOME_FIELD,
+                          CPF_FIELD, CPF_FIELD,
+                          UUID_FIELD, UUID_FIELD);
+
+        var parameters = new MapSqlParameterSource()
+                .addValue(NOME_FIELD, cooperado.getNome())
+                .addValue(CPF_FIELD, cooperado.getCpf())
+                .addValue(UUID_FIELD, cooperado.getUuid());
+
+        jdbcTemplate.update(sql, parameters);
     }
 }

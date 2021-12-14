@@ -46,7 +46,7 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
         repository.create(expected);
 
         //then
-        var createdCooperado = repository.findByUuidOrCpf(uuid, cpf);
+        var createdCooperado = repository.findByUuidOrCpf(uuid, null);
         var actual = createdCooperado.get();
         assertThat(isMesmaData(actual.getCreatedAt(), otherDate));
         assertThat(isMesmaData(actual.getCreatedAt(), otherDate));
@@ -85,13 +85,16 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
 
         var nomeExpected = "NOVO TITULO";
         var cpfExpected = "00000000000";
-        actualCooperado.setNome(nomeExpected).setCpf(cpfExpected);
+        var cooperado = new Cooperado()
+                .setUuid(uuid)
+                .setCpf(cpfExpected)
+                .setNome(nomeExpected);
 
         //when
-        repository.update(actualCooperado);
+        repository.update(cooperado);
 
         //then
-        var expectedCooperado = repository.findByUuidOrCpf(uuid, cpfExpected).get();
+        var expectedCooperado = repository.findByUuidOrCpf(uuid, null).get();
         assertThat(expectedCooperado.getNome().equals(nomeExpected)).isTrue();
         assertThat(expectedCooperado.getCpf().equals(cpfExpected)).isTrue();
 
