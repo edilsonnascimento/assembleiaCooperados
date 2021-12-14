@@ -3,6 +3,8 @@ package br.org.enascimento.assembleiacooperados.write.adapter.in;
 import helper.IntegrationHelper;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static java.util.UUID.randomUUID;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -10,13 +12,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class UpdatePautaIT extends IntegrationHelper {
 
+    private static final String ENDPOINT_PATH = "/v1/pautas/{uuid}";
 
     @Test
-    void GIVEN_ValidDataCooperado_MUST_ReturnSucess() throws Exception {
+    void GIVEN_ValidDataUpdatePauta_MUST_ReturnSucess() throws Exception {
         //given
-        var uuid = randomUUID().toString();
-        var nome = faker.name().fullName();
-        var cpf = faker.number().digits(11);
+        var uuid = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
+        var titulo = "NOVO TITULO";
+        var descricao = "NOVA DESCRICAO";
 
         var payload =
                 """
@@ -25,14 +28,13 @@ public class UpdatePautaIT extends IntegrationHelper {
                       "titulo": "%s",
                       "descricao": "%s"
                    }
-                """.formatted(uuid, nome, cpf);
+                """.formatted(uuid, titulo, descricao);
         //when
         mockMvc
-                .perform(put("/v1/pautas/", uuid)
+                .perform(put(ENDPOINT_PATH, uuid)
                         .contentType(APPLICATION_JSON)
                         .content(payload))
-                .andExpect(status().isBadRequest());
-
+                .andExpect(status().isNoContent());
     }
 
     @Test
@@ -45,7 +47,7 @@ public class UpdatePautaIT extends IntegrationHelper {
         var payload = "{}";
         //when
         mockMvc
-                .perform(put("/v1/pautas/", uuid)
+                .perform(put(ENDPOINT_PATH, uuid)
                         .contentType(APPLICATION_JSON)
                         .content(payload))
                 .andExpect(status().isBadRequest());

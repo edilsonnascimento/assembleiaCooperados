@@ -83,7 +83,7 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
         assertThat(actualCooperado.getNome().equals(nomeActual));
         assertThat(actualCooperado.getCpf().equals(cpfActual));
 
-        var nomeExpected = "NOVO TITULO";
+        var nomeExpected = "NOVO NOME";
         var cpfExpected = "00000000000";
         var cooperado = new Cooperado()
                 .setUuid(uuid)
@@ -95,8 +95,8 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
 
         //then
         var expectedCooperado = repository.findByUuidOrCpf(uuid, null).get();
-        assertThat(expectedCooperado.getNome().equals(nomeExpected)).isTrue();
-        assertThat(expectedCooperado.getCpf().equals(cpfExpected)).isTrue();
+        assertThat(expectedCooperado.getNome()).isEqualTo(nomeExpected);
+        assertThat(expectedCooperado.getCpf()).isEqualTo(cpfExpected);
 
     }
     private static Stream<Arguments> inValidDataProvider() {
