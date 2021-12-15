@@ -1,0 +1,54 @@
+package br.org.enascimento.assembleiacooperados.red.application;
+
+import br.org.enascimento.assembleiacooperados.red.adapter.out.ReadCooperadoRepositoryImpl;
+import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
+import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
+import helper.TestHelper;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+@Tag("unit")
+public class FindByCooperadoUuidResolverTest extends TestHelper {
+
+    private final ReadCooperadoRepository repository;
+    private final FindByCooperadoUuidResolver resolver;
+
+    public FindByCooperadoUuidResolverTest() {
+        this.repository = mock(ReadCooperadoRepositoryImpl.class);
+        this.resolver = new FindByCooperadoUuidResolver(repository);
+    }
+
+    @Test
+    void GIVEN_FindbyCooperadoUuid_ReturnDto(){
+        //given
+        var query = new FindByCooperadoUuidQuery();
+        query.setUuid(UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20"));
+        var dataAtual = LocalDateTime.now();
+        var cooperado = new Cooperado()
+                .setId(1l)
+                .setUuid(UUID.randomUUID())
+                .setNome(faker.name().fullName())
+                .setCpf("00000000000")
+                .setCreatedAt(dataAtual)
+                .setUpdatedAt(dataAtual);
+        when(repository.findByUuid(query.getUuid())).thenReturn(Optional.of(cooperado));
+
+
+        //when
+        resolver.resolve(query);
+        var resultExpected = query.getResult();
+
+        //then
+        assertThat(resultExpected.uuid()).isEqualTo(cooperado.getUuid());
+        assertThat(resultExpected.nome()).isEqualTo(cooperado.getNome());
+        assertThat(resultExpected.cpf()).isEqualTo(cooperado.getCpf());
+    }
+}

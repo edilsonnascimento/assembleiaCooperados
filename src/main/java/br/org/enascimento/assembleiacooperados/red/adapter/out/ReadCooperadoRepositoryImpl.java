@@ -2,11 +2,16 @@ package br.org.enascimento.assembleiacooperados.red.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.CooperadoInDto;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.CooperadoDto;
+import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
+import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -30,6 +35,31 @@ public class ReadCooperadoRepositoryImpl implements ReadCooperadoRepository {
                         rs.getString("nome"),
                         rs.getString("cpf"))
         );
+    }
+
+    @Override
+    public Optional<Cooperado> findByUuid(UUID uuid) {
+
+        var sql = """
+                SELECT uuid, nome, cpf, created_at, updated_at
+                FROM cooperado
+                WHERE uuid = :uuid""";
+
+        var parameters = new MapSqlParameterSource()
+                .addValue("uuid", uuid);
+
+        return jdbcTemplate.query(sql, parameters, resultSet -> {
+            if (resultSet.next()) {
+                return Optional.of(new Cooperado().
+                        setUuid(UUID.fromString(resultSet.getString("uuid"))).
+                        setNome(resultSet.getString("nome")).
+                        setCpf(resultSet.getString("cpf")).
+                        setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
+                        setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime())
+                );
+            }
+            return Optional.empty();
+        });
     }
 }
 

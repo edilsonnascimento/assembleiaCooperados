@@ -22,4 +22,16 @@ class ReadCooperadoControllerIT extends IntegrationHelper {
                 .andExpect(jsonPath("$[*].nome", containsInRelativeOrder("NOME-EXISTENTE-1", "NOME-EXISTENTE-2")))
                 .andExpect(jsonPath("$[*].cpf", containsInRelativeOrder("74656849359", "38176004707")));
     }
+
+    @Test
+    void WHEN_GetCooperado_MUST_FindByUuid() throws Exception {
+        var uuid = "1e73cdb3-0923-4452-a190-3c7eb7857e20";
+        mockMvc
+                .perform(get("/v1/cooperados/{uuid}", uuid))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(APPLICATION_JSON))
+                .andExpect(exists(uuid))
+                .andExpect(exists("NOME-EXISTENTE-1"))
+                .andExpect(exists("74656849359"));
+    }
 }

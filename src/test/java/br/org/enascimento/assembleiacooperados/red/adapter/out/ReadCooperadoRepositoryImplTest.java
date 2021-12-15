@@ -15,14 +15,13 @@ public class ReadCooperadoRepositoryImplTest extends DataSourceHelper {
 
     private ReadCooperadoRepository repository;
 
-
     @BeforeEach
     void setup() {
         repository = new ReadCooperadoRepositoryImpl(dataSource);
     }
 
     @Test
-    void WHEN_QueryAllCooperad_MUST_RetriveSuccessful(){
+    void WHEN_QueryAllCooperad_MUST_RetriveSuccessful() {
 
         //given
         List<CooperadoInDto> expected = List.of(
@@ -33,7 +32,23 @@ public class ReadCooperadoRepositoryImplTest extends DataSourceHelper {
 
         //then
         assertThat(actual).containsExactlyElementsOf(expected);
-
-
     }
+
+    @Test
+    void WHEN_QueryCooperadoByUuid_MUST_RetriveSuccessful() {
+
+        //given
+        var uuid = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
+        var expected = new CooperadoInDto(uuid, "NOME-EXISTENTE-1", "74656849359");
+
+        //when
+        var actual = repository.findByUuid(uuid).get();
+
+        //then
+        assertThat(actual.getUuid()).isEqualTo(expected.uuid());
+        assertThat(actual.getNome()).isEqualTo(expected.nome());
+        assertThat(actual.getCpf()).isEqualTo(expected.cpf());
+    }
+
+
 }
