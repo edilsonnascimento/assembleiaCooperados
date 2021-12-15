@@ -4,7 +4,10 @@ package br.org.enascimento.assembleiacooperados.red.adapter.in;
 import helper.IntegrationHelper;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.containsInRelativeOrder;
+import java.util.UUID;
+
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -33,5 +36,17 @@ class ReadCooperadoControllerIT extends IntegrationHelper {
                 .andExpect(exists(uuid))
                 .andExpect(exists("NOME-EXISTENTE-1"))
                 .andExpect(exists("74656849359"));
+    }
+
+    @Test
+    void WHEN_GetNonexistentCooperado_MUST_ReturnMensageError() throws Exception {
+        var uuid = UUID.randomUUID().toString();
+        mockMvc
+                .perform(get("/v1/cooperados/{uuid}", uuid))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(APPLICATION_JSON))
+                .andExpect(jsonPath("$.message", is("Cooperado not exist")))
+                .andExpect(jsonPath("$.errors[*].field", containsInAnyOrder("code")))
+                .andExpect(jsonPath("$.errors[*].detail", containsInAnyOrder("1004")));
     }
 }

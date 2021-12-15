@@ -2,6 +2,7 @@ package br.org.enascimento.assembleiacooperados.red.application;
 
 import br.org.enascimento.assembleiacooperados.red.adapter.out.ReadCooperadoRepositoryImpl;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
+import br.org.enascimento.assembleiacooperados.write.domain.exception.CooperadoNotExistentException;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
@@ -12,8 +13,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 @Tag("unit")
 public class FindByCooperadoUuidResolverTest extends TestHelper {
@@ -27,7 +28,7 @@ public class FindByCooperadoUuidResolverTest extends TestHelper {
     }
 
     @Test
-    void GIVEN_FindbyCooperadoUuid_ReturnDto(){
+    void GIVEN_ValidFindbyCooperadoUuid_ReturnDto(){
         //given
         var query = new FindByCooperadoUuidQuery();
         query.setUuid(UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20"));
@@ -50,5 +51,23 @@ public class FindByCooperadoUuidResolverTest extends TestHelper {
         assertThat(resultExpected.uuid()).isEqualTo(cooperado.getUuid());
         assertThat(resultExpected.nome()).isEqualTo(cooperado.getNome());
         assertThat(resultExpected.cpf()).isEqualTo(cooperado.getCpf());
+    }
+
+    @Test
+    void GIVEN_InvalidFindbyCooperadoUuid_ReturnException(){
+        //given
+        var query = new FindByCooperadoUuidQuery();
+        var uuid = UUID.randomUUID();
+        query.setUuid(uuid);
+        when(repository.findByUuid(query.getUuid())).thenReturn(Optional.empty());
+
+        //when
+        var exception = assertThrows(CooperadoNotExistentException.class, () ->
+                resolver.resolve(query));
+
+        //then
+        assertThat(exception.getMessage()).isEqualTo("Cooperado not exist");
+        verify(repository, times(1)).findByUuid(uuid);
+
     }
 }

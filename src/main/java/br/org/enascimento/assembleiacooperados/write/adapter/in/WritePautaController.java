@@ -20,7 +20,6 @@ public class WritePautaController {
     @Autowired
     private ServiceBus serviceBus;
 
-
     @PostMapping
     public ResponseEntity create(@RequestBody @Validated PautaDto pautaDto) throws URISyntaxException {
 

@@ -10,7 +10,9 @@ public abstract class DomainException extends RuntimeException{
     public enum Error{
         INVALID_DUPLICATE_DATA("Invalid duplicated data", 1000),
         PAUTA_NOT_EXIST("Pauta not exist", 1001),
-        PAUTA_NOT_UPDATE("Pauta not update", 1002);
+        PAUTA_NOT_UPDATE("Pauta not update", 1002),
+        COOPERADO_NOT_UPDATE("Cooperado not update", 1003),
+        COOPERADO_NOT_EXIST("Cooperado not exist", 1004);
 
         private String message;
         private int code;
