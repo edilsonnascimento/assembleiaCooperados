@@ -93,7 +93,6 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
                 .setDescricao("Qualquer");
 
 
-
         //when
         var exception = assertThrows(DuplicatedDataException.class, () -> repository.create(expected));
 
