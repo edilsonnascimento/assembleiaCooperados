@@ -32,8 +32,8 @@ class ReadPautaControllerIT extends IntegrationHelper {
                 .perform(get(PATH_URI_UUID, uuid))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON))
-                .andExpect(jsonPath("$[*].uuid", containsInRelativeOrder("1e73cdb3-0923-4452-a190-3c7eb7857e20")))
-                .andExpect(jsonPath("$[*].titulo", containsInRelativeOrder("PRIMEIRO-TITULO")))
-                .andExpect(jsonPath("$[*].descricao", containsInRelativeOrder("PRIMEIRA-DESCICAO")));
+                .andExpect(exists("1e73cdb3-0923-4452-a190-3c7eb7857e20"))
+                .andExpect(exists("PRIMEIRO-TITULO"))
+                .andExpect(exists("PRIMEIRA-DESCICAO"));
     }
 }
