@@ -1,11 +1,12 @@
-package br.org.enascimento.assembleiacooperados.write.domain.application;
+package br.org.enascimento.assembleiacooperados.write.domain.application.handler;
 
+import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreatePautaCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WritePautaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CreatePautaHandler implements Handler<CreatePautaCommand>{
+public class CreatePautaHandler implements Handler<CreatePautaCommand> {
 
     private WritePautaRepository repository;
 

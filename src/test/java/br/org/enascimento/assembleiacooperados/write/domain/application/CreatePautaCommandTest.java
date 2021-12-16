@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application;
 
+import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreatePautaCommand;
 import helper.TestHelper;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 

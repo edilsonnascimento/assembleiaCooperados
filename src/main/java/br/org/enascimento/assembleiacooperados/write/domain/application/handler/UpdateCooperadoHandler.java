@@ -1,7 +1,11 @@
-package br.org.enascimento.assembleiacooperados.write.domain.application;
+package br.org.enascimento.assembleiacooperados.write.domain.application.handler;
 
+import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdateCooperadoCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteCooperadoRepository;
+import br.org.enascimento.assembleiacooperados.write.domain.exception.CooperadoUpdateInvalidException;
 import org.springframework.stereotype.Service;
+
+import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.COOPERADO_NOT_UPDATE;
 
 @Service
 public class UpdateCooperadoHandler implements Handler<UpdateCooperadoCommand> {
@@ -14,7 +18,11 @@ public class UpdateCooperadoHandler implements Handler<UpdateCooperadoCommand> {
 
     @Override
     public void handle(UpdateCooperadoCommand command) {
-        var cooperado = repository.findByUuidOrCpf(command.uuid(), null).get();
+
+        if(command.cpf() == null && command.nome() == null)
+            throw new CooperadoUpdateInvalidException(COOPERADO_NOT_UPDATE);
+
+        var cooperado = repository.findByUuidOrCpf(command.uuid(), command.cpf()).get();
 
         cooperado
                 .setUuid(command.uuid())

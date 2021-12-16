@@ -1,5 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application;
 
+import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdateCooperadoCommand;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

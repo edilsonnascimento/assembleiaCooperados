@@ -1,6 +1,8 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application;
 
 import br.org.enascimento.assembleiacooperados.write.adapter.out.WriteCooperadoRepositoryImpl;
+import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateCooperadoCommand;
+import br.org.enascimento.assembleiacooperados.write.domain.application.handler.CreateCooperadoHandler;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;

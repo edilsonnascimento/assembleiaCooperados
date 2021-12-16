@@ -1,11 +1,12 @@
-package br.org.enascimento.assembleiacooperados.write.domain.application;
+package br.org.enascimento.assembleiacooperados.write.domain.application.handler;
 
+import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateCooperadoCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteCooperadoRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CreateCooperadoHandler implements Handler<CreateCooperadoCommand>{
+public class CreateCooperadoHandler implements Handler<CreateCooperadoCommand> {
 
     private final WriteCooperadoRepository repository;
 

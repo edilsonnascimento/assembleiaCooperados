@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.observable;
 
 import br.org.enascimento.assembleiacooperados.common.InternalEvent;
-import br.org.enascimento.assembleiacooperados.write.domain.application.Command;
+import br.org.enascimento.assembleiacooperados.write.domain.application.command.Command;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

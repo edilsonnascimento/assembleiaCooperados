@@ -1,6 +1,8 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application;
 
 import br.org.enascimento.assembleiacooperados.write.adapter.out.WritePautaRepositoryImpl;
+import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreatePautaCommand;
+import br.org.enascimento.assembleiacooperados.write.domain.application.handler.CreatePautaHandler;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;

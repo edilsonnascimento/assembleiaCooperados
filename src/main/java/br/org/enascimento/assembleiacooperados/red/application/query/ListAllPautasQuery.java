@@ -1,10 +1,10 @@
-package br.org.enascimento.assembleiacooperados.red.application;
+package br.org.enascimento.assembleiacooperados.red.application.query;
 
 import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.PautaInDto;
 
 import java.util.List;
 
-public class ListAllPautasQuery implements Query{
+public class ListAllPautasQuery implements Query {
 
     private List<PautaInDto> result;
 

@@ -1,6 +1,8 @@
 package br.org.enascimento.assembleiacooperados.red.application;
 
 import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.CooperadoInDto;
+import br.org.enascimento.assembleiacooperados.red.application.query.ListAllCooperadosQuery;
+import br.org.enascimento.assembleiacooperados.red.application.resolver.ListAllCooperadosResolver;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
 import helper.TestHelper;
 import org.assertj.core.api.Assertions;

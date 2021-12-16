@@ -1,5 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application;
 
+import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdatePautaCommand;
+import br.org.enascimento.assembleiacooperados.write.domain.application.handler.UpdatePautaHandler;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WritePautaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.PautaNotExistentException;

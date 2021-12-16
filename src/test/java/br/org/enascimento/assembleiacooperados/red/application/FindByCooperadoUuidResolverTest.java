@@ -1,6 +1,8 @@
 package br.org.enascimento.assembleiacooperados.red.application;
 
 import br.org.enascimento.assembleiacooperados.red.adapter.out.ReadCooperadoRepositoryImpl;
+import br.org.enascimento.assembleiacooperados.red.application.query.FindByCooperadoUuidQuery;
+import br.org.enascimento.assembleiacooperados.red.application.resolver.FindByCooperadoUuidResolver;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.CooperadoNotExistentException;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;

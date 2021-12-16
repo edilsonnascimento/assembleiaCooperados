@@ -1,10 +1,10 @@
-package br.org.enascimento.assembleiacooperados.red.application;
+package br.org.enascimento.assembleiacooperados.red.application.query;
 
 import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.CooperadoInDto;
 
 import java.util.List;
 
-public class ListAllCooperadosQuery implements Query{
+public class ListAllCooperadosQuery implements Query {
 
     List<CooperadoInDto> result;
 

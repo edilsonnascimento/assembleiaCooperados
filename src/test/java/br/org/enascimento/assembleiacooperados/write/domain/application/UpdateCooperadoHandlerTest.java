@@ -1,7 +1,10 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application;
 
+import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdateCooperadoCommand;
+import br.org.enascimento.assembleiacooperados.write.domain.application.handler.UpdateCooperadoHandler;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteCooperadoRepository;
+import br.org.enascimento.assembleiacooperados.write.domain.exception.CooperadoUpdateInvalidException;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -11,10 +14,34 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
 public class UpdateCooperadoHandlerTest extends TestHelper {
+
+    private final WriteCooperadoRepository repository;
+    private final UpdateCooperadoHandler handler;
+
+    public UpdateCooperadoHandlerTest() {
+        this.repository = mock(WriteCooperadoRepository.class);
+        this.handler = new UpdateCooperadoHandler(repository);
+    }
+
+    @Test
+    void GIVEN_InvalidCommandCooperado_MUST_TrowException(){
+
+        //given
+        var uuid = UUID.randomUUID();
+
+        //when
+        var exception = assertThrows(CooperadoUpdateInvalidException.class, () ->
+                handler.handle(new UpdateCooperadoCommand(uuid, null, null)));
+
+        //then
+        //verify(repository, never()).findByUuid(uuid);
+        assertThat(exception.getMessage()).isEqualTo("Cooperado not update");
+    }
 
     @Test
     void Given_ValidCommand_Must_DelegateToHeadler(){
@@ -24,12 +51,10 @@ public class UpdateCooperadoHandlerTest extends TestHelper {
         var nome = faker.name().fullName();
         var cpf = faker.number().digits(11);
         var command = new UpdateCooperadoCommand(uuid, nome, cpf);
-        var repository = mock(WriteCooperadoRepository.class);
         var cooperado = new Cooperado().setUuid(uuid).setNome(nome).setCpf(cpf);
         when(repository.findByUuidOrCpf(uuid, null)).thenReturn(Optional.of(cooperado));
 
         //when
-        var handler = new UpdateCooperadoHandler(repository);
         handler.handle(command);
 
         //then

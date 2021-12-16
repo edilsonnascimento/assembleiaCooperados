@@ -1,4 +1,4 @@
-package br.org.enascimento.assembleiacooperados.write.domain.application;
+package br.org.enascimento.assembleiacooperados.write.domain.application.command;
 
 import java.util.UUID;
 

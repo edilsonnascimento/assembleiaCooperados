@@ -27,7 +27,7 @@ class ReadCooperadoControllerIT extends IntegrationHelper {
     }
 
     @Test
-    void WHEN_GetCooperado_MUST_FindByUuid() throws Exception {
+    void WHEN_GetCooperado_FindByUuid_MUST_ReturnCooperado() throws Exception {
         var uuid = "1e73cdb3-0923-4452-a190-3c7eb7857e20";
         mockMvc
                 .perform(get("/v1/cooperados/{uuid}", uuid))
@@ -39,7 +39,7 @@ class ReadCooperadoControllerIT extends IntegrationHelper {
     }
 
     @Test
-    void WHEN_GetNonexistentCooperado_MUST_ReturnMensageError() throws Exception {
+    void WHEN_GetCooperado_FindByUuid_MUST_ReturnMensageError() throws Exception {
         var uuid = UUID.randomUUID().toString();
         mockMvc
                 .perform(get("/v1/cooperados/{uuid}", uuid))

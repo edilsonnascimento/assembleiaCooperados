@@ -1,10 +1,10 @@
-package br.org.enascimento.assembleiacooperados.red.application;
+package br.org.enascimento.assembleiacooperados.red.application.query;
 
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.CooperadoDto;
 
 import java.util.UUID;
 
-public class FindByCooperadoUuidQuery implements Query{
+public class FindByCooperadoUuidQuery implements Query {
 
     private CooperadoDto result;
     private UUID uuid;

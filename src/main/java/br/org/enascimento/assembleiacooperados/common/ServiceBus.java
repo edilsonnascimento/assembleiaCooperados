@@ -1,10 +1,10 @@
 package br.org.enascimento.assembleiacooperados.common;
 
-import br.org.enascimento.assembleiacooperados.red.application.Query;
-import br.org.enascimento.assembleiacooperados.red.application.Resolver;
+import br.org.enascimento.assembleiacooperados.red.application.query.Query;
+import br.org.enascimento.assembleiacooperados.red.application.resolver.Resolver;
 import br.org.enascimento.assembleiacooperados.red.observable.QueryEvent;
-import br.org.enascimento.assembleiacooperados.write.domain.application.Command;
-import br.org.enascimento.assembleiacooperados.write.domain.application.Handler;
+import br.org.enascimento.assembleiacooperados.write.domain.application.command.Command;
+import br.org.enascimento.assembleiacooperados.write.domain.application.handler.Handler;
 import br.org.enascimento.assembleiacooperados.write.observable.CommandEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
