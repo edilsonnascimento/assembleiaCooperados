@@ -4,7 +4,7 @@ import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.CooperadoDto
 
 import java.util.UUID;
 
-public class FindByCooperadoUuidQuery implements Query {
+public class FindCooperadoByUuidQuery implements Query {
 
     private CooperadoDto result;
     private UUID uuid;

@@ -1,8 +1,8 @@
 package br.org.enascimento.assembleiacooperados.red.application;
 
 import br.org.enascimento.assembleiacooperados.red.adapter.out.ReadCooperadoRepositoryImpl;
-import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindByCooperadoUuidQuery;
-import br.org.enascimento.assembleiacooperados.red.domain.application.resolver.FindByCooperadoUuidResolver;
+import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindCooperadoByUuidQuery;
+import br.org.enascimento.assembleiacooperados.red.domain.application.resolver.FindCooperadoByUuidResolver;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.CooperadoNotExistentException;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
@@ -19,20 +19,20 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
-public class FindByCooperadoUuidResolverTest extends TestHelper {
+public class FindCooperadoByUuidResolverTest extends TestHelper {
 
     private final ReadCooperadoRepository repository;
-    private final FindByCooperadoUuidResolver resolver;
+    private final FindCooperadoByUuidResolver resolver;
 
-    public FindByCooperadoUuidResolverTest() {
+    public FindCooperadoByUuidResolverTest() {
         this.repository = mock(ReadCooperadoRepositoryImpl.class);
-        this.resolver = new FindByCooperadoUuidResolver(repository);
+        this.resolver = new FindCooperadoByUuidResolver(repository);
     }
 
     @Test
     void GIVEN_ValidFindbyCooperadoUuid_ReturnDto(){
         //given
-        var query = new FindByCooperadoUuidQuery();
+        var query = new FindCooperadoByUuidQuery();
         query.setUuid(UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20"));
         var dataAtual = LocalDateTime.now();
         var cooperado = new Cooperado()
@@ -58,7 +58,7 @@ public class FindByCooperadoUuidResolverTest extends TestHelper {
     @Test
     void GIVEN_InvalidFindbyCooperadoUuid_ReturnException(){
         //given
-        var query = new FindByCooperadoUuidQuery();
+        var query = new FindCooperadoByUuidQuery();
         var uuid = UUID.randomUUID();
         query.setUuid(uuid);
         when(repository.findByUuid(query.getUuid())).thenReturn(Optional.empty());
