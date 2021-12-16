@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.common;
 
-import br.org.enascimento.assembleiacooperados.red.application.query.Query;
-import br.org.enascimento.assembleiacooperados.red.application.resolver.Resolver;
+import br.org.enascimento.assembleiacooperados.red.domain.application.query.Query;
+import br.org.enascimento.assembleiacooperados.red.domain.application.resolver.Resolver;
 import br.org.enascimento.assembleiacooperados.red.observable.QueryEvent;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.Command;
 import br.org.enascimento.assembleiacooperados.write.domain.application.handler.Handler;

@@ -1,7 +1,6 @@
-package br.org.enascimento.assembleiacooperados.red.application.resolver;
+package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 
-import br.org.enascimento.assembleiacooperados.red.application.query.ListAllCooperadosQuery;
-import br.org.enascimento.assembleiacooperados.red.application.resolver.Resolver;
+import br.org.enascimento.assembleiacooperados.red.domain.application.query.ListAllCooperadosQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
 import org.springframework.stereotype.Service;
 

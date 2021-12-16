@@ -2,7 +2,7 @@ package br.org.enascimento.assembleiacooperados.red.adapter.in;
 
 import br.org.enascimento.assembleiacooperados.common.ServiceBus;
 import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.PautaInDto;
-import br.org.enascimento.assembleiacooperados.red.application.query.ListAllPautasQuery;
+import br.org.enascimento.assembleiacooperados.red.domain.application.query.ListAllPautasQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

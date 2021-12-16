@@ -2,8 +2,8 @@ package br.org.enascimento.assembleiacooperados.red.adapter.in;
 
 import br.org.enascimento.assembleiacooperados.common.ServiceBus;
 import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.CooperadoInDto;
-import br.org.enascimento.assembleiacooperados.red.application.query.FindByCooperadoUuidQuery;
-import br.org.enascimento.assembleiacooperados.red.application.query.ListAllCooperadosQuery;
+import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindByCooperadoUuidQuery;
+import br.org.enascimento.assembleiacooperados.red.domain.application.query.ListAllCooperadosQuery;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.CooperadoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
