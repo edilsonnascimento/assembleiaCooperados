@@ -4,6 +4,7 @@ import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.PautaInDto;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindPautaByUuidQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
+import br.org.enascimento.assembleiacooperados.write.domain.exception.PautaNotExistentException;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
@@ -50,5 +52,23 @@ public class FindPautaByUuidResolverTest extends TestHelper {
         assertThat(expected.uuid()).isEqualTo(pauta.getUuid());
         assertThat(expected.titulo()).isEqualTo(pauta.getTitulo());
         assertThat(expected.descricao()).isEqualTo(pauta.getDescricao());
+    }
+
+    @Test
+    void GIVEN_InvalidFindbyPautaUuid_ReturnException(){
+        //given
+        var query = new FindPautaByUuidQuery();
+        var uuid = UUID.randomUUID();
+        query.setUuid(uuid);
+        when(repository.findByUuid(query.getUuid())).thenReturn(Optional.empty());
+
+        //when
+        var exception = assertThrows(PautaNotExistentException.class, () ->
+                resolver.resolve(query));
+
+        //then
+        assertThat(exception.getMessage()).isEqualTo("Pauta not exist");
+        verify(repository, times(1)).findByUuid(uuid);
+
     }
 }

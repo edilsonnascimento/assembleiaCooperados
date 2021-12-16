@@ -12,7 +12,6 @@ import java.util.UUID;
 
 import static java.util.UUID.fromString;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.comparable;
 
 
 public class ReadPautaRepositoryImplTest extends DataSourceHelper {
