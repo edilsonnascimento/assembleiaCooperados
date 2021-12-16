@@ -86,31 +86,6 @@ public class WritePautaRepositoryImpl implements WritePautaRepository {
     }
 
     @Override
-    public Optional<Pauta> findByUuid(UUID uuid) {
-        var sql = """
-                SELECT id, uuid, titulo, descricao, created_at, updated_at
-                FROM pauta
-                WHERE uuid = :uuid""";
-
-        var parameters = new MapSqlParameterSource()
-                .addValue("uuid", uuid);
-
-        return jdbcTemplate.query(sql, parameters, resultSet -> {
-            if (resultSet.next()) {
-                return Optional.of(new Pauta().
-                        setId(resultSet.getLong("id")).
-                        setUuid(UUID.fromString(resultSet.getString("uuid"))).
-                        setTitulo(resultSet.getString("titulo")).
-                        setDescricao(resultSet.getString("descricao")).
-                        setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
-                        setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime())
-                );
-            }
-            return Optional.empty();
-        });
-    }
-
-    @Override
     public void update(Pauta pauta) {
         String sql = """
                 UPDATE pauta

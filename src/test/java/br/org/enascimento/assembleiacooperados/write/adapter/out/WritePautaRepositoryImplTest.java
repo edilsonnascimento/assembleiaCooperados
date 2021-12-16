@@ -1,5 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
+import br.org.enascimento.assembleiacooperados.red.adapter.out.ReadPautaRepositoryImpl;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WritePautaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
@@ -21,16 +22,18 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class WritePautaRepositoryImplTest extends DataSourceHelper {
 
-    private WritePautaRepositoryImpl repository;
+    private WritePautaRepositoryImpl repositoryWrite;
+    private ReadPautaRepositoryImpl repositoryRead;
 
     @BeforeEach
     void setup() {
-        repository = new WritePautaRepositoryImpl(dataSource);
+        repositoryWrite = new WritePautaRepositoryImpl(dataSource);
+        repositoryRead = new ReadPautaRepositoryImpl(dataSource);
     }
 
     @Test
     void MUST_ImplementInterface(){
-        assertThat(repository).isInstanceOf(WritePautaRepository.class);
+        assertThat(repositoryWrite).isInstanceOf(WritePautaRepository.class);
     }
 
     @ParameterizedTest
@@ -45,10 +48,10 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
                 .setDescricao(descricao);
 
         //when
-        repository.create(expected);
+        repositoryWrite.create(expected);
 
         //then
-        var createdPauta = repository.findByUuid(uuid);
+        var createdPauta = repositoryRead.findByUuid(uuid);
         var actual = createdPauta.get();
         assertThat(actual.getUuid()).isEqualTo(expected.getUuid());
         assertThat(actual.getTitulo()).isEqualTo(expected.getTitulo());
@@ -60,8 +63,8 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
     @Test
     void WHEN_UpdatingPauta_WITH_ValidData_MUST_SaveOnDatabase() {
         // given
-        var id = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
-        var actualPauta = repository.findByUuid(id).get();
+        var uuid = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
+        var actualPauta = repositoryRead.findByUuid(uuid).get();
         assertThat(actualPauta.getTitulo()).isEqualTo("PRIMEIRO-TITULO");
         assertThat(actualPauta.getDescricao()).isEqualTo("PRIMEIRA-DESCICAO");
 
@@ -70,11 +73,11 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
         actualPauta.setTitulo(titulo).setDescricao(descricao);
 
         // when
-        repository.update(actualPauta);
+        repositoryWrite.update(actualPauta);
 
         // then
-        var expectedPauta = repository.findByUuid(id).get();
-        assertThat(expectedPauta.getUuid()).isEqualTo(id);
+        var expectedPauta = repositoryRead.findByUuid(uuid).get();
+        assertThat(expectedPauta.getUuid()).isEqualTo(uuid);
         assertThat(expectedPauta.getTitulo()).isEqualTo(titulo);
         assertThat(expectedPauta.getDescricao()).isEqualTo(descricao);
         assertThat(expectedPauta.getCreatedAt()).isBeforeOrEqualTo(LocalDateTime.now());
@@ -94,7 +97,7 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
 
 
         //when
-        var exception = assertThrows(DuplicatedDataException.class, () -> repository.create(expected));
+        var exception = assertThrows(DuplicatedDataException.class, () -> repositoryWrite.create(expected));
 
         //then
         assertThat(exception.getMessage()).isEqualTo("Invalid duplicated data");

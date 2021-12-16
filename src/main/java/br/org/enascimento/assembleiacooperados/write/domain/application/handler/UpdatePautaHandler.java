@@ -1,5 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application.handler;
 
+import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdatePautaCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WritePautaRepository;
@@ -15,15 +16,17 @@ import static br.org.enascimento.assembleiacooperados.write.domain.exception.Dom
 @Service
 public class UpdatePautaHandler implements Handler<UpdatePautaCommand> {
 
-    private final WritePautaRepository repository;
+    private final WritePautaRepository repositoryWrite;
+    private final ReadPautaRepository repositoryRead;
 
-    public UpdatePautaHandler(WritePautaRepository repository) {
-        this.repository = repository;
+    public UpdatePautaHandler(WritePautaRepository repositoryWrite, ReadPautaRepository repositoryRead) {
+        this.repositoryWrite = repositoryWrite;
+        this.repositoryRead = repositoryRead;
     }
 
     @Override
     public void handle(UpdatePautaCommand command) {
-        repository.update(commandAccurate(command));
+        repositoryWrite.update(commandAccurate(command));
     }
 
     private Pauta commandAccurate(UpdatePautaCommand command) {
@@ -31,7 +34,7 @@ public class UpdatePautaHandler implements Handler<UpdatePautaCommand> {
         if (command.titulo() == null && command.descricao() == null)
             throw new PautaUpdateInvalidException(PAUTA_NOT_UPDATE);
 
-        var pautaOptional = repository.findByUuid(command.uuid());
+        var pautaOptional = repositoryRead.findByUuid(command.uuid());
 
         if (!pautaOptional.isPresent())
             throw new PautaNotExistentException(PAUTA_NOT_EXIST);

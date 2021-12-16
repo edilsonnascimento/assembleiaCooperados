@@ -38,7 +38,7 @@ public class ReadPautaRepositoryImplTest extends DataSourceHelper {
 
         //then
         assertThat(actual).extracting(PautaInDto::uuid)
-                .containsExactly(fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20"),
+                .contains(fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20"),
                                  fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db"));
     }
  }

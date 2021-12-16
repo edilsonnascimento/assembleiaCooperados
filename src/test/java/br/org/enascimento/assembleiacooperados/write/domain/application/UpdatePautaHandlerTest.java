@@ -1,5 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application;
 
+import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdatePautaCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.application.handler.UpdatePautaHandler;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
@@ -20,12 +21,14 @@ import static org.mockito.Mockito.*;
 @Tag("unit")
 public class UpdatePautaHandlerTest extends TestHelper {
 
-    private final WritePautaRepository repository;
+    private final WritePautaRepository repositoryWrite;
+    private final ReadPautaRepository repositoryRead;
     private final UpdatePautaHandler handler;
 
     public UpdatePautaHandlerTest() {
-        repository = mock(WritePautaRepository.class);
-        handler = new UpdatePautaHandler(repository);
+        repositoryWrite = mock(WritePautaRepository.class);
+        repositoryRead = mock(ReadPautaRepository.class);
+        handler = new UpdatePautaHandler(repositoryWrite, repositoryRead);
     }
 
     @Test
@@ -40,7 +43,7 @@ public class UpdatePautaHandlerTest extends TestHelper {
                 assertThrows(PautaUpdateInvalidException.class, ()-> handler.handle(command));
 
         //then
-        verify(repository, never()).findByUuid(uuid);
+        verify(repositoryRead, never()).findByUuid(uuid);
         assertThat(exceptionExpected.getMessage()).isEqualTo("Pauta not update");
     }
 
@@ -52,13 +55,13 @@ public class UpdatePautaHandlerTest extends TestHelper {
         var descricao = faker.lorem().characters();
         var uuid = UUID.randomUUID();
         var command = new UpdatePautaCommand(uuid, titulo, descricao);
-        when(repository.findByUuid(any())).thenReturn(Optional.empty());
+        when(repositoryRead.findByUuid(any())).thenReturn(Optional.empty());
         // when
         var exceptionExpected =
                 assertThrows(PautaNotExistentException.class, ()-> handler.handle(command));
 
         // then
-        verify(repository).findByUuid(uuid);
+        verify(repositoryRead).findByUuid(uuid);
         assertThat(exceptionExpected.getMessage()).isEqualTo("Pauta not exist");
     }
 
@@ -74,14 +77,14 @@ public class UpdatePautaHandlerTest extends TestHelper {
                 .setUuid(uuid)
                 .setTitulo("TITULO-ATUAL")
                 .setDescricao("DESCRICAO-ATUAL");
-        when(repository.findByUuid(uuid)).thenReturn(Optional.of(pautaMock));
+        when(repositoryRead.findByUuid(uuid)).thenReturn(Optional.of(pautaMock));
 
         // when
         handler.handle(command);
 
         // then
-        verify(repository).findByUuid(uuid);
-        verify(repository).update(pautaMock);
+        verify(repositoryRead).findByUuid(uuid);
+        verify(repositoryWrite).update(pautaMock);
         assertThat(pautaMock.getTitulo()).isEqualTo(titulo);
         assertThat(pautaMock.getDescricao()).isEqualTo("DESCRICAO-ATUAL");
     }
@@ -98,14 +101,14 @@ public class UpdatePautaHandlerTest extends TestHelper {
                 .setUuid(uuid)
                 .setTitulo("TITULO-ATUAL")
                 .setDescricao("DESCRICAO-ATUAL");
-        when(repository.findByUuid(uuid)).thenReturn(Optional.of(pautaMock));
+        when(repositoryRead.findByUuid(uuid)).thenReturn(Optional.of(pautaMock));
 
         // when
         handler.handle(command);
 
         // then
-        verify(repository).findByUuid(uuid);
-        verify(repository).update(pautaMock);
+        verify(repositoryRead).findByUuid(uuid);
+        verify(repositoryWrite).update(pautaMock);
         assertThat(pautaMock.getTitulo()).isEqualTo("TITULO-ATUAL");
         assertThat(pautaMock.getDescricao()).isEqualTo(descricao);
     }
@@ -123,14 +126,14 @@ public class UpdatePautaHandlerTest extends TestHelper {
                 .setUuid(uuid)
                 .setTitulo("TITULO-ATUAL")
                 .setDescricao("DESCRICAO-ATUAL");
-        when(repository.findByUuid(uuid)).thenReturn(Optional.of(pautaMock));
+        when(repositoryRead.findByUuid(uuid)).thenReturn(Optional.of(pautaMock));
 
         // when
         handler.handle(command);
 
         // then
-        verify(repository).findByUuid(uuid);
-        verify(repository).update(pautaMock);
+        verify(repositoryRead).findByUuid(uuid);
+        verify(repositoryWrite).update(pautaMock);
         assertThat(pautaMock.getTitulo()).isEqualTo(titulo);
         assertThat(pautaMock.getDescricao()).isEqualTo(descricao);
     }
