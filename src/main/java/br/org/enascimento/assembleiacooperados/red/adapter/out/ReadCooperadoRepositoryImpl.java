@@ -61,5 +61,32 @@ public class ReadCooperadoRepositoryImpl implements ReadCooperadoRepository {
             return Optional.empty();
         });
     }
+
+    @Override
+    public Optional<Cooperado> findByUuidOrCpf(UUID uuid, String cpf) {
+        var sql = """
+                SELECT id, uuid, nome, cpf, created_at, updated_at
+                FROM cooperado
+                WHERE uuid = :uuid OR cpf = :cpf""";
+
+        var parameters = new MapSqlParameterSource()
+                .addValue("uuid", uuid)
+                .addValue("cpf", cpf);
+
+        return jdbcTemplate.query(sql, parameters, resultSet -> {
+            if (resultSet.next()) {
+                return Optional.of(new Cooperado().
+                        setId(resultSet.getLong("id")).
+                        setUuid(UUID.fromString(resultSet.getString("uuid"))).
+                        setNome(resultSet.getString("nome")).
+                        setCpf(resultSet.getString("cpf")).
+                        setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
+                        setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime())
+                );
+            }
+            return Optional.empty();
+        });
+    }
+
 }
 

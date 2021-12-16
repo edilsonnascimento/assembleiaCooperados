@@ -12,4 +12,6 @@ public interface ReadCooperadoRepository {
     List<CooperadoInDto> findAll();
 
     Optional<Cooperado> findByUuid(UUID uuid);
+
+    Optional<Cooperado> findByUuidOrCpf(UUID uuid, String cpf);
 }

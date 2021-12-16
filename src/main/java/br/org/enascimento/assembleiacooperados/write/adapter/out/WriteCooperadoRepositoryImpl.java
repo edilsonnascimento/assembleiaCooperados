@@ -1,5 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
+import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteCooperadoRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
@@ -22,9 +23,11 @@ public class WriteCooperadoRepositoryImpl implements WriteCooperadoRepository {
     private static final String UUID_FIELD = "uuid";
 
     private NamedParameterJdbcTemplate jdbcTemplate;
+    private ReadCooperadoRepository repositoryRead;
 
-    public WriteCooperadoRepositoryImpl(DataSource dataSource) {
+    public WriteCooperadoRepositoryImpl(DataSource dataSource, ReadCooperadoRepository repositoryRead) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+        this.repositoryRead = repositoryRead;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class WriteCooperadoRepositoryImpl implements WriteCooperadoRepository {
         } catch (DuplicateKeyException exception) {
 
             DuplicatedDataException duplicatedDataException = new DuplicatedDataException(INVALID_DUPLICATE_DATA, exception);
-            var existentCooperado = findByUuidOrCpf(cooperado.getUuid(), cooperado.getCpf()).get();
+            var existentCooperado = repositoryRead.findByUuidOrCpf(cooperado.getUuid(), cooperado.getCpf()).get();
 
             if (existentCooperado.getCpf().equals(cooperado.getCpf())) {
                 duplicatedDataException.addErrors("cpf", cooperado.getCpf());
@@ -57,33 +60,6 @@ public class WriteCooperadoRepositoryImpl implements WriteCooperadoRepository {
 
             throw duplicatedDataException;
         }
-    }
-
-
-    @Override
-    public Optional<Cooperado> findByUuidOrCpf(UUID uuid, String cpf) {
-        var sql = """
-                SELECT id, uuid, nome, cpf, created_at, updated_at
-                FROM cooperado
-                WHERE uuid = :uuid OR cpf = :cpf""";
-
-        var parameters = new MapSqlParameterSource()
-                .addValue("uuid", uuid)
-                .addValue("cpf", cpf);
-
-        return jdbcTemplate.query(sql, parameters, resultSet -> {
-            if (resultSet.next()) {
-                return Optional.of(new Cooperado().
-                        setId(resultSet.getLong("id")).
-                        setUuid(UUID.fromString(resultSet.getString("uuid"))).
-                        setNome(resultSet.getString("nome")).
-                        setCpf(resultSet.getString("cpf")).
-                        setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
-                        setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime())
-                );
-            }
-            return Optional.empty();
-        });
     }
 
     @Override

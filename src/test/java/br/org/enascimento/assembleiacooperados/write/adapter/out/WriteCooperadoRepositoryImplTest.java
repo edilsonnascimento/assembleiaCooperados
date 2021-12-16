@@ -1,5 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
+import br.org.enascimento.assembleiacooperados.red.adapter.out.ReadCooperadoRepositoryImpl;
+import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteCooperadoRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
@@ -23,11 +25,13 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
 
-    private WriteCooperadoRepository repository;
+    private WriteCooperadoRepository repositoryWrite;
+    private ReadCooperadoRepository repositoryRead;
 
     @BeforeEach
     void setup() {
-        repository = new WriteCooperadoRepositoryImpl(dataSource);
+        repositoryRead = new ReadCooperadoRepositoryImpl(dataSource);
+        repositoryWrite = new WriteCooperadoRepositoryImpl(dataSource, repositoryRead);
     }
 
     @Test
@@ -43,10 +47,10 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
                 .setCpf(cpf);
 
         //when
-        repository.create(expected);
+        repositoryWrite.create(expected);
 
         //then
-        var createdCooperado = repository.findByUuidOrCpf(uuid, null);
+        var createdCooperado = repositoryRead.findByUuidOrCpf(uuid, null);
         var actual = createdCooperado.get();
         assertThat(isMesmaData(actual.getCreatedAt(), otherDate));
         assertThat(isMesmaData(actual.getCreatedAt(), otherDate));
@@ -65,7 +69,7 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
                 .setCpf(cpf);
 
         //when
-        var exception = assertThrows(DuplicatedDataException.class, () -> repository.create(expected));
+        var exception = assertThrows(DuplicatedDataException.class, () -> repositoryWrite.create(expected));
 
         //then
         assertThat(exception.getMessage()).isEqualTo("Invalid duplicated data");
@@ -78,7 +82,7 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
         var uuid = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
         var nomeActual = "NOME-EXISTENTE-1";
         var cpfActual = "74656849359";
-        var actualCooperado = repository.findByUuidOrCpf(uuid, cpfActual).get();
+        var actualCooperado = repositoryRead.findByUuidOrCpf(uuid, cpfActual).get();
         assertThat(actualCooperado.getUuid().equals(uuid));
         assertThat(actualCooperado.getNome().equals(nomeActual));
         assertThat(actualCooperado.getCpf().equals(cpfActual));
@@ -91,10 +95,10 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
                 .setNome(nomeExpected);
 
         //when
-        repository.update(cooperado);
+        repositoryWrite.update(cooperado);
 
         //then
-        var expectedCooperado = repository.findByUuidOrCpf(uuid, null).get();
+        var expectedCooperado = repositoryRead.findByUuidOrCpf(uuid, null).get();
         assertThat(expectedCooperado.getNome()).isEqualTo(nomeExpected);
         assertThat(expectedCooperado.getCpf()).isEqualTo(cpfExpected);
 
