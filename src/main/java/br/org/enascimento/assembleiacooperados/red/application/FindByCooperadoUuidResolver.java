@@ -18,6 +18,7 @@ public class FindByCooperadoUuidResolver implements Resolver<FindByCooperadoUuid
 
     @Override
     public void resolve(FindByCooperadoUuidQuery query) {
+
         var resultOptional = repository.findByUuid(query.getUuid());
 
         if(!resultOptional.isPresent())
