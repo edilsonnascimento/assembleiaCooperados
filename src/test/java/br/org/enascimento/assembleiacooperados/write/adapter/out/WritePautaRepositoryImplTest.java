@@ -27,8 +27,8 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
 
     @BeforeEach
     void setup() {
-        repositoryWrite = new WritePautaRepositoryImpl(dataSource);
         repositoryRead = new ReadPautaRepositoryImpl(dataSource);
+        repositoryWrite = new WritePautaRepositoryImpl(dataSource, repositoryRead);
     }
 
     @Test

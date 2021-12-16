@@ -10,4 +10,5 @@ import java.util.UUID;
 public interface ReadPautaRepository {
     List<PautaInDto> findAll();
     Optional<Pauta> findByUuid(UUID uuid);
+    Optional<Pauta> findByUuidOrTitulo(UUID uuid, String titulo);
 }

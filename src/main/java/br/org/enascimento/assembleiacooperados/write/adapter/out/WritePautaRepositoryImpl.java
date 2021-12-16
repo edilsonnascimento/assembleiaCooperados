@@ -1,5 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
+import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WritePautaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
@@ -24,9 +25,11 @@ public class WritePautaRepositoryImpl implements WritePautaRepository {
     private static final String UUID_FIELD = "uuid";
 
     private NamedParameterJdbcTemplate jdbcTemplate;
+    private ReadPautaRepository repositoryRead;
 
-    public WritePautaRepositoryImpl(DataSource dataSource) {
+    public WritePautaRepositoryImpl(DataSource dataSource, ReadPautaRepository repositoryRead) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+        this.repositoryRead = repositoryRead;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class WritePautaRepositoryImpl implements WritePautaRepository {
         } catch (DuplicateKeyException exception) {
 
             var duplicatedDataException = new DuplicatedDataException(INVALID_DUPLICATE_DATA, exception);
-            var existentPauta = findByUuidOrTitulo(pauta.getUuid(), pauta.getTitulo()).get();
+            var existentPauta = repositoryRead.findByUuidOrTitulo(pauta.getUuid(), pauta.getTitulo()).get();
 
             if(existentPauta.getTitulo().equals(pauta.getTitulo())) {
                 duplicatedDataException.addErrors("titulo", pauta.getTitulo());
@@ -59,31 +62,6 @@ public class WritePautaRepositoryImpl implements WritePautaRepository {
         }
     }
 
-    @Override
-    public Optional<Pauta> findByUuidOrTitulo(UUID uuid, String titulo) {
-        var sql = """
-                SELECT id, uuid, titulo, descricao, created_at, updated_at
-                FROM pauta
-                WHERE uuid = :uuid OR titulo = :titulo """;
-
-        var parameters = new MapSqlParameterSource()
-                .addValue("uuid", uuid)
-                .addValue("titulo", titulo);
-
-        return jdbcTemplate.query(sql, parameters, resultSet -> {
-            if (resultSet.next()) {
-                return Optional.of(new Pauta().
-                        setId(resultSet.getLong("id")).
-                        setUuid(UUID.fromString(resultSet.getString("uuid"))).
-                        setTitulo(resultSet.getString("titulo")).
-                        setDescricao(resultSet.getString("descricao")).
-                        setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
-                        setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime())
-                );
-            }
-            return Optional.empty();
-        });
-    }
 
     @Override
     public void update(Pauta pauta) {

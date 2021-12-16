@@ -58,4 +58,31 @@ public class ReadPautaRepositoryImpl implements ReadPautaRepository {
         });
     }
 
+    @Override
+    public Optional<Pauta> findByUuidOrTitulo(UUID uuid, String titulo) {
+        var sql = """
+                SELECT id, uuid, titulo, descricao, created_at, updated_at
+                FROM pauta
+                WHERE uuid = :uuid OR titulo = :titulo """;
+
+        var parameters = new MapSqlParameterSource()
+                .addValue("uuid", uuid)
+                .addValue("titulo", titulo);
+
+        return jdbcTemplate.query(sql, parameters, resultSet -> {
+            if (resultSet.next()) {
+                return Optional.of(new Pauta().
+                        setId(resultSet.getLong("id")).
+                        setUuid(UUID.fromString(resultSet.getString("uuid"))).
+                        setTitulo(resultSet.getString("titulo")).
+                        setDescricao(resultSet.getString("descricao")).
+                        setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
+                        setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime())
+                );
+            }
+            return Optional.empty();
+        });
+    }
+
+
 }
