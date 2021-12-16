@@ -1,4 +1,4 @@
-package br.org.enascimento.assembleiacooperados.red.application;
+package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 
 import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.CooperadoInDto;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.ListAllCooperadosQuery;

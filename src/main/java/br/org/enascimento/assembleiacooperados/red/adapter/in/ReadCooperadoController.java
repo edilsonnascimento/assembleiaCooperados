@@ -2,7 +2,7 @@ package br.org.enascimento.assembleiacooperados.red.adapter.in;
 
 import br.org.enascimento.assembleiacooperados.common.ServiceBus;
 import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.CooperadoInDto;
-import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindByCooperadoUuidQuery;
+import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindCooperadoByUuidQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.ListAllCooperadosQuery;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.CooperadoDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class ReadCooperadoController {
 
     @GetMapping("/{uuid}")
     public ResponseEntity<CooperadoDto> findUuid(@PathVariable UUID uuid) {
-        var query = new FindByCooperadoUuidQuery();
+        var query = new FindCooperadoByUuidQuery();
         query.setUuid(uuid);
         serviceBus.execute(query);
         return ResponseEntity.ok(query.getResult());
