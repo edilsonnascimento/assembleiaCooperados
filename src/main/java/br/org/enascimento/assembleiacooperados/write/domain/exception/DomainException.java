@@ -12,7 +12,8 @@ public abstract class DomainException extends RuntimeException{
         PAUTA_NOT_EXIST("Pauta not exist", 1001),
         PAUTA_NOT_UPDATE("Pauta not update", 1002),
         COOPERADO_NOT_UPDATE("Cooperado not update", 1003),
-        COOPERADO_NOT_EXIST("Cooperado not exist", 1004);
+        COOPERADO_NOT_EXIST("Cooperado not exist", 1004),
+        STATUS_NOT_EXIST("Status not exist", 1005);
 
         private String message;
         private int code;
