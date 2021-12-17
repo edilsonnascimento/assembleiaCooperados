@@ -1,5 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.domain.exception;
 
+import br.org.enascimento.assembleiacooperados.red.domain.exception.PautaNotExistentException;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

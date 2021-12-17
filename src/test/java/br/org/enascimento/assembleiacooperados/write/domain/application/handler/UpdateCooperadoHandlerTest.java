@@ -2,10 +2,9 @@ package br.org.enascimento.assembleiacooperados.write.domain.application.handler
 
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdateCooperadoCommand;
-import br.org.enascimento.assembleiacooperados.write.domain.application.handler.UpdateCooperadoHandler;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteCooperadoRepository;
-import br.org.enascimento.assembleiacooperados.write.domain.exception.CooperadoNotExistentException;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.CooperadoNotExistentException;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.CooperadoUpdateInvalidException;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;

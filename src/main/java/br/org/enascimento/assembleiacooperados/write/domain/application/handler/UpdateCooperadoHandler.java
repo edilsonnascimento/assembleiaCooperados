@@ -4,7 +4,7 @@ import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepo
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdateCooperadoCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteCooperadoRepository;
-import br.org.enascimento.assembleiacooperados.write.domain.exception.CooperadoNotExistentException;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.CooperadoNotExistentException;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.CooperadoUpdateInvalidException;
 import org.springframework.stereotype.Service;
 

@@ -4,7 +4,7 @@ import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.PautaInDto;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindPautaByUuidQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
-import br.org.enascimento.assembleiacooperados.write.domain.exception.PautaNotExistentException;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.PautaNotExistentException;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

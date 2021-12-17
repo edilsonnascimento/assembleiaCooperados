@@ -2,10 +2,9 @@ package br.org.enascimento.assembleiacooperados.write.domain.application.handler
 
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdatePautaCommand;
-import br.org.enascimento.assembleiacooperados.write.domain.application.handler.UpdatePautaHandler;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WritePautaRepository;
-import br.org.enascimento.assembleiacooperados.write.domain.exception.PautaNotExistentException;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.PautaNotExistentException;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.PautaUpdateInvalidException;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;

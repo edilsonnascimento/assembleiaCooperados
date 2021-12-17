@@ -4,7 +4,7 @@ import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaReposito
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdatePautaCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WritePautaRepository;
-import br.org.enascimento.assembleiacooperados.write.domain.exception.PautaNotExistentException;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.PautaNotExistentException;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.PautaUpdateInvalidException;
 import org.springframework.stereotype.Service;
 

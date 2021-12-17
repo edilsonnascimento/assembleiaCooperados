@@ -98,7 +98,7 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
         repositoryWrite.update(cooperado);
 
         //then
-        var expectedCooperado = repositoryRead.findByUuidOrCpf(uuid, null).get();
+        var expectedCooperado = repositoryRead.findByUuid(uuid).get();
         assertThat(expectedCooperado.getNome()).isEqualTo(nomeExpected);
         assertThat(expectedCooperado.getCpf()).isEqualTo(cpfExpected);
 
