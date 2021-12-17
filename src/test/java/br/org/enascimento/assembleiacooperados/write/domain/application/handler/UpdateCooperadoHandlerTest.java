@@ -1,4 +1,4 @@
-package br.org.enascimento.assembleiacooperados.write.domain.application;
+package br.org.enascimento.assembleiacooperados.write.domain.application.handler;
 
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdateCooperadoCommand;

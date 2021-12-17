@@ -1,4 +1,4 @@
-package br.org.enascimento.assembleiacooperados.write.domain.application;
+package br.org.enascimento.assembleiacooperados.write.domain.application.commad;
 
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateCooperadoCommand;
 import helper.TestHelper;
