@@ -5,3 +5,5 @@ MERGE INTO pauta(id, uuid, titulo, descricao, created_at, updated_at) VALUES
 MERGE INTO cooperado(id, uuid, nome, cpf, created_at, updated_at) VALUES
     (1, '1e73cdb3-0923-4452-a190-3c7eb7857e20', 'NOME-EXISTENTE-1', '74656849359', '2021-12-08 05:53:00.901884', '2021-12-08 05:53:00.901884'),
     (2, '3731c747-ea27-42e5-a52b-1dfbfa9617db', 'NOME-EXISTENTE-2', '38176004707', '2021-12-08 05:54:00.901884', '2021-12-08 05:54:00.901884');
+
+MERGE INTO status(id, descricao) VALUES (1, 'Ativo');
