@@ -33,7 +33,7 @@ class CreatePautaIT extends IntegrationHelper {
                             """.formatted(uuid, titulo, descricao);
         //when
         mockMvc
-                .perform(post(URI_PATH, uuid)
+                .perform(post(URI_PATH)
                         .contentType(APPLICATION_JSON)
                         .content(payload))
                 .andExpect(status().isCreated())

@@ -15,3 +15,10 @@ CREATE TABLE IF NOT EXISTS cooperado (
      created_at TIMESTAMP NOT NULL DEFAULT NOW(),
      updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS status (
+     id SERIAL PRIMARY KEY,
+     descricao VARCHAR(50) NOT NULL,
+     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+     updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
