@@ -1,13 +1,12 @@
-package br.org.enascimento.assembleiacooperados.write.domain.application.commad;
+package br.org.enascimento.assembleiacooperados.write.domain.application.command;
 
-import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreatePautaCommand;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Tag("unit")
 public class CreatePautaCommandTest extends TestHelper {
