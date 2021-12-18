@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.UUID;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
@@ -40,7 +41,7 @@ public class ListAllCooperadosResolverTest extends TestHelper {
         var resultExpected = query.getResult();
 
         //then
-        Assertions.assertThat(actual).containsExactlyInAnyOrderElementsOf(resultExpected);
+        assertThat(actual).containsExactlyInAnyOrderElementsOf(resultExpected);
         verify(repository, times(1)).findAll();
     }
 }

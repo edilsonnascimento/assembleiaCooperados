@@ -1,6 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.domain.core;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Status {
 
@@ -43,5 +44,28 @@ public class Status {
     public Status setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Status status = (Status) o;
+        return id.equals(status.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Status{" +
+                "id=" + id +
+                ", descricao='" + descricao + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }
