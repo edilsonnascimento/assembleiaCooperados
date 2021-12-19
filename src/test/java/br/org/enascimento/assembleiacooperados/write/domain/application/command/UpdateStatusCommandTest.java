@@ -10,11 +10,12 @@ import org.junit.jupiter.api.Test;
 public class UpdateStatusCommandTest extends TestHelper {
 
     @Test
-    void dummy(){
+    void GIVEN_ValidData_Must_RetrieveSameDate(){
         //given
-        var statusInDto = new StatusInDto(1l, "NOVO ESTADO");
+        var statusInDto = new StatusInDto("NOVO STATU");
+        var id = 1l;
         //when
-        var command = new UpdateStatusCommand(statusInDto.id(), statusInDto.descricao());
+        var command = new UpdateStatusCommand(id, statusInDto.descricao());
 
         //then
         Assertions.assertThat(command.descricao()).isEqualTo(statusInDto.descricao());

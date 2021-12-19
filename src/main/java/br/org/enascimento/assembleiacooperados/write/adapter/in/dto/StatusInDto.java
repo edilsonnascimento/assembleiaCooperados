@@ -5,8 +5,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public record StatusInDto(
-        @NotNull
-        Long id,
         @NotNull @NotBlank @NotEmpty
-        String descricao) {
+        String descricao){
 }

@@ -15,8 +15,12 @@ public class UpdateStatusIT extends IntegrationHelper {
     void GIVEN_ValidDataUpdateStatus_MUST_ReturnSucess() throws Exception {
         //given
         var id = 1l;
-        var descricao = "NOVO STATUS";
-        var payload = "{\"descricao\": \"%s\"}".formatted(descricao);
+        var valor = "NOVO STATUS";
+        var payload = """
+                        {
+                            "%s": "%s"
+                        }
+                     """.formatted("descricao", valor);
 
         //when
         mockMvc
@@ -24,5 +28,23 @@ public class UpdateStatusIT extends IntegrationHelper {
                         .content(payload)
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void GIVEN_InvalidBodyNull_MUST_ReturMesageError() throws Exception {
+        var id = 1l;
+        String valor = null;
+        var payload = """
+                        {
+                            "%s": %s
+                        }
+                     """.formatted("descricao", valor);
+
+        //when
+        mockMvc
+                .perform(put(PATH_URI_ID, id)
+                        .content(payload)
+                        .contentType(APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
     }
 }
