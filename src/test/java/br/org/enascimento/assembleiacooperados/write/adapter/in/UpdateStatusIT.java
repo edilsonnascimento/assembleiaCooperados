@@ -47,4 +47,22 @@ public class UpdateStatusIT extends IntegrationHelper {
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    void GIVEN_InvalidStatus_MUST_ReturMesageError() throws Exception {
+        var id = 100000l;
+        var valor = "NOVO STATUS";
+        var payload = """
+                        {
+                            "%s": "%s"
+                        }
+                     """.formatted("descricao", valor);
+
+        //when
+        mockMvc
+                .perform(put(PATH_URI_ID, id)
+                        .content(payload)
+                        .contentType(APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
 }

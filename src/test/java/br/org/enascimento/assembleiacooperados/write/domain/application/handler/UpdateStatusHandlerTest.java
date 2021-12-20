@@ -1,20 +1,19 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application.handler;
 
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadStatusRepository;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.StatusNotExistedExcepetion;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdateStatusCommand;
-import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Status;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteStatusRepositoy;
 import helper.TestHelper;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
@@ -50,5 +49,21 @@ public class UpdateStatusHandlerTest extends TestHelper {
         var expected = captor.getValue();
         assertThat(expected.getId()).isEqualTo(status.getId());
         assertThat(expected.getDescricao()).isEqualTo(command.descricao());
+    }
+
+    @Test
+    void Given_InValidCommand_Must_ReturnException(){
+        //given
+        var command = new UpdateStatusCommand(1l, "NOVO STATUS");
+        when(repositoyRead.findById(command.id())).thenReturn(Optional.empty());
+
+        //when
+        var expection = assertThrows(StatusNotExistedExcepetion.class, ()->
+            handler.handle(command));
+
+
+        //then
+        verify(repositoyRead, timeout(1)).findById(command.id());
+        verify(repositoy, never()).update(any());
     }
 }

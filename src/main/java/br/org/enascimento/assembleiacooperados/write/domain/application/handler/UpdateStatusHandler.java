@@ -1,9 +1,12 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application.handler;
 
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadStatusRepository;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.StatusNotExistedExcepetion;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdateStatusCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteStatusRepositoy;
 import org.springframework.stereotype.Service;
+
+import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.STATUS_NOT_EXIST;
 
 @Service
 public class UpdateStatusHandler implements Handler<UpdateStatusCommand>{
@@ -18,7 +21,13 @@ public class UpdateStatusHandler implements Handler<UpdateStatusCommand>{
 
     @Override
     public void handle(UpdateStatusCommand command) {
-        var status = repositoyRead.findById(command.id()).get();
+
+        var statusOptional = repositoyRead.findById(command.id());
+
+        if(!statusOptional.isPresent())
+            throw new StatusNotExistedExcepetion(STATUS_NOT_EXIST);
+
+        var status = statusOptional.get();
         status.setDescricao(command.descricao());
         repositoy.update(status);
     }
