@@ -2,7 +2,9 @@ package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.write.domain.core.Sessao;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteSessaoRepository;
+import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
 import helper.DataSourceHelper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,11 +26,11 @@ public class WriteSessaoRepositoryImplTest extends DataSourceHelper {
     }
 
     @Test
-    void WHEN_CreatingStatus_GIVEN_ValidData_MUST_PersistOnDatabase(){
+    void WHEN_CreatingStatus_GIVEN_ValidData_MUST_PersistOnDatabase() {
         //given
         var uuid = UUID.randomUUID();
-        var idPauta = 1l;
-        var idQuorum = 1l;
+        var idPauta = 2l;
+        Long idQuorum = null;
         var idStatus = 1l;
         var inicioSessao = LocalDateTime.now();
         var fimSessao = LocalDateTime.now().minusMinutes(5l);
@@ -49,4 +51,33 @@ public class WriteSessaoRepositoryImplTest extends DataSourceHelper {
         //then
         assertThat(expected).isTrue();
     }
+
+    @Test
+    void Given_InvalidEntityDuplicate_Must_ThrowException() {
+        //given
+        var uuid = UUID.randomUUID();
+        var idPauta = 1l;
+        var idQuorum = 1l;
+        var idStatus = 1l;
+        var inicioSessao = LocalDateTime.now();
+        var fimSessao = LocalDateTime.now().minusMinutes(5l);
+        var totalVotosFavor = new BigDecimal(TEN);
+        var totalVotosContra = new BigDecimal(TWO);
+        var sessao = new Sessao()
+                .setUuid(uuid)
+                .setIdPauta(idPauta)
+                .setIdQuorum(idQuorum)
+                .setIdStatus(idStatus)
+                .setInicioSessao(inicioSessao)
+                .setFimSessao(fimSessao)
+                .setTotalVotosContra(totalVotosContra)
+                .setTotalVotosFavor(totalVotosFavor);
+        //when
+        var exception = Assertions.assertThrows(DuplicatedDataException.class, () ->
+                repositoryWrite.create(sessao));
+
+        //then
+        assertThat(exception.getMessage()).isEqualTo("Invalid duplicated data");
+    }
+
 }

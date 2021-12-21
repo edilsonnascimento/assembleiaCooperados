@@ -9,3 +9,6 @@ MERGE INTO cooperado(id, uuid, nome, cpf, created_at, updated_at) VALUES
 MERGE INTO status(id, descricao, created_at, updated_at) VALUES
     (1, 'ABERTA', '2021-12-08 05:53:00.901884', '2021-12-08 05:53:00.901884'),
     (2, 'ENCERRADA', '2021-12-08 05:54:00.901884', '2021-12-08 05:54:00.901884');
+
+MERGE INTO sessao( id, uuid, id_pauta, id_quorum, inicio_sessao, fim_sessao, total_votos_favor, total_votos_contra, created_at, updated_at, id_status) VALUES
+    (1, '91459bb4-07e9-47ab-85c5-4af513db36a3', 1, null, '2021-12-21 08:54:06.058491', '2021-12-21 08:59:06.058491', 0, 0, '2021-12-21 08:54:06.059382', '2021-12-21 08:54:06.059382', 1);

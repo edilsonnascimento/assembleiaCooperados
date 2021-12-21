@@ -27,14 +27,14 @@ CREATE TABLE IF NOT EXISTS sessao (
     id BIGSERIAL PRIMARY KEY,
     uuid UUID UNIQUE NOT NULL,
     id_pauta BIGSERIAL UNIQUE,
-    id_quorum NUMERIC,
+    id_quorum BIGINT,
     inicio_sessao TIMESTAMP NOT NULL,
     fim_sessao TIMESTAMP NOT NULL,
     total_votos_favor INT,
     total_votos_contra INT,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    id_status BIGSERIAL UNIQUE,
+    id_status BIGSERIAL,
     FOREIGN KEY (id_pauta) REFERENCES pauta(id),
     FOREIGN KEY (id_status) REFERENCES status(id)
 );

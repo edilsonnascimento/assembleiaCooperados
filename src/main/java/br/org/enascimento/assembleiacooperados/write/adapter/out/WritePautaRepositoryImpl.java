@@ -12,8 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.INVALID_DUPLICATE_DATA;
 

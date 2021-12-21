@@ -5,10 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 public class CreateSessaoIT extends IntegrationHelper {
 
@@ -16,6 +18,27 @@ public class CreateSessaoIT extends IntegrationHelper {
 
     @Test
     void GIVEN_ValidPayload_MUST_ReturnCreated() throws Exception {
+        //given
+        var uuid = UUID.randomUUID();
+        var uuidPauta = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
+        var payload =
+                """
+                   {
+                       "%s" : "%s",
+                       "%s" : "%s"
+                   }
+                """.formatted("uuid", uuid,"uuidPauta", uuidPauta);
+        //when
+        mockMvc
+                .perform(post(URI_PATH)
+                        .contentType(APPLICATION_JSON)
+                        .content(payload))
+                .andExpect(status().isCreated())
+                .andExpect(header().string("Location", "v1/sessao/" + uuid));
+    }
+
+    @Test
+    void GIVEN_InValidPayloadDuplicate_MUST_ReturnBadRequest() throws Exception {
         //given
         var uuid = UUID.randomUUID();
         var uuidPauta = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
@@ -31,9 +54,9 @@ public class CreateSessaoIT extends IntegrationHelper {
                 .perform(post(URI_PATH)
                         .contentType(APPLICATION_JSON)
                         .content(payload))
-                .andExpect(status().isCreated())
-                .andExpect(header().string("Location", "v1/sessao/" + uuid));
-
-
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message", is("Invalid duplicated data")))
+                .andExpect(jsonPath("$.errors[*].field", containsInAnyOrder("code")))
+                .andExpect(jsonPath("$.errors[*].detail", containsInAnyOrder("1000")));
     }
 }
