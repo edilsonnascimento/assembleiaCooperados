@@ -35,7 +35,7 @@ public class WritePautaRepositoryImpl implements WritePautaRepository {
     @Override
     public void create(Pauta pauta) {
         try {
-            String sql = """
+            var sql = """
                     INSERT INTO pauta(uuid, titulo, descricao)
                     values (:uuid, :titulo, :descricao)""";
 
