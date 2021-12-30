@@ -11,13 +11,14 @@ public class Sessao {
     private Long id;
     private UUID uuid;
     private Long idPauta;
-    private Long idQuorum;
+    private Long idUrna;
     private LocalDateTime inicioSessao;
     private LocalDateTime fimSessao;
     private BigDecimal totalVotosFavor;
     private BigDecimal totalVotosContra;
     private Long idStatus;
-
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public Sessao() {
         this.inicioSessao = LocalDateTime.now();
@@ -81,6 +82,15 @@ public class Sessao {
         return this;
     }
 
+    public Long getIdUrna() {
+        return idUrna;
+    }
+
+    public Sessao setIdUrna(Long idUrna) {
+        this.idUrna = idUrna;
+        return this;
+    }
+
     public BigDecimal getTotalVotosContra() {
         return totalVotosContra;
     }
@@ -99,12 +109,22 @@ public class Sessao {
         return this;
     }
 
-    public Long getIdQuorum() {
-        return idQuorum;
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public Sessao setIdQuorum(Long idQuorum) {
-        this.idQuorum = idQuorum;
+    public Sessao setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public Sessao setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
         return this;
     }
 }

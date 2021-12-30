@@ -40,7 +40,7 @@ public class CreateSessaoIT extends IntegrationHelper {
     @Test
     void GIVEN_InValidPayloadDuplicate_MUST_ReturnBadRequest() throws Exception {
         //given
-        var uuid = UUID.randomUUID();
+        var uuid = UUID.fromString("91459bb4-07e9-47ab-85c5-4af513db36a3");
         var uuidPauta = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
         var payload =
                 """

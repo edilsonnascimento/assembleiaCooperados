@@ -26,7 +26,8 @@ public class ReadCooperadoRepositoryImplTest extends DataSourceHelper {
         //given
         List<CooperadoInDto> expected = List.of(
                 new CooperadoInDto(UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20"), "NOME-EXISTENTE-1", "74656849359"),
-                new CooperadoInDto(UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db"), "NOME-EXISTENTE-2", "38176004707"));
+                new CooperadoInDto(UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db"), "NOME-EXISTENTE-2", "38176004707"),
+                new CooperadoInDto(UUID.fromString("9fd33037-09ad-4027-9ad7-6d2b83f2a5b4"), "NOME-EXISTENTE-3", "75277742662"));
         //when
         List<CooperadoInDto> actual = repository.findAll();
 
