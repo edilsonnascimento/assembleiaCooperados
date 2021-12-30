@@ -30,7 +30,7 @@ public class WriteSessaoRepositoryImplTest extends DataSourceHelper {
         //given
         var uuid = UUID.randomUUID();
         var idPauta = 2l;
-        Long idQuorum = null;
+        Long idUrna = null;
         var idStatus = 1l;
         var inicioSessao = LocalDateTime.now();
         var fimSessao = LocalDateTime.now().minusMinutes(5l);
@@ -39,7 +39,7 @@ public class WriteSessaoRepositoryImplTest extends DataSourceHelper {
         var sessao = new Sessao()
                 .setUuid(uuid)
                 .setIdPauta(idPauta)
-                .setIdQuorum(idQuorum)
+                .setIdUrna(idUrna)
                 .setIdStatus(idStatus)
                 .setInicioSessao(inicioSessao)
                 .setFimSessao(fimSessao)
@@ -55,23 +55,17 @@ public class WriteSessaoRepositoryImplTest extends DataSourceHelper {
     @Test
     void Given_InvalidEntityDuplicate_Must_ThrowException() {
         //given
-        var uuid = UUID.randomUUID();
-        var idPauta = 1l;
-        var idQuorum = 1l;
-        var idStatus = 1l;
-        var inicioSessao = LocalDateTime.now();
-        var fimSessao = LocalDateTime.now().minusMinutes(5l);
-        var totalVotosFavor = new BigDecimal(TEN);
-        var totalVotosContra = new BigDecimal(TWO);
-        var sessao = new Sessao()
-                .setUuid(uuid)
-                .setIdPauta(idPauta)
-                .setIdQuorum(idQuorum)
-                .setIdStatus(idStatus)
-                .setInicioSessao(inicioSessao)
-                .setFimSessao(fimSessao)
-                .setTotalVotosContra(totalVotosContra)
-                .setTotalVotosFavor(totalVotosFavor);
+        var sessao = new Sessao();
+        sessao
+                .setUuid(UUID.fromString("91459bb4-07e9-47ab-85c5-4af513db36a3"))
+                .setIdPauta(faker.number().randomNumber())
+                .setIdUrna(faker.number().randomNumber())
+                .setInicioSessao(LocalDateTime.now())
+                .setFimSessao(LocalDateTime.now())
+                .setTotalVotosFavor(BigDecimal.ZERO)
+                .setTotalVotosContra(BigDecimal.ZERO)
+                .setIdStatus(faker.number().randomNumber());
+
         //when
         var exception = Assertions.assertThrows(DuplicatedDataException.class, () ->
                 repositoryWrite.create(sessao));
