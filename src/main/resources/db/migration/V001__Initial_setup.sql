@@ -45,7 +45,6 @@ CREATE TABLE IF NOT EXISTS urna (
     id_sessao BIGSERIAL,
     id_cooperado BIGSERIAL NOT NULL,
     voto VARCHAR NULL,
-    data_voto TIMESTAMP NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
     FOREIGN KEY (id_sessao) REFERENCES sessao(id),

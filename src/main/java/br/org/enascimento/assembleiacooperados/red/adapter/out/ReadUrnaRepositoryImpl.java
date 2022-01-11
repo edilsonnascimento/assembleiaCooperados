@@ -56,7 +56,7 @@ public class ReadUrnaRepositoryImpl implements ReadUrnaRepository {
                       ses.uuid AS uuid_sessao,
                       cop.uuid AS uuid_cooperado,
                       urn.voto,
-                      urn.data_voto
+                      urn.created_at AS data_voto
                FROM urna AS urn
                         JOIN cooperado AS cop ON cop.id = urn.id_cooperado
                         JOIN sessao AS ses ON ses.id = urn.id_sessao

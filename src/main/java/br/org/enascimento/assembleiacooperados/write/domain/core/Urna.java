@@ -14,44 +14,39 @@ public class Urna extends EntityDomain{
         return id;
     }
 
-    public Urna setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
-        return this;
     }
 
     public UUID getUuid() {
         return uuid;
     }
 
-    public Urna setUuid(UUID uuid) {
+    public void setUuid(UUID uuid) {
         this.uuid = uuid;
-        return this;
     }
 
     public Long getIdSessao() {
         return idSessao;
     }
 
-    public Urna setIdSessao(Long idSessao) {
+    public void setIdSessao(Long idSessao) {
         this.idSessao = idSessao;
-        return this;
     }
 
     public Long getIdCoopereado() {
         return idCoopereado;
     }
 
-    public Urna setIdCoopereado(Long idCoopereado) {
+    public void setIdCoopereado(Long idCoopereado) {
         this.idCoopereado = idCoopereado;
-        return this;
     }
 
     public Voto getVoto() {
         return voto;
     }
 
-    public Urna setVoto(Voto voto) {
+    public void setVoto(Voto voto) {
         this.voto = voto;
-        return this;
     }
 }
