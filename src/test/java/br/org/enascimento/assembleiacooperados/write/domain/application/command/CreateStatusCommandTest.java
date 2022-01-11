@@ -1,6 +1,5 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application.command;
 
-import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateStatusCommand;
 import helper.TestHelper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Tag;

@@ -19,7 +19,6 @@ public class ReadStatusRepositoryImpl implements ReadStatusRepository {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
-
     @Override
     public Optional<Status> findById(Long id) {
         var sql = """

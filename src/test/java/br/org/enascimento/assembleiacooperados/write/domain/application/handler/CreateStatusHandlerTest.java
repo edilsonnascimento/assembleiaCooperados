@@ -21,14 +21,14 @@ public class CreateStatusHandlerTest extends TestHelper {
         var descricao = faker.lorem().characters(50);
         var command = new CreateStatusCommand(descricao);
         var repository = mock(WriteStatusRepositoryImpl.class);
+        var handler = new CreateStatusHandler(repository);
 
         // when
-        var handler = new CreateStatusHandler(repository);
         handler.handle(command);
 
         //then
         verify(repository).create(captor.capture());
-        var expcted = captor.getValue();
-        assertThat(descricao).isEqualTo(expcted.getDescricao());
+        var expected = captor.getValue();
+        assertThat(descricao).isEqualTo(expected.getDescricao());
     }
 }
