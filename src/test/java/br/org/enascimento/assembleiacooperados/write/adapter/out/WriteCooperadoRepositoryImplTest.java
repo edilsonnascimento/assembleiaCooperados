@@ -81,7 +81,7 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
         //given
         var uuid = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
         var nomeActual = "NOME-EXISTENTE-1";
-        var cpfActual = "74656849359";
+        var cpfActual = "55595585080";
         var actualCooperado = repositoryRead.findByUuidOrCpf(uuid, cpfActual).get();
         assertThat(actualCooperado.getUuid().equals(uuid));
         assertThat(actualCooperado.getNome().equals(nomeActual));
@@ -106,7 +106,7 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
     private static Stream<Arguments> inValidDataProvider() {
 
         UUID existenteUuid = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
-        String existenteCpf = "74656849359";
+        String existenteCpf = "55595585080";
 
         return Stream.of(
                 arguments(existenteUuid, faker.name().fullName(), "45777302190", Map.of("uuid", existenteUuid)),

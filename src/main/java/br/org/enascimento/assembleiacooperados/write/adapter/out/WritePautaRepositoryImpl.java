@@ -79,10 +79,4 @@ public class WritePautaRepositoryImpl implements WritePautaRepository {
 
         jdbcTemplate.update(sql, parameters);
     }
-
-    public List<Pauta> findAll() {
-        var sql = "SELECT * FROM pauta";
-        return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Pauta.class));
-    }
-
 }

@@ -4,6 +4,7 @@ import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaReposito
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.SessaoInDto;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateSessaoCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
+import br.org.enascimento.assembleiacooperados.write.domain.core.Status;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteSessaoRepository;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
@@ -38,6 +39,8 @@ public class CreateSessaoHandlerTest extends TestHelper {
                 .setTitulo("PRIMEIRO-TITULO")
                 .setDescricao("PRIMEIRA-DESCICAO");
         when(repositoryRead.findByUuid(any())).thenReturn(Optional.of(pauta));
+        var status = new Status().setId(1l);
+        when(repository.findStatus(anyLong())).thenReturn(Optional.of(status));
 
         //when
         handler.handle(command);

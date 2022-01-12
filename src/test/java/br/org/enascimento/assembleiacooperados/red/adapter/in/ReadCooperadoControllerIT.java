@@ -23,7 +23,7 @@ class ReadCooperadoControllerIT extends IntegrationHelper {
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$[*].uuid", containsInRelativeOrder("1e73cdb3-0923-4452-a190-3c7eb7857e20", "3731c747-ea27-42e5-a52b-1dfbfa9617db")))
                 .andExpect(jsonPath("$[*].nome", containsInRelativeOrder("NOME-EXISTENTE-1", "NOME-EXISTENTE-2")))
-                .andExpect(jsonPath("$[*].cpf", containsInRelativeOrder("74656849359", "38176004707")));
+                .andExpect(jsonPath("$[*].cpf", containsInRelativeOrder("55595585080", "77002548000")));
     }
 
     @Test
@@ -35,7 +35,7 @@ class ReadCooperadoControllerIT extends IntegrationHelper {
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(exists(uuid))
                 .andExpect(exists("NOME-EXISTENTE-1"))
-                .andExpect(exists("74656849359"));
+                .andExpect(exists("55595585080"));
     }
 
     @Test
