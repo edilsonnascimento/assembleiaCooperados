@@ -14,7 +14,8 @@ public abstract class DomainException extends RuntimeException{
         COOPERADO_NOT_UPDATE("Cooperado not update", 1003),
         COOPERADO_NOT_EXIST("Cooperado not exist", 1004),
         STATUS_NOT_EXIST("Status not exist", 1005),
-        SESSAO_NOT_EXIST("Sessao not exist", 1006);
+        SESSAO_NOT_EXIST("Sessao not exist", 1006),
+        URNA_NOT_EXIST("Urna not exist", 1007);
 
         private String message;
         private int code;

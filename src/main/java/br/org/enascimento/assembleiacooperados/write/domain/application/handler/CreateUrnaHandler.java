@@ -3,7 +3,10 @@ package br.org.enascimento.assembleiacooperados.write.domain.application.handler
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.UrnaIntoDto;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateUrnaCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteUrnaRepository;
+import br.org.enascimento.assembleiacooperados.write.domain.exception.UrnaNotExistedExcepetion;
 import org.springframework.stereotype.Service;
+
+import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.URNA_NOT_EXIST;
 
 @Service
 public class CreateUrnaHandler implements Handler<CreateUrnaCommand>{
@@ -20,7 +23,9 @@ public class CreateUrnaHandler implements Handler<CreateUrnaCommand>{
                                            command.uuidSessao(),
                                            command.uuidCooperado(),
                                            command.voto());
-        var dto = repository.retrieveUrnaDto(dtoParametro).get();
+        var optionalUrnaInDto = repository.retrieveUrnaDto(dtoParametro);
+        if(optionalUrnaInDto.isEmpty()) throw new UrnaNotExistedExcepetion(URNA_NOT_EXIST);
+        var dto = optionalUrnaInDto.get();
         repository.create(dto);
     }
 }
