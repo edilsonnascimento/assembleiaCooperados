@@ -2,7 +2,7 @@ package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.ListAllStatusQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadStatusRepository;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.StatusDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.StatusDto;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;

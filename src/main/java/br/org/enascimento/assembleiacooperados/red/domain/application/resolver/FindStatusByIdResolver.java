@@ -3,7 +3,7 @@ package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindStatusByIdQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadStatusRepository;
 import br.org.enascimento.assembleiacooperados.red.domain.exception.StatusNotExistedExcepetion;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.StatusDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.StatusDto;
 import org.springframework.stereotype.Service;
 
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.STATUS_NOT_EXIST;

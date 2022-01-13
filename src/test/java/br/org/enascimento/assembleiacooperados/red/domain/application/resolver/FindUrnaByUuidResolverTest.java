@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.UrnaOutDto;
+import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.UrnaOutDto;
 import br.org.enascimento.assembleiacooperados.red.adapter.out.ReadUrnaRepositoryImpl;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindUrnaByUuidQuery;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;

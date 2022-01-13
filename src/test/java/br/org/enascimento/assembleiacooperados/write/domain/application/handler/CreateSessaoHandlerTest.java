@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application.handler;
 
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.SessaoInDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.SessaoInDto;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateSessaoCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Status;

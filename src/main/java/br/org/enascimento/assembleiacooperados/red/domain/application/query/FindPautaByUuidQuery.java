@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.red.domain.application.query;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.PautaInDto;
+import br.org.enascimento.assembleiacooperados.red.adapter.in.dtos.PautaInDto;
 
 import java.util.UUID;
 

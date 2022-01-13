@@ -1,6 +1,6 @@
-package br.org.enascimento.assembleiacooperados.write.adapter.in;
+package br.org.enascimento.assembleiacooperados.write.adapter.in.controllers;
 
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.SessaoInDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.SessaoInDto;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateSessaoCommand;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

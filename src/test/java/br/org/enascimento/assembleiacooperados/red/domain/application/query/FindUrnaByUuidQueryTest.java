@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.red.domain.application.query;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.UrnaOutDto;
+import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.UrnaOutDto;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;

@@ -1,4 +1,4 @@
-package br.org.enascimento.assembleiacooperados.red.adapter.in.dto;
+package br.org.enascimento.assembleiacooperados.red.adapter.out.dtos;
 
 import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 

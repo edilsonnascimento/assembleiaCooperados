@@ -1,4 +1,4 @@
-package br.org.enascimento.assembleiacooperados.write.adapter.in;
+package br.org.enascimento.assembleiacooperados.write.adapter.in.controllers;
 
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException;
 import org.slf4j.Logger;

@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application.handler;
 
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.UrnaIntoDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.UrnaIntoDto;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateUrnaCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteUrnaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.UrnaNotExistedExcepetion;

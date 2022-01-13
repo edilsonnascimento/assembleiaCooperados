@@ -1,8 +1,7 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.out;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.UrnaOutDto;
+import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.UrnaOutDto;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadUrnaRepository;
-import br.org.enascimento.assembleiacooperados.write.domain.core.Sessao;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Urna;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -10,7 +9,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 

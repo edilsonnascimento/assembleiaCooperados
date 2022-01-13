@@ -1,7 +1,7 @@
-package br.org.enascimento.assembleiacooperados.write.adapter.in;
+package br.org.enascimento.assembleiacooperados.write.adapter.in.controllers;
 
 import br.org.enascimento.assembleiacooperados.common.ServiceBus;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.PautaDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.PautaDto;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreatePautaCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdatePautaCommand;
 import org.springframework.beans.factory.annotation.Autowired;

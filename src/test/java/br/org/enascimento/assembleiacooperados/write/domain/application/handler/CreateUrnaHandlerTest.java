@@ -1,23 +1,18 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application.handler;
 
-import br.org.enascimento.assembleiacooperados.red.domain.exception.SessaoNotExistedExcepetion;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.UrnaInDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.UrnaInDto;
 import br.org.enascimento.assembleiacooperados.write.adapter.out.WriteUrnaRepositoryImpl;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateUrnaCommand;
-import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.UrnaNotExistedExcepetion;
 import helper.TestHelper;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
 
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;

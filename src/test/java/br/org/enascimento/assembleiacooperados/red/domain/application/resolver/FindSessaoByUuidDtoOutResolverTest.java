@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.SessaoOutDto;
+import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.SessaoOutDto;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindSessaoByUuidDtoOutQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadSessaoRepository;
 import helper.TestHelper;

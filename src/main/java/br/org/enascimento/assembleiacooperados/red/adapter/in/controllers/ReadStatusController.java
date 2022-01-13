@@ -1,9 +1,9 @@
-package br.org.enascimento.assembleiacooperados.red.adapter.in;
+package br.org.enascimento.assembleiacooperados.red.adapter.in.controllers;
 
 import br.org.enascimento.assembleiacooperados.common.ServiceBus;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindStatusByIdQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.ListAllStatusQuery;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.StatusDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.StatusDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

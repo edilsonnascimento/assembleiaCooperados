@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.red.domain.application.query;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.SessaoOutDto;
+import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.SessaoOutDto;
 
 import java.util.UUID;
 

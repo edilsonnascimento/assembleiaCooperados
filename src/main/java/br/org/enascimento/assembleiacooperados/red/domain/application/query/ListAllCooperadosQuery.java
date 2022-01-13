@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.red.domain.application.query;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.CooperadoInDto;
+import br.org.enascimento.assembleiacooperados.red.adapter.in.dtos.CooperadoInDto;
 
 import java.util.List;
 

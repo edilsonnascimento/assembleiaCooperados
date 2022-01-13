@@ -1,11 +1,9 @@
 package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.CooperadoInDto;
+import br.org.enascimento.assembleiacooperados.red.adapter.in.dtos.CooperadoInDto;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.ListAllCooperadosQuery;
-import br.org.enascimento.assembleiacooperados.red.domain.application.resolver.ListAllCooperadosResolver;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
 import helper.TestHelper;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.in;
 
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.UrnaIntoDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.UrnaIntoDto;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 import helper.IntegrationHelper;
 import org.junit.jupiter.api.Test;

@@ -3,7 +3,7 @@ package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindCooperadoByUuidQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
 import br.org.enascimento.assembleiacooperados.red.domain.exception.CooperadoNotExistentException;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.CooperadoDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.CooperadoDto;
 import org.springframework.stereotype.Service;
 
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.COOPERADO_NOT_EXIST;

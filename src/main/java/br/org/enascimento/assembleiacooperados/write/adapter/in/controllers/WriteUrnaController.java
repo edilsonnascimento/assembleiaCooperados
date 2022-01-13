@@ -1,9 +1,6 @@
-package br.org.enascimento.assembleiacooperados.write.adapter.in;
+package br.org.enascimento.assembleiacooperados.write.adapter.in.controllers;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.UrnaOutDto;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.UrnaInDto;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.UrnaIntoDto;
-import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateStatusCommand;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.UrnaIntoDto;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateUrnaCommand;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

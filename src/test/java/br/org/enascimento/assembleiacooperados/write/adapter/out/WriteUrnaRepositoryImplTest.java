@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.UrnaInDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.UrnaInDto;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteUrnaRepository;
 import helper.DataSourceHelper;

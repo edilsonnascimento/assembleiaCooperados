@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application.command;
 
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.SessaoInDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.SessaoInDto;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

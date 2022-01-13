@@ -1,4 +1,4 @@
-package br.org.enascimento.assembleiacooperados.write.adapter.in.dto;
+package br.org.enascimento.assembleiacooperados.write.adapter.in.dtos;
 
 import java.util.UUID;
 

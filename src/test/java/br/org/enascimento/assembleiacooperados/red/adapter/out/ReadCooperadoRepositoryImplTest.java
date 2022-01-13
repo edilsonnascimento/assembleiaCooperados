@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.out;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.CooperadoInDto;
+import br.org.enascimento.assembleiacooperados.red.adapter.in.dtos.CooperadoInDto;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
 import helper.DataSourceHelper;
 import org.junit.jupiter.api.BeforeEach;

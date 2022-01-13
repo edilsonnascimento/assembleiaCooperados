@@ -1,7 +1,6 @@
 package br.org.enascimento.assembleiacooperados.red.domain.core;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.CooperadoInDto;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.CooperadoDto;
+import br.org.enascimento.assembleiacooperados.red.adapter.in.dtos.CooperadoInDto;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
 
 import java.util.List;

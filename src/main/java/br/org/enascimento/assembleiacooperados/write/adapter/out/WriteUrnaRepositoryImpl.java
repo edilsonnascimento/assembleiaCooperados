@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.UrnaInDto;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.UrnaIntoDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.UrnaInDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.UrnaIntoDto;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteUrnaRepository;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

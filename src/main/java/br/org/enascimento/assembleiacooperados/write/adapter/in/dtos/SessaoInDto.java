@@ -1,4 +1,4 @@
-package br.org.enascimento.assembleiacooperados.write.adapter.in.dto;
+package br.org.enascimento.assembleiacooperados.write.adapter.in.dtos;
 
 import javax.validation.constraints.NotNull;
 import java.util.UUID;

@@ -1,8 +1,8 @@
-package br.org.enascimento.assembleiacooperados.write.adapter.in;
+package br.org.enascimento.assembleiacooperados.write.adapter.in.controllers;
 
 import br.org.enascimento.assembleiacooperados.common.ServiceBus;
-import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.CooperadoInDto;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.CooperadoDto;
+import br.org.enascimento.assembleiacooperados.red.adapter.in.dtos.CooperadoInDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.CooperadoDto;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateCooperadoCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdateCooperadoCommand;
 import org.springframework.beans.factory.annotation.Autowired;

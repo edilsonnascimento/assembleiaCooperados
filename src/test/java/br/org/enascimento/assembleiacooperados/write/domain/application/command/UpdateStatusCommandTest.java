@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application.command;
 
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.StatusInDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.StatusInDto;
 import helper.TestHelper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Tag;

@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.out;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.PautaInDto;
+import br.org.enascimento.assembleiacooperados.red.adapter.in.dtos.PautaInDto;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;

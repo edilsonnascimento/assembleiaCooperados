@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.red.domain.application.query;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.SessaoOutDto;
+import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.SessaoOutDto;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

@@ -2,7 +2,7 @@ package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.ListAllStatusQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadStatusRepository;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.StatusDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.StatusDto;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Status;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;

@@ -1,7 +1,7 @@
-package br.org.enascimento.assembleiacooperados.red.adapter.in;
+package br.org.enascimento.assembleiacooperados.red.adapter.in.controllers;
 
 import br.org.enascimento.assembleiacooperados.common.ServiceBus;
-import br.org.enascimento.assembleiacooperados.red.adapter.in.dto.PautaInDto;
+import br.org.enascimento.assembleiacooperados.red.adapter.in.dtos.PautaInDto;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindPautaByUuidQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.ListAllPautasQuery;
 import org.springframework.beans.factory.annotation.Autowired;

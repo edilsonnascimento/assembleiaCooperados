@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.red.domain.application.query;
 
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dto.StatusDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.StatusDto;
 
 public class FindStatusByIdQuery implements Query{
 
