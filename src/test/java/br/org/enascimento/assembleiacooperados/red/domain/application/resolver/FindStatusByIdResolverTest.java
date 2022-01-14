@@ -2,7 +2,7 @@ package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindStatusByIdQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadStatusRepository;
-import br.org.enascimento.assembleiacooperados.red.domain.exception.StatusNotExistedExcepetion;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.StatusNotExistedException;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Status;
 import helper.TestHelper;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -50,7 +49,7 @@ public class FindStatusByIdResolverTest extends TestHelper {
         when(repository.findById(anyLong())).thenReturn(Optional.empty());
 
         //when
-        var exeption = Assertions.assertThrows(StatusNotExistedExcepetion.class, () ->
+        var exeption = Assertions.assertThrows(StatusNotExistedException.class, () ->
                 resolver.resolve(query));
 
         //then

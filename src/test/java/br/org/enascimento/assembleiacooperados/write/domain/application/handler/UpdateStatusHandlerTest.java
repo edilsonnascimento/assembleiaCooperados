@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application.handler;
 
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadStatusRepository;
-import br.org.enascimento.assembleiacooperados.red.domain.exception.StatusNotExistedExcepetion;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.StatusNotExistedException;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdateStatusCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Status;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteStatusRepositoy;
@@ -58,7 +58,7 @@ public class UpdateStatusHandlerTest extends TestHelper {
         when(repositoyRead.findById(command.id())).thenReturn(Optional.empty());
 
         //when
-        var expection = assertThrows(StatusNotExistedExcepetion.class, ()->
+        var expection = assertThrows(StatusNotExistedException.class, ()->
             handler.handle(command));
 
 

@@ -1,11 +1,10 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application.handler;
 
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
-import br.org.enascimento.assembleiacooperados.red.domain.exception.StatusNotExistedExcepetion;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.StatusNotExistedException;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateSessaoCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Sessao;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteSessaoRepository;
-import br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException;
 import org.springframework.stereotype.Service;
 
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.STATUS_NOT_EXIST;
@@ -26,7 +25,7 @@ public class CreateSessaoHandler implements Handler<CreateSessaoCommand>{
         var idPauta = repositoryRead.findByUuid(command.dto().uuidPauta()).get().getId();
         var statusOptinal = repository.findStatus(1l);
         if(statusOptinal.isEmpty())
-            throw new StatusNotExistedExcepetion(STATUS_NOT_EXIST);
+            throw new StatusNotExistedException(STATUS_NOT_EXIST);
 
         var sessao = new Sessao()
                 .setUuid(command.dto().uuid())

@@ -2,7 +2,7 @@ package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindStatusByIdQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadStatusRepository;
-import br.org.enascimento.assembleiacooperados.red.domain.exception.StatusNotExistedExcepetion;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.StatusNotExistedException;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.StatusDto;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class FindStatusByIdResolver implements Resolver<FindStatusByIdQuery>{
         var statusOptional = repository.findById(query.getId());
 
         if(!statusOptional.isPresent())
-            throw new StatusNotExistedExcepetion(STATUS_NOT_EXIST);
+            throw new StatusNotExistedException(STATUS_NOT_EXIST);
 
         var status = statusOptional.get();
         var statusDto = new StatusDto(status.getDescricao());
