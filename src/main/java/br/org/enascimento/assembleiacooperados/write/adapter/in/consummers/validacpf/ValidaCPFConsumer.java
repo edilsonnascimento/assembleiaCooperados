@@ -1,6 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.in.consummers.validacpf;
 
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.StatusCPF;
+import br.org.enascimento.assembleiacooperados.write.domain.exception.ValidaCPFException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -9,17 +10,17 @@ import reactor.core.publisher.Mono;
 
 import javax.validation.ValidationException;
 
+import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.CPF_INAVALID;
+
 @Service
-public class ValidaCPFConsumer {
+public class ValidaCPFConsumer{
 
     @Autowired
     private WebClient webClientCpf;
 
     public boolean isAbleToVote(String cpf) throws ValidationException {
-        var mensagemErro = "";
-
         try {
-            StatusCPF retorno = this.webClientCpf
+            var statusCPF = this.webClientCpf
                     .get()
                     .uri("users/{cpf}", cpf)
                     .retrieve()
@@ -29,15 +30,13 @@ public class ValidaCPFConsumer {
                                 error -> Mono.error(new RuntimeException("Server is not responding")))
                     .bodyToMono(StatusCPF.class)
                     .block();
-            return retorno.status().equals("ABLE_TO_VOTE");
+            return isAbilitadoVotar(statusCPF);
         }catch (RuntimeException exception){
-            throw new ValidationException(exception.getMessage(), exception);
+            throw new ValidaCPFException(CPF_INAVALID);
         }
     }
 
-    record Body(String message){};
-
-
-
-
+    private boolean isAbilitadoVotar(StatusCPF retorno){
+        return retorno.status().equals("ABLE_TO_VOTE");
+    }
 }

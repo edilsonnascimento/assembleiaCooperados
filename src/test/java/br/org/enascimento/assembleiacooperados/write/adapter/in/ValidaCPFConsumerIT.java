@@ -1,14 +1,14 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.in;
 
 import br.org.enascimento.assembleiacooperados.write.adapter.in.consummers.validacpf.ValidaCPFConsumer;
+import br.org.enascimento.assembleiacooperados.write.domain.exception.ValidaCPFException;
+import helper.CPFHelper;
 import helper.IntegrationHelper;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.validation.ValidationException;
-
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -20,26 +20,14 @@ public class ValidaCPFConsumerIT extends IntegrationHelper {
     @Test
     void GIVEN_ValidDataCpf_MUST_ReturnSucess(){
         //given
-        var cpf = "04068307970";
+        var cpf = new CPFHelper().cpf();
 
         //when
         var actual = validaCPF.isAbleToVote(cpf);
 
         //then
-        Assertions.assertTrue(actual);
+        assertNotNull(actual);
 
-    }
-
-    @Test
-    void GIVEN_InValidDataCpf_MUST_ReturnMesageInable(){
-        //given
-        var cpf = "62729122699";
-
-        //when
-        var actual = validaCPF.isAbleToVote(cpf);
-
-        //then
-        Assertions.assertFalse(actual);
     }
 
     @Test
@@ -48,9 +36,9 @@ public class ValidaCPFConsumerIT extends IntegrationHelper {
         var cpf = "999999999";
 
         //when
-        var expection = assertThrows(ValidationException.class, () ->
+        var expection = assertThrows(ValidaCPFException.class, () ->
                 validaCPF.isAbleToVote(cpf));
         //then
-        assertThat(expection.getMessage()).isEqualTo("API not Found");
+        assertThat(expection.getMessage()).isEqualTo("invalid cpf for voting");
     }
 }

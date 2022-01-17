@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.in;
 
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.UrnaIntoDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.CedulaDto;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 import helper.IntegrationHelper;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ public class CreateUrnaIT extends IntegrationHelper {
     void GIVEN_ValidPayload_MUST_ReturnCreated() throws Exception {
         //given
         var uuidUrna = UUID.fromString("3b54e51d-6340-47b3-a15d-0d28e4272551");
-        var dto = new UrnaIntoDto(
+        var dto = new CedulaDto(
                 uuidUrna,
                 UUID.fromString("91459bb4-07e9-47ab-85c5-4af513db36a3"),
                 UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20"),

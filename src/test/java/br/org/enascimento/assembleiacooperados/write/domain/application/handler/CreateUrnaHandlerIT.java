@@ -6,38 +6,43 @@ import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.UrnaInDto;
 import br.org.enascimento.assembleiacooperados.write.adapter.out.WriteUrnaRepositoryImpl;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateUrnaCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
-import br.org.enascimento.assembleiacooperados.write.domain.exception.UrnaNotExistedExcepetion;
-import helper.TestHelper;
-import org.junit.jupiter.api.Tag;
+import helper.CPFHelper;
+import helper.IntegrationHelper;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-@Tag("unit")
-public class CreateUrnaHandlerTest extends TestHelper {
+public class CreateUrnaHandlerIT extends IntegrationHelper {
+
+    @MockBean
+    private ValidaCPFConsumer serverValidaCPF;
 
     @Test
-    void Given_ValidCommand_Must_DelegateToHeadler(){
+    void Given_ValidCommand_Abl_Must_DelegateToHeadler(){
 
         //given
         var captor = ArgumentCaptor.forClass(UrnaInDto.class);
         var repository = mock(WriteUrnaRepositoryImpl.class);
-        var service = mock(ValidaCPFConsumer.class);
-        var handler = new CreateUrnaHandler(repository, service);
+        var handler = new CreateUrnaHandler(repository, serverValidaCPF);
         var command = new CreateUrnaCommand(UUID.randomUUID(), UUID.randomUUID(),UUID.randomUUID(), Voto.FAVORAVEL);
         var actual = new CandidatoDto(command.uuidUrna(), 1l, 1l, command.voto());
+        actual.setCpf(new CPFHelper().cpf());
         when(repository.retrieveUrnaDto(any())).thenReturn(Optional.of(actual));
+        var dto = mock(CandidatoDto.class);
+        when(serverValidaCPF.isAbleToVote(eq(dto.getCpf()))).thenReturn(true);
 
         //when
-        handler.handle(command);
+         handler.handle(command);
 
         //then
+        verify(serverValidaCPF, timeout(1)).isAbleToVote(anyString());
         verify(repository, timeout(1)).retrieveUrnaDto(any());
         verify(repository, timeout(1)).create(captor.capture());
         var expected = captor.getValue();
@@ -45,23 +50,4 @@ public class CreateUrnaHandlerTest extends TestHelper {
         assertThat(actual.getIdCooperado()).isEqualTo(expected.getIdCooperado());
         assertThat(actual.getIdSessao()).isEqualTo(expected.getIdSessao());
     }
-
-    @Test
-    void GIVEN_InvalidCommandUrna_MUST_TrowException(){
-        //given
-        var repository = mock(WriteUrnaRepositoryImpl.class);
-        var service = mock(ValidaCPFConsumer.class);
-        var handler = new CreateUrnaHandler(repository, service);
-        var command = new CreateUrnaCommand(UUID.randomUUID(), UUID.randomUUID(),UUID.randomUUID(), Voto.FAVORAVEL);
-        when(repository.retrieveUrnaDto(any())).thenReturn(Optional.empty());
-
-        //when
-        var exceptionExpected =
-                assertThrows(UrnaNotExistedExcepetion.class, ()-> handler.handle(command));
-
-        //then
-        verify(repository, never()).create(any());
-        assertThat(exceptionExpected.getMessage()).isEqualTo("Urna not exist");
-    }
-
 }

@@ -1,7 +1,9 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.CandidatoDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.CedulaDto;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.UrnaInDto;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.UrnaIntoDto;
+import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteUrnaRepository;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -27,24 +29,28 @@ public class WriteUrnaRepositoryImpl implements WriteUrnaRepository {
                     VALUES(:uuid, :idSessao, :idCooperado, :voto)
                 """;
         var parameters = new MapSqlParameterSource()
-                .addValue("uuid", dto.uuid())
-                .addValue("idSessao", dto.idSessao())
-                .addValue("idCooperado", dto.idCooperado())
-                .addValue("voto", dto.voto().toString());
+                .addValue("uuid", dto.getUuid())
+                .addValue("idSessao", dto.getIdSessao())
+                .addValue("idCooperado", dto.getIdCooperado())
+                .addValue("voto", dto.getVoto().toString());
         
         jdbcTemplate.update(sql, parameters);
         return true;
     }
 
-    public Optional<UrnaInDto> retrieveUrnaDto(UrnaIntoDto dtoUrna){
+    public Optional<CandidatoDto> retrieveUrnaDto(CedulaDto dtoUrna){
 
-        var sqlBuscaIdCooperado = "SELECT id FROM cooperado WHERE uuid = :uuid";
+        var sqlBuscaIdCooperado = "SELECT id, cpf FROM cooperado WHERE uuid = :uuid";
         var paraCooperado = new MapSqlParameterSource()
                 .addValue("uuid", dtoUrna.uuidCooperado());
-        Long idCooperado =
+        var cooperado =
                 jdbcTemplate.query(sqlBuscaIdCooperado, paraCooperado, resultSet -> {
-                    if (resultSet.next()) return resultSet.getLong("id");
-                    return null;
+                    var retorno = new Cooperado();
+                    if (resultSet.next()) {
+                        retorno.setId(resultSet.getLong("id"));
+                        retorno.setCpf(resultSet.getString("cpf"));
+                    }
+                    return retorno;
                 });
 
         var sqlBuscaIdSessao = "SELECT id FROM sessao WHERE uuid = :uuid";
@@ -56,9 +62,11 @@ public class WriteUrnaRepositoryImpl implements WriteUrnaRepository {
                     return null;
                 });
 
-        if(idCooperado != null && idSessao != null)
-            return Optional.of(new UrnaInDto(dtoUrna.uuidUrna(),idSessao, idCooperado, dtoUrna.voto()));
-
+        if(cooperado.getId() != null && idSessao != null) {
+            var candidato =  new CandidatoDto(dtoUrna.uuidUrna(),idSessao, cooperado.getId(), dtoUrna.voto());
+            candidato.setCpf(cooperado.getCpf());
+            return Optional.of(candidato);
+        }
         return Optional.empty();
     }
 }
