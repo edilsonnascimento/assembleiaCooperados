@@ -5,10 +5,10 @@ import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 import java.util.UUID;
 
 public class UrnaInDto {
-    private final UUID uuid;
-    private final Long idSessao;
-    private final Long idCooperado;
-    private final Voto voto;
+    private UUID uuid;
+    private Long idSessao;
+    private Long idCooperado;
+    private Voto voto;
 
     public UrnaInDto(
             UUID uuid,
@@ -22,19 +22,35 @@ public class UrnaInDto {
         this.voto = voto;
     }
 
-    public UUID uuid() {
+    public UUID getUuid() {
         return uuid;
     }
 
-    public Long idSessao() {
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    public Long getIdSessao() {
         return idSessao;
     }
 
-    public Long idCooperado() {
+    public void setIdSessao(Long idSessao) {
+        this.idSessao = idSessao;
+    }
+
+    public Long getIdCooperado() {
         return idCooperado;
     }
 
-    public Voto voto() {
+    public void setIdCooperado(Long idCooperado) {
+        this.idCooperado = idCooperado;
+    }
+
+    public Voto getVoto() {
         return voto;
+    }
+
+    public void setVoto(Voto voto) {
+        this.voto = voto;
     }
 }

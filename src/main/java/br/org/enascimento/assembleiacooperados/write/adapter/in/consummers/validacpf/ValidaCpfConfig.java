@@ -38,4 +38,5 @@ public class ValidaCpfConfig{
                 .defaultHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
                 .build();
     }
+
 }
