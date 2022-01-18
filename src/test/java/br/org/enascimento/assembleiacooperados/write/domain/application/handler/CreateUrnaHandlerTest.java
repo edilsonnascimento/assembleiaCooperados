@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application.handler;
 
 import br.org.enascimento.assembleiacooperados.write.adapter.in.consummers.validacpf.ValidaCPFConsumer;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.CandidatoDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.EleitorDto;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.UrnaInDto;
 import br.org.enascimento.assembleiacooperados.write.adapter.out.WriteUrnaRepositoryImpl;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateUrnaCommand;
@@ -31,7 +31,7 @@ public class CreateUrnaHandlerTest extends TestHelper {
         var service = mock(ValidaCPFConsumer.class);
         var handler = new CreateUrnaHandler(repository, service);
         var command = new CreateUrnaCommand(UUID.randomUUID(), UUID.randomUUID(),UUID.randomUUID(), Voto.FAVORAVEL);
-        var actual = new CandidatoDto(command.uuidUrna(), 1l, 1l, command.voto());
+        var actual = new EleitorDto(command.uuidUrna(), 1l, 1l, command.voto());
         when(repository.retrieveUrnaDto(any())).thenReturn(Optional.of(actual));
 
         //when

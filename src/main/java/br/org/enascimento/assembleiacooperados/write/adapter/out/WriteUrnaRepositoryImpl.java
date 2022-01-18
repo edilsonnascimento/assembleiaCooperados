@@ -1,6 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.CandidatoDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.EleitorDto;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.CedulaDto;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.UrnaInDto;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
@@ -38,7 +38,7 @@ public class WriteUrnaRepositoryImpl implements WriteUrnaRepository {
         return true;
     }
 
-    public Optional<CandidatoDto> retrieveUrnaDto(CedulaDto dtoUrna){
+    public Optional<EleitorDto> retrieveUrnaDto(CedulaDto dtoUrna){
 
         var sqlBuscaIdCooperado = "SELECT id, cpf FROM cooperado WHERE uuid = :uuid";
         var paraCooperado = new MapSqlParameterSource()
@@ -63,7 +63,7 @@ public class WriteUrnaRepositoryImpl implements WriteUrnaRepository {
                 });
 
         if(cooperado.getId() != null && idSessao != null) {
-            var candidato =  new CandidatoDto(dtoUrna.uuidUrna(),idSessao, cooperado.getId(), dtoUrna.voto());
+            var candidato =  new EleitorDto(dtoUrna.uuidUrna(),idSessao, cooperado.getId(), dtoUrna.voto());
             candidato.setCpf(cooperado.getCpf());
             return Optional.of(candidato);
         }

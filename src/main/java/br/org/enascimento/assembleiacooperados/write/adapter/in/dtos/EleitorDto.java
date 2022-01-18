@@ -4,11 +4,11 @@ import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 
 import java.util.UUID;
 
-public class CandidatoDto extends UrnaInDto{
+public class EleitorDto extends UrnaInDto{
 
     private String cpf;
 
-    public CandidatoDto(UUID uuid, Long idSessao, Long idCooperado, Voto voto) {
+    public EleitorDto(UUID uuid, Long idSessao, Long idCooperado, Voto voto) {
         super(uuid, idSessao, idCooperado, voto);
     }
     public String getCpf() {
