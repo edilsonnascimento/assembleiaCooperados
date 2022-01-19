@@ -1,8 +1,8 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.out;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.UrnaOutDto;
+import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.CedulaOutDto;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadUrnaRepository;
-import br.org.enascimento.assembleiacooperados.write.domain.core.Urna;
+import br.org.enascimento.assembleiacooperados.write.domain.core.Cedula;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -13,19 +13,19 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public class ReadUrnaRepositoryImpl implements ReadUrnaRepository {
+public class ReadCedulaRepositoryImpl implements ReadUrnaRepository {
 
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public ReadUrnaRepositoryImpl(DataSource dataSource) {
+    public ReadCedulaRepositoryImpl(DataSource dataSource) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
     @Override
-    public Optional<Urna> findByUuid(UUID uuid) {
+    public Optional<Cedula> findByUuid(UUID uuid) {
         var sql = """
                 SELECT id, uuid, id_sessao, id_cooperado, voto, created_at, updated_at
-                FROM urna
+                FROM cedula
                 WHERE uuid = :uuid""";
 
         var parameters = new MapSqlParameterSource()
@@ -33,7 +33,7 @@ public class ReadUrnaRepositoryImpl implements ReadUrnaRepository {
 
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
-                var urna = new Urna();
+                var urna = new Cedula();
                 urna.setId(resultSet.getLong("id"));
                 urna.setUuid(UUID.fromString(resultSet.getString("uuid")));
                 urna.setIdSessao(resultSet.getLong("id_sessao"));
@@ -48,25 +48,25 @@ public class ReadUrnaRepositoryImpl implements ReadUrnaRepository {
     }
 
     @Override
-    public Optional<UrnaOutDto> findByUuidDto(UUID uuid) {
+    public Optional<CedulaOutDto> findByUuidDto(UUID uuid) {
         var sql = """
-               SELECT urn.uuid AS uuid_urna,
+               SELECT ced.uuid AS uuid_cedula,
                       ses.uuid AS uuid_sessao,
                       cop.uuid AS uuid_cooperado,
-                      urn.voto,
-                      urn.created_at AS data_voto
-               FROM urna AS urn
-                        JOIN cooperado AS cop ON cop.id = urn.id_cooperado
-                        JOIN sessao AS ses ON ses.id = urn.id_sessao
-                WHERE urn.uuid = :uuid""";
+                      ced.voto,
+                      ced.created_at AS data_voto
+               FROM cedula AS ced
+                        JOIN cooperado AS cop ON cop.id = ced.id_cooperado
+                        JOIN sessao AS ses ON ses.id = ced.id_sessao
+                WHERE ced.uuid = :uuid""";
 
         var parameters = new MapSqlParameterSource()
                 .addValue("uuid", uuid);
 
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
-                return Optional.of(new UrnaOutDto().
-                        setUuidUrna(UUID.fromString(resultSet.getString("uuid_urna"))).
+                return Optional.of(new CedulaOutDto().
+                        setUuidCedula(UUID.fromString(resultSet.getString("uuid_cedula"))).
                         setUuidSessao(UUID.fromString(resultSet.getString("uuid_sessao"))).
                         setUuidCooperado(UUID.fromString(resultSet.getString("uuid_cooperado"))).
                         setVoto(Voto.valueOf(resultSet.getString("voto"))).

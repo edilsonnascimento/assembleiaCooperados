@@ -24,7 +24,7 @@ public class ReadSessaoRepositoryImpl implements ReadSessaoRepository {
     @Override
     public Optional<Sessao> findByUuid(UUID uuid) {
         var sql = """
-                SELECT id, uuid, id_pauta, id_urna, inicio_sessao, fim_sessao, 
+                SELECT id, uuid, id_pauta, inicio_sessao, fim_sessao, 
                        total_votos_favor, total_votos_contra, created_at, updated_at, id_status
                 FROM sessao
                 WHERE uuid = :uuid""";
@@ -38,7 +38,6 @@ public class ReadSessaoRepositoryImpl implements ReadSessaoRepository {
                         setId(result.getLong("id")).
                         setUuid(UUID.fromString(result.getString("uuid"))).
                         setIdPauta(result.getLong("id_pauta")).
-                        setIdUrna(result.getLong("id_urna")==0?null:result.getLong("id_urna")).
                         setInicioSessao(result.getTimestamp("inicio_sessao").toLocalDateTime()).
                         setFimSessao(result.getTimestamp("fim_sessao").toLocalDateTime()).
                         setTotalVotosFavor(BigDecimal.valueOf(result.getInt("total_votos_favor"))).
@@ -64,9 +63,9 @@ public class ReadSessaoRepositoryImpl implements ReadSessaoRepository {
                        ses.total_votos_favor AS quantiade_votos_favoraveis,
                        ses.total_votos_contra AS quantiade_votos_contra,
                        sta.descricao AS estado_sessao,
-                       COUNT(urn.id) AS quantidade_participantes
+                       COUNT(ced.id) AS quantidade_participantes
                 FROM sessao AS ses
-                     LEFT JOIN urna AS urn ON urn.id = ses.id_urna
+                     LEFT JOIN cedula AS ced ON ced.id_sessao = ses.id
                      LEFT JOIN pauta AS pau ON pau.id = ses.id_pauta
                      LEFT JOIN status AS sta ON sta.id = ses.id_status
                 WHERE ses.uuid = :uuid

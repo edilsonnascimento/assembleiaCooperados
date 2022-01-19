@@ -4,6 +4,7 @@ import helper.IntegrationHelper;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -23,7 +24,7 @@ public class ReadSessaoControllerIT extends IntegrationHelper {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$.uuid", is("91459bb4-07e9-47ab-85c5-4af513db36a3")))
-                .andExpect(jsonPath("$.quantidadeParticipantes", is(0)))
+                .andExpect(jsonPath("$.quantidadeParticipantes", not(0)))
                 .andExpect(jsonPath("$.tituloPauta", is("PRIMEIRO-TITULO")))
                 .andExpect(jsonPath("$.descricaoPauta", is("PRIMEIRA-DESCICAO")))
                 .andExpect(jsonPath("$.dataInicioSessao", is("2021-12-21T08:54:06.058491")))

@@ -4,8 +4,8 @@ import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 
 import java.util.UUID;
 
-public record CreateUrnaCommand(
-        UUID uuidUrna,
+public record CreateCedulaCommand(
+        UUID uuidCedula,
         UUID uuidSessao,
         UUID uuidCooperado,
         Voto voto

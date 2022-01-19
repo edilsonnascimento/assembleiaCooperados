@@ -1,28 +1,28 @@
 package br.org.enascimento.assembleiacooperados.red.domain.application.query;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.UrnaOutDto;
+import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.CedulaOutDto;
 
 import java.util.UUID;
 
-public class FindUrnaByUuidQuery implements Query{
+public class FindCedulaByUuidQuery implements Query{
 
     private UUID uuid;
-    private UrnaOutDto result;
+    private CedulaOutDto result;
 
     public UUID getUuid() {
         return uuid;
     }
 
-    public FindUrnaByUuidQuery setUuid(UUID uuid) {
+    public FindCedulaByUuidQuery setUuid(UUID uuid) {
         this.uuid = uuid;
         return this;
     }
 
-    public UrnaOutDto getResult() {
+    public CedulaOutDto getResult() {
         return result;
     }
 
-    public FindUrnaByUuidQuery setResult(UrnaOutDto result) {
+    public FindCedulaByUuidQuery setResult(CedulaOutDto result) {
         this.result = result;
         return this;
     }

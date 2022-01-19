@@ -37,7 +37,6 @@ public class ReadSessaoRepositoyImplTest extends DataSourceHelper {
         //then
         assertThat(actual.getId()).isEqualTo(1);
         assertThat(actual.getIdPauta()).isEqualTo(1);
-        assertThat(actual.getIdUrna()).isNull();
         assertThat(actual.getInicioSessao().withNano(0)).isEqualTo(LocalDateTime.of(2021,12,21, 8,54, 6));
         assertThat(actual.getFimSessao().withNano(0)).isEqualTo(LocalDateTime.of(2021,12,21, 8,59, 6));
         assertThat(actual.getTotalVotosFavor()).isEqualTo(BigDecimal.ZERO);

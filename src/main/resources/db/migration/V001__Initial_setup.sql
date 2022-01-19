@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS sessao (
     id BIGSERIAL PRIMARY KEY,
     uuid UUID UNIQUE NOT NULL,
     id_pauta BIGSERIAL,
-    id_urna NUMERIC,
     inicio_sessao TIMESTAMP NOT NULL,
     fim_sessao TIMESTAMP NOT NULL,
     total_votos_favor INT,
@@ -39,7 +38,7 @@ CREATE TABLE IF NOT EXISTS sessao (
     FOREIGN KEY (id_status) REFERENCES status(id)
 );
 
-CREATE TABLE IF NOT EXISTS urna (
+CREATE TABLE IF NOT EXISTS cedula (
     id BIGSERIAL PRIMARY KEY,
     uuid UUID NOT NULL,
     id_sessao BIGSERIAL,

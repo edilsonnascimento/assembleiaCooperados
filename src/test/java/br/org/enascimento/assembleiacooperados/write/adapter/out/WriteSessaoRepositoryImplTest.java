@@ -30,7 +30,6 @@ public class WriteSessaoRepositoryImplTest extends DataSourceHelper {
         //given
         var uuid = UUID.randomUUID();
         var idPauta = 2l;
-        Long idUrna = null;
         var idStatus = 1l;
         var inicioSessao = LocalDateTime.now();
         var fimSessao = LocalDateTime.now().minusMinutes(5l);
@@ -39,7 +38,6 @@ public class WriteSessaoRepositoryImplTest extends DataSourceHelper {
         var sessao = new Sessao()
                 .setUuid(uuid)
                 .setIdPauta(idPauta)
-                .setIdUrna(idUrna)
                 .setIdStatus(idStatus)
                 .setInicioSessao(inicioSessao)
                 .setFimSessao(fimSessao)
@@ -59,7 +57,6 @@ public class WriteSessaoRepositoryImplTest extends DataSourceHelper {
         sessao
                 .setUuid(UUID.fromString("91459bb4-07e9-47ab-85c5-4af513db36a3"))
                 .setIdPauta(faker.number().randomNumber())
-                .setIdUrna(faker.number().randomNumber())
                 .setInicioSessao(LocalDateTime.now())
                 .setFimSessao(LocalDateTime.now())
                 .setTotalVotosFavor(BigDecimal.ZERO)

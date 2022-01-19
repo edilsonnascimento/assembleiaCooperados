@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadUrnaRepository;
-import br.org.enascimento.assembleiacooperados.write.domain.core.Urna;
+import br.org.enascimento.assembleiacooperados.write.domain.core.Cedula;
 import helper.DataSourceHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,22 +12,22 @@ import java.util.UUID;
 import static br.org.enascimento.assembleiacooperados.write.domain.core.Voto.FAVORAVEL;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ReadUrnaRepositoryImplTest extends DataSourceHelper {
+public class ReadCedulaRepositoryImplTest extends DataSourceHelper {
 
     private ReadUrnaRepository repository;
 
     @BeforeEach
     void setup() {
-        repository = new ReadUrnaRepositoryImpl(dataSource);
+        repository = new ReadCedulaRepositoryImpl(dataSource);
     }
 
 
     @Test
-    void WHEN_QueryFindUrnaUiid_MUST_RetrieveSuccessful(){
+    void WHEN_QueryFindCedulaUiid_MUST_RetrieveSuccessful(){
 
         //given
         var data = LocalDateTime.of(2021,12,8, 5,55, 0);
-        var actual = new Urna();
+        var actual = new Cedula();
         actual.setId(1l);
         actual.setUuid(UUID.fromString("0d28786f-8dbd-41f7-8a77-59ea8bed7d8c"));
         actual.setIdSessao(1l);
@@ -54,7 +54,7 @@ public class ReadUrnaRepositoryImplTest extends DataSourceHelper {
 
         //given
         var data = LocalDateTime.of(2021,12,8, 5,55, 0);
-        var actual = new Urna();
+        var actual = new Cedula();
         actual.setId(1l);
         actual.setUuid(UUID.fromString("0d28786f-8dbd-41f7-8a77-59ea8bed7d8c"));
         actual.setIdSessao(1l);

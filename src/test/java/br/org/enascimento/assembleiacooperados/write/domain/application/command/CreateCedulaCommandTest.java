@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Tag("unit")
-public class CreateUrnaCommandTest extends TestHelper {
+public class CreateCedulaCommandTest extends TestHelper {
 
     @Test
     void GIVEN_ValidData_Must_RetrieveSameDate() {
@@ -22,7 +22,7 @@ public class CreateUrnaCommandTest extends TestHelper {
         var voto = Voto.FAVORAVEL;
 
         //when
-        var command = new CreateUrnaCommand(
+        var command = new CreateCedulaCommand(
                 uuidUrna,
                 uuidSessao,
                 uuidCooperado,
@@ -30,7 +30,7 @@ public class CreateUrnaCommandTest extends TestHelper {
         );
 
         //then
-        assertThat(command.uuidUrna()).isEqualTo(uuidUrna);
+        assertThat(command.uuidCedula()).isEqualTo(uuidUrna);
         assertThat(command.uuidSessao()).isEqualTo(uuidSessao);
         assertThat(command.uuidCooperado()).isEqualTo(uuidCooperado);
         assertThat(command.voto()).isEqualTo(voto);
@@ -46,7 +46,7 @@ public class CreateUrnaCommandTest extends TestHelper {
         var voto = Voto.FAVORAVEL;
 
         //when
-        var command = new CreateUrnaCommand(
+        var command = new CreateCedulaCommand(
                 uuidUrna,
                 uuidSessao,
                 uuidCooperado,

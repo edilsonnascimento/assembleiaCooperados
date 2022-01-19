@@ -11,7 +11,6 @@ public class Sessao {
     private Long id;
     private UUID uuid;
     private Long idPauta;
-    private Long idUrna;
     private LocalDateTime inicioSessao;
     private LocalDateTime fimSessao;
     private BigDecimal totalVotosFavor;
@@ -79,15 +78,6 @@ public class Sessao {
 
     public Sessao setTotalVotosFavor(BigDecimal totalVotosFavor) {
         this.totalVotosFavor = totalVotosFavor;
-        return this;
-    }
-
-    public Long getIdUrna() {
-        return idUrna;
-    }
-
-    public Sessao setIdUrna(Long idUrna) {
-        this.idUrna = idUrna;
         return this;
     }
 

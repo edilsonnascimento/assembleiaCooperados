@@ -2,7 +2,7 @@ package br.org.enascimento.assembleiacooperados.write.domain.core;
 
 import java.util.UUID;
 
-public class Urna extends EntityDomain{
+public class Cedula extends EntityDomain{
 
     private Long id;
     private UUID uuid;

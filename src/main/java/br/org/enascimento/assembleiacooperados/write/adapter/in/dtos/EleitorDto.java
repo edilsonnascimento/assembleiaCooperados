@@ -4,7 +4,7 @@ import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 
 import java.util.UUID;
 
-public class EleitorDto extends UrnaInDto{
+public class EleitorDto extends CedulaInDto {
 
     private String cpf;
 

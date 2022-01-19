@@ -6,4 +6,7 @@ public class DuplicatedDataException extends DomainException{
         super(error, cause);
     }
 
+    public DuplicatedDataException(Error error) {
+        super(error);
+    }
 }

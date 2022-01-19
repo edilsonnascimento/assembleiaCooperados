@@ -32,7 +32,6 @@ public class WriteSessaoRepositoryImpl implements WriteSessaoRepository {
                       INSERT INTO sessao(
                               uuid,
                               id_pauta,
-                              id_urna,                            
                               inicio_sessao,
                               fim_sessao,
                               total_votos_favor,
@@ -41,7 +40,6 @@ public class WriteSessaoRepositoryImpl implements WriteSessaoRepository {
                       values (                      
                               :uuid,
                               :idPauta,
-                              :idUrna,
                               :inicioSessao,
                               :fimSessao,
                               :totalVotosFavor,
@@ -52,7 +50,6 @@ public class WriteSessaoRepositoryImpl implements WriteSessaoRepository {
             var parameters = new MapSqlParameterSource()
                     .addValue("uuid", sessao.getUuid())
                     .addValue("idPauta", sessao.getIdPauta())
-                    .addValue("idUrna", sessao.getIdUrna())
                     .addValue("inicioSessao", sessao.getInicioSessao())
                     .addValue("fimSessao", sessao.getFimSessao())
                     .addValue("totalVotosFavor", sessao.getTotalVotosFavor())

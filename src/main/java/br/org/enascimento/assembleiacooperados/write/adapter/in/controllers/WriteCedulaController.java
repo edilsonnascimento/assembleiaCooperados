@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.in.controllers;
 
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.CedulaDto;
-import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateUrnaCommand;
+import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateCedulaCommand;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,16 +13,16 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @RestController
-@RequestMapping("v1/urnas")
-public class WriteUrnaController extends WriteDomainController{
+@RequestMapping("/v1/cedulas/")
+public class WriteCedulaController extends WriteDomainController{
 
     @PostMapping
     public ResponseEntity<String> create(@RequestBody @Validated CedulaDto urnaDto) throws URISyntaxException {
-        serviceBus.execute(new CreateUrnaCommand(
-                                urnaDto.uuidUrna(),
+        serviceBus.execute(new CreateCedulaCommand(
+                                urnaDto.uuidCedula(),
                                 urnaDto.uuidSessao(),
                                 urnaDto.uuidCooperado(),
                                 urnaDto.voto()));
-        return ResponseEntity.created(new URI("/v1/urnas/" + urnaDto.uuidUrna())).build();
+        return ResponseEntity.created(new URI("/v1/cedulas/" + urnaDto.uuidCedula())).build();
     }
 }

@@ -4,13 +4,13 @@ import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 
 import java.util.UUID;
 
-public class UrnaInDto {
+public class CedulaInDto {
     private UUID uuid;
     private Long idSessao;
     private Long idCooperado;
     private Voto voto;
 
-    public UrnaInDto(
+    public CedulaInDto(
             UUID uuid,
             Long idSessao,
             Long idCooperado,

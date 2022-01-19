@@ -1,7 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.domain.core;
 
 import helper.TestHelper;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -12,14 +11,14 @@ import static br.org.enascimento.assembleiacooperados.write.domain.core.Voto.FAV
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("unit")
-public class UrnaTest extends TestHelper {
+public class CedulaTest extends TestHelper {
 
     @Test
     void GIVEN_ValidData_MUST_RestrieveSameData(){
         //given
         var uuid = UUID.randomUUID();
         var data = LocalDateTime.now();
-        var entity = new Urna();
+        var entity = new Cedula();
         entity.setId(1l);
         entity.setUuid(uuid);
         entity.setIdSessao(1l);

@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public record CedulaDto(
         @NotNull
-        UUID uuidUrna,
+        UUID uuidCedula,
         @NotNull
         UUID uuidSessao,
         @NotNull

@@ -20,20 +20,18 @@ public class SessaoTest extends TestHelper {
         var id = faker.number().randomNumber();
         var uuid = UUID.randomUUID();
         var idPauta = faker.number().numberBetween(0l, 100l);
-        var idUrna = faker.number().numberBetween(0l, 100);
+        var idCedula = faker.number().numberBetween(0l, 100);
 
         //when
         sessao
                 .setId(id)
                 .setUuid(uuid)
-                .setIdPauta(idPauta)
-                .setIdUrna(idUrna);
+                .setIdPauta(idPauta);
 
         //then
         assertThat(sessao.getId()).isEqualTo(id);
         assertThat(sessao.getUuid()).isEqualTo(uuid);
         assertThat(sessao.getIdPauta()).isEqualTo(idPauta);
-        assertThat(sessao.getIdUrna()).isEqualTo(idUrna);
         assertThat(sessao.getIdStatus()).isEqualTo(1l);
         assertThat(sessao.getInicioSessao()).isNotNull();
         assertThat(sessao.getFimSessao()).isAfter(sessao.getInicioSessao());

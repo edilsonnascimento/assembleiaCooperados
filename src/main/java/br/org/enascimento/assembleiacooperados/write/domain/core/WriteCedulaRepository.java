@@ -1,13 +1,13 @@
 package br.org.enascimento.assembleiacooperados.write.domain.core;
 
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.EleitorDto;
-import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.UrnaInDto;
+import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.CedulaInDto;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.CedulaDto;
 
 import java.util.Optional;
 
-public interface WriteUrnaRepository {
+public interface WriteCedulaRepository {
 
-    boolean create(UrnaInDto dto);
-    Optional<EleitorDto> retrieveUrnaDto(CedulaDto dtoUrna);
+    boolean create(CedulaInDto dto);
+    Optional<EleitorDto> retrieveCedulaDto(CedulaDto dtoUrna);
 }

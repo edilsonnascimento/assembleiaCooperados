@@ -12,16 +12,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class CreateUrnaIT extends IntegrationHelper {
+public class CreateCedulaIT extends IntegrationHelper {
 
-    private static final String URI_PATH = "/v1/urnas/";
+    private static final String URI_PATH = "/v1/cedulas/";
 
     @Test
     void GIVEN_ValidPayload_MUST_ReturnCreated() throws Exception {
         //given
-        var uuidUrna = UUID.fromString("3b54e51d-6340-47b3-a15d-0d28e4272551");
+        var uuidCedula = UUID.fromString("3b54e51d-6340-47b3-a15d-0d28e4272551");
         var dto = new CedulaDto(
-                uuidUrna,
+                uuidCedula,
                 UUID.fromString("91459bb4-07e9-47ab-85c5-4af513db36a3"),
                 UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20"),
                 Voto.FAVORAVEL);
@@ -30,12 +30,12 @@ public class CreateUrnaIT extends IntegrationHelper {
         var payload =
                 """
                     {
-                        "uuidUrna": "%s",
+                        "uuidCedula": "%s",
                         "uuidSessao": "%s",
                         "uuidCooperado": "%s",
                         "voto": "%s"
                     }
-                """.formatted(uuidUrna, dto.uuidSessao(), dto.uuidCooperado(), dto.voto().name());
+                """.formatted(uuidCedula, dto.uuidSessao(), dto.uuidCooperado(), dto.voto().name());
 
         //then
         mockMvc
@@ -43,6 +43,6 @@ public class CreateUrnaIT extends IntegrationHelper {
                         .contentType(APPLICATION_JSON)
                         .content(payload))
                 .andExpect(status().isCreated())
-                .andExpect(header().string("Location",URI_PATH + uuidUrna));
+                .andExpect(header().string("Location",URI_PATH + uuidCedula));
     }
 }

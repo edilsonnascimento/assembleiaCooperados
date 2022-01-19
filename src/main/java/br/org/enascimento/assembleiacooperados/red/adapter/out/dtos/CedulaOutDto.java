@@ -5,20 +5,20 @@ import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class UrnaOutDto{
+public class CedulaOutDto {
 
-        private UUID uuidUrna;
-        private UUID uuidSessao;
-        private UUID uuidCooperado;
-        private Voto voto;
-        private LocalDateTime dataVoto;
+    private UUID uuidCedula;
+    private UUID uuidSessao;
+    private UUID uuidCooperado;
+    private Voto voto;
+    private LocalDateTime dataVoto;
 
-    public UUID getUuidUrna() {
-        return uuidUrna;
+    public UUID getUuidCedula() {
+        return uuidCedula;
     }
 
-    public UrnaOutDto setUuidUrna(UUID uuidUrna) {
-        this.uuidUrna = uuidUrna;
+    public CedulaOutDto setUuidCedula(UUID uuidCedula) {
+        this.uuidCedula = uuidCedula;
         return this;
     }
 
@@ -26,7 +26,7 @@ public class UrnaOutDto{
         return uuidSessao;
     }
 
-    public UrnaOutDto setUuidSessao(UUID uuidSessao) {
+    public CedulaOutDto setUuidSessao(UUID uuidSessao) {
         this.uuidSessao = uuidSessao;
         return this;
     }
@@ -35,7 +35,7 @@ public class UrnaOutDto{
         return uuidCooperado;
     }
 
-    public UrnaOutDto setUuidCooperado(UUID uuidCooperado) {
+    public CedulaOutDto setUuidCooperado(UUID uuidCooperado) {
         this.uuidCooperado = uuidCooperado;
         return this;
     }
@@ -44,7 +44,7 @@ public class UrnaOutDto{
         return voto;
     }
 
-    public UrnaOutDto setVoto(Voto voto) {
+    public CedulaOutDto setVoto(Voto voto) {
         this.voto = voto;
         return this;
     }
@@ -53,7 +53,7 @@ public class UrnaOutDto{
         return dataVoto;
     }
 
-    public UrnaOutDto setDataVoto(LocalDateTime dataVoto) {
+    public CedulaOutDto setDataVoto(LocalDateTime dataVoto) {
         this.dataVoto = dataVoto;
         return this;
     }
