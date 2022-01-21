@@ -30,18 +30,17 @@ public class ReadCedulaRepositoryImpl implements ReadUrnaRepository {
 
         var parameters = new MapSqlParameterSource()
                 .addValue("uuid", uuid);
-
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
-                var urna = new Cedula();
-                urna.setId(resultSet.getLong("id"));
-                urna.setUuid(UUID.fromString(resultSet.getString("uuid")));
-                urna.setIdSessao(resultSet.getLong("id_sessao"));
-                urna.setIdCoopereado(resultSet.getLong("id_cooperado"));
-                urna.setVoto(Voto.valueOf(resultSet.getString("voto")));
-                urna.setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime());
-                urna.setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime());
-                return Optional.of(urna);
+                var cedula = new Cedula();
+                cedula.setId(resultSet.getLong("id"));
+                cedula.setUuid(UUID.fromString(resultSet.getString("uuid")));
+                cedula.setIdSessao(resultSet.getLong("id_sessao"));
+                cedula.setIdCoopereado(resultSet.getLong("id_cooperado"));
+                cedula.setVoto(Voto.valueOf(resultSet.getString("voto")));
+                cedula.setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime());
+                cedula.setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime());
+                return Optional.of(cedula);
             }
             return Optional.empty();
         });

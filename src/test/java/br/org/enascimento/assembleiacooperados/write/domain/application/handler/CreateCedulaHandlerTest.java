@@ -61,7 +61,7 @@ public class CreateCedulaHandlerTest extends TestHelper {
 
         //then
         verify(repository, never()).create(any());
-        assertThat(exceptionExpected.getMessage()).isEqualTo("Urna not exist");
+        assertThat(exceptionExpected.getMessage()).isEqualTo("Invalid Cedula");
     }
 
 }

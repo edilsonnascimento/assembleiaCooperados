@@ -40,12 +40,13 @@ CREATE TABLE IF NOT EXISTS sessao (
 
 CREATE TABLE IF NOT EXISTS cedula (
     id BIGSERIAL PRIMARY KEY,
-    uuid UUID NOT NULL,
-    id_sessao BIGSERIAL,
-    id_cooperado BIGSERIAL NOT NULL,
+    uuid UUID UNIQUE NOT NULL,
+    id_sessao BIGINT NOT NULL ,
+    id_cooperado BIGINT NOT NULL,
     voto VARCHAR NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
     FOREIGN KEY (id_sessao) REFERENCES sessao(id),
-    FOREIGN KEY (id_cooperado) REFERENCES cooperado(id)
+    FOREIGN KEY (id_cooperado) REFERENCES cooperado(id),
+    UNIQUE(id_sessao, id_cooperado)
 );

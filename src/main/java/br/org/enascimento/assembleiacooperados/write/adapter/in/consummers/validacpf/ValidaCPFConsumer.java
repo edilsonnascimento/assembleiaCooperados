@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 
 import javax.validation.ValidationException;
 
-import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.CPF_INAVALID;
+import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.CPF_INVALID;
 
 @Service
 public class ValidaCPFConsumer{
@@ -32,7 +32,7 @@ public class ValidaCPFConsumer{
                     .block();
             return isAbilitadoVotar(statusCPF);
         }catch (RuntimeException exception){
-            throw new ValidaCPFException(CPF_INAVALID);
+            throw new ValidaCPFException(CPF_INVALID);
         }
     }
 

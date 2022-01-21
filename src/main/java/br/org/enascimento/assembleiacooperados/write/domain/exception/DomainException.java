@@ -15,8 +15,8 @@ public abstract class DomainException extends RuntimeException{
         COOPERADO_NOT_EXIST("Cooperado not exist", 1004),
         STATUS_NOT_EXIST("Status not exist", 1005),
         SESSAO_NOT_EXIST("Sessao not exist", 1006),
-        URNA_NOT_EXIST("Urna not exist", 1007),
-        CPF_INAVALID("invalid cpf for voting", 1008),
+        CEDULA_INVALID("Invalid Cedula", 1007),
+        CPF_INVALID("invalid cpf for voting", 1008),
         UNABLE_TO_VOTE("Unable to vote", 1009);
 
         private String message;
