@@ -5,6 +5,7 @@ import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.CedulaDto;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.CedulaInDto;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cedula;
+import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteCedulaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
 import org.springframework.dao.DuplicateKeyException;
@@ -21,14 +22,14 @@ import static br.org.enascimento.assembleiacooperados.write.domain.exception.Dom
 @Repository
 public class WriteCedulaRepositoryImpl implements WriteCedulaRepository {
 
-    private NamedParameterJdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate jdbcTemplate;
 
     public WriteCedulaRepositoryImpl(DataSource dataSource) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
     @Override
-    public boolean create(CedulaInDto dto) {
+    public boolean create(CedulaInDto cedulaInDto) {
         try {
             var sql =
                     """
@@ -36,36 +37,51 @@ public class WriteCedulaRepositoryImpl implements WriteCedulaRepository {
                         VALUES(:uuid, :idSessao, :idCooperado, :voto)
                     """;
             var parameters = new MapSqlParameterSource()
-                    .addValue("uuid", dto.getUuid())
-                    .addValue("idSessao", dto.getIdSessao())
-                    .addValue("idCooperado", dto.getIdCooperado())
-                    .addValue("voto", dto.getVoto().toString());
+                    .addValue("uuid", cedulaInDto.getUuid())
+                    .addValue("idSessao", cedulaInDto.getIdSessao())
+                    .addValue("idCooperado", cedulaInDto.getIdCooperado())
+                    .addValue("voto", cedulaInDto.getVoto().toString());
 
             jdbcTemplate.update(sql, parameters);
         } catch (DuplicateKeyException exception) {
             var duplicatedDataException = new DuplicatedDataException(INVALID_DUPLICATE_DATA, exception);
-            duplicatedDataException.addErrors("cooperado", "uuid ja informado");
+            var cedulaDuplicated = findCedula(cedulaInDto).orElse(new Cedula());
+
+            if(cedulaDuplicated.getUuid().equals(cedulaInDto.getUuid()))
+                duplicatedDataException.addErrors("uuid", cedulaInDto.getUuid());
+
+            if(cedulaDuplicated.getIdCoopereado().equals(cedulaInDto.getIdCooperado()) &&
+               cedulaDuplicated.getIdSessao().equals(cedulaInDto.getIdSessao()))
+                duplicatedDataException.addErrors("cooperado", cedulaInDto.getUuid());
+
             throw duplicatedDataException;
         }
         return true;
     }
 
-    private Optional<Cedula> findUrnaExistente(String uuid) {
-        var sqlBuscaIdCooperado = "SELECT id, uuid, id_sessao, id_cooperado FROM cedula WHERE uuid = :uuid";
-        var paraCooperado = new MapSqlParameterSource()
-                .addValue("uuid", uuid);
-        var cooperado =
-                jdbcTemplate.query(sqlBuscaIdCooperado, paraCooperado, resultSet -> {
-                    var retorno = new Cedula();
-                    if (resultSet.next()) {
-                        retorno.setId(resultSet.getLong("id"));
-                        retorno.setUuid(UUID.fromString(resultSet.getString("uuid")));
-                        retorno.setIdCoopereado(resultSet.getLong("id_sessao"));
-                        retorno.setIdSessao(resultSet.getLong("id_cooperado"));
-                    }
-                    return Optional.of(retorno);
-                });
-        return Optional.empty();
+    private Optional<Cedula> findCedula(CedulaInDto cedulaInDto) {
+        var sql = """
+            SELECT id, uuid, id_sessao, id_cooperado, voto 
+            FROM cedula 
+            WHERE uuid = :uuid OR 
+                  (id_sessao = :idSessao AND id_cooperado = :idCooperado)""";
+
+        var parameters = new MapSqlParameterSource()
+                .addValue("uuid", cedulaInDto.getUuid())
+                .addValue("idSessao", cedulaInDto.getIdSessao())
+                .addValue("idCooperado", cedulaInDto.getIdCooperado());
+        return jdbcTemplate.query(sql, parameters, resultSet -> {
+            if (resultSet.next()) {
+                var cedula = new Cedula();
+                cedula.setId(resultSet.getLong("id"));
+                cedula.setUuid(UUID.fromString(resultSet.getString("uuid")));
+                cedula.setIdSessao(resultSet.getLong("id_sessao"));
+                cedula.setIdCoopereado(resultSet.getLong("id_cooperado"));
+                cedula.setVoto(Voto.valueOf(resultSet.getString("voto")));
+                return Optional.of(cedula);
+            }
+            return Optional.empty();
+        });
     }
 
     public Optional<EleitorDto> retrieveCedulaDto(CedulaDto dtoUrna){
@@ -93,9 +109,9 @@ public class WriteCedulaRepositoryImpl implements WriteCedulaRepository {
                 });
 
         if(cooperado.getId() != null && idSessao != null) {
-            var candidato =  new EleitorDto(dtoUrna.uuidCedula(),idSessao, cooperado.getId(), dtoUrna.voto());
-            candidato.setCpf(cooperado.getCpf());
-            return Optional.of(candidato);
+            var eleitor =  new EleitorDto(dtoUrna.uuidCedula(),idSessao, cooperado.getId(), dtoUrna.voto());
+            eleitor.setCpf(cooperado.getCpf());
+            return Optional.of(eleitor);
         }
         return Optional.empty();
     }

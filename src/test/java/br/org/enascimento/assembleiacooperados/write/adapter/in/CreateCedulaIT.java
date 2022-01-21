@@ -19,11 +19,11 @@ public class CreateCedulaIT extends IntegrationHelper {
     @Test
     void GIVEN_ValidPayload_MUST_ReturnCreated() throws Exception {
         //given
-        var uuidCedula = UUID.fromString("3b54e51d-6340-47b3-a15d-0d28e4272551");
+        var uuidCedula = UUID.randomUUID();
         var dto = new CedulaDto(
                 uuidCedula,
-                UUID.fromString("91459bb4-07e9-47ab-85c5-4af513db36a3"),
-                UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20"),
+                UUID.fromString("c97defa8-9451-4aa0-aaa1-a2eb1a90e6a1"),
+                UUID.fromString("9fd33037-09ad-4027-9ad7-6d2b83f2a5b4"),
                 Voto.FAVORAVEL);
 
         //when

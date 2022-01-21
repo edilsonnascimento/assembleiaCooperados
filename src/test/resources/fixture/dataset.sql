@@ -12,7 +12,8 @@ MERGE INTO status(id, descricao, created_at, updated_at) VALUES
     (2, 'ENCERRADA', '2021-12-08 05:54:00.901884', '2021-12-08 05:54:00.901884');
 
 MERGE INTO sessao( id, uuid, id_pauta, inicio_sessao, fim_sessao, total_votos_favor, total_votos_contra, created_at, updated_at, id_status) VALUES
-    (1, '91459bb4-07e9-47ab-85c5-4af513db36a3', 1, '2021-12-21 08:54:06.058491', '2021-12-21 08:59:06.058491', 0, 0, '2021-12-21 08:54:06.059382', '2021-12-21 08:54:06.059382', 1);
+    (1, '91459bb4-07e9-47ab-85c5-4af513db36a3', 1, '2021-12-21 08:54:06.058491', '2021-12-21 08:59:06.058491', 0, 0, '2021-12-21 08:54:06.059382', '2021-12-21 08:54:06.059382', 1),
+    (2, 'c97defa8-9451-4aa0-aaa1-a2eb1a90e6a1', 2, '2021-12-21 08:57:06.058491', '2021-12-21 09:00:06.058491', 0, 0, '2021-12-21 08:57:06.059382', '2021-12-21 08:57:06.059382', 1);
 
 MERGE INTO cedula(id, uuid, id_sessao, id_cooperado, voto, created_at, updated_at) VALUES
      (1, '0d28786f-8dbd-41f7-8a77-59ea8bed7d8c', 1, 1, 'FAVORAVEL', '2021-12-08 05:55:00.901884', '2021-12-08 05:55:00.901884'),

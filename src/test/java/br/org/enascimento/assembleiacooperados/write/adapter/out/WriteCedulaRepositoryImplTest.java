@@ -34,8 +34,8 @@ public class WriteCedulaRepositoryImplTest extends DataSourceHelper {
         var uuidUrna = UUID.fromString("3b54e51d-6340-47b3-a15d-0d28e4272551");
         var dto = new CedulaInDto(
                 uuidUrna,
-                1l,
-                1l,
+                2l,
+                1L,
                 Voto.FAVORAVEL);
 
         //when
@@ -51,7 +51,7 @@ public class WriteCedulaRepositoryImplTest extends DataSourceHelper {
                                                                          Long idSessao,
                                                                          Long idCooperado,
                                                                          Voto voto,
-                                                                         Map<String, Object> expectedError) {
+                                                                        Map<String, UUID> expectedError) {
         //given
         var expected = new CedulaInDto(
                 uuid,
@@ -59,9 +59,9 @@ public class WriteCedulaRepositoryImplTest extends DataSourceHelper {
                 idCooperado,
                 voto);
 
-
         //when
-        var exception = assertThrows(DuplicatedDataException.class, () -> repository.create(expected));
+        var exception = assertThrows(DuplicatedDataException.class,
+                () -> repository.create(expected));
 
         //then
         assertThat(exception.getMessage()).isEqualTo("Invalid duplicated data");
@@ -72,12 +72,15 @@ public class WriteCedulaRepositoryImplTest extends DataSourceHelper {
     private static Stream<Arguments> inValidDataProvider() {
 
         var existenUuid = UUID.fromString("0d28786f-8dbd-41f7-8a77-59ea8bed7d8c");
-        var idSessaoExistente = 1l;
-        var idCooperadoExistente = 1l;
-        var votoExistente = Voto.FAVORAVEL;
+        var uuidNovo = UUID.randomUUID();
+        var idSessaoExistente = 1L;
+        var idCooperadoExistente = 1L;
+        var voto = Voto.FAVORAVEL;
+
 
         return Stream.of(
-                arguments(existenUuid, faker.number().randomNumber(), faker.number().randomNumber(), Voto.CONTRA, Map.of("uuid", existenUuid))
+                arguments(existenUuid, 2L, idCooperadoExistente, voto, Map.of("uuid", existenUuid)),
+                arguments(uuidNovo, idSessaoExistente, idCooperadoExistente, voto, Map.of("cooperado", uuidNovo))
         );
     }
 
