@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.net.URISyntaxException;
 
 @RestController
@@ -22,7 +23,7 @@ public class WriteStatusController {
     @PostMapping
     public ResponseEntity<String> create(@RequestBody @Validated StatusDto statusDto) throws URISyntaxException {
         serviceBus.execute(new CreateStatusCommand(statusDto.descricao()));
-        return ResponseEntity.ok().build();
+        return ResponseEntity.created(new URI("v1/sessao/")).build();
     }
 
     @PutMapping("/{id}")

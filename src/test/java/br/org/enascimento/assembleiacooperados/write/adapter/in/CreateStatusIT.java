@@ -26,7 +26,7 @@ public class CreateStatusIT extends IntegrationHelper {
                 .perform(post(URI_PATH)
                         .contentType(APPLICATION_JSON)
                         .content(payload))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
 
     }
 }
