@@ -3,6 +3,8 @@ package br.org.enascimento.assembleiacooperados.red.adapter.in;
 import helper.IntegrationHelper;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -27,5 +29,18 @@ public class ReadCedulaControllerIT extends IntegrationHelper {
                 .andExpect(jsonPath("$.uuidCooperado", is("1e73cdb3-0923-4452-a190-3c7eb7857e20")))
                 .andExpect(jsonPath("$.dataVoto", is("2021-12-08T05:55:00.901884")))
                 .andExpect(jsonPath("$.voto", is("FAVORAVEL")));
+    }
+
+    @Test
+    void WHEN_GetInvalidPautasByUuid_MUST_RetrunMesage() throws Exception {
+        //given
+        var uuid = UUID.randomUUID().toString();
+        mockMvc
+                .perform(get(PATH_URI_UUID, uuid))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(APPLICATION_JSON))
+                .andExpect(jsonPath("$.message", is("Cedula not exist")))
+                .andExpect(jsonPath("$.errors[*].field", containsInAnyOrder("code")))
+                .andExpect(jsonPath("$.errors[*].detail", containsInAnyOrder("1010")));
     }
 }
