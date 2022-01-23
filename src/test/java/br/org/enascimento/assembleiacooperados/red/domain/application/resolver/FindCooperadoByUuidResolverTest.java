@@ -35,7 +35,7 @@ public class FindCooperadoByUuidResolverTest extends TestHelper {
         query.setUuid(UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20"));
         var dataAtual = LocalDateTime.now();
         var cooperado = new Cooperado()
-                .setId(1l)
+                .setId(1L)
                 .setUuid(UUID.randomUUID())
                 .setNome(faker.name().fullName())
                 .setCpf("00000000000")
