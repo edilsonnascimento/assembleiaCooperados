@@ -30,6 +30,7 @@ public class CreateSessaoHandler implements Handler<CreateSessaoCommand>{
         var sessao = new Sessao()
                 .setUuid(command.dto().uuid())
                 .setIdPauta(idPauta);
+        sessao.setFimSessao(sessao.getInicioSessao().plusMinutes(command.dto().limiteSessao()));
 
         repository.create(sessao);
     }

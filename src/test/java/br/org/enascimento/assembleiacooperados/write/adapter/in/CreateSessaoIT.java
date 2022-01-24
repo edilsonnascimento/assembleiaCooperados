@@ -21,13 +21,15 @@ public class CreateSessaoIT extends IntegrationHelper {
         //given
         var uuid = UUID.randomUUID();
         var uuidPauta = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
+        var limiteSessao = 5L;
         var payload =
                 """
                    {
                        "%s" : "%s",
-                       "%s" : "%s"
+                       "%s" : "%s",
+                       "%s" : %s
                    }
-                """.formatted("uuid", uuid,"uuidPauta", uuidPauta);
+                """.formatted("uuid", uuid,"uuidPauta", uuidPauta, "limiteSessao", limiteSessao);
         //when
         mockMvc
                 .perform(post(URI_PATH)
@@ -42,13 +44,15 @@ public class CreateSessaoIT extends IntegrationHelper {
         //given
         var uuid = UUID.fromString("91459bb4-07e9-47ab-85c5-4af513db36a3");
         var uuidPauta = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
+        var limiteSessao = 5L;
         var payload =
                 """
                    {
                        "%s" : "%s",
-                       "%s" : "%s"
+                       "%s" : "%s",
+                       "%s" : %s
                    }
-                """.formatted("uuid", uuid,"uuidPauta", uuidPauta);
+                """.formatted("uuid", uuid,"uuidPauta", uuidPauta, "limiteSessao", limiteSessao);
         //when
         mockMvc
                 .perform(post(URI_PATH)

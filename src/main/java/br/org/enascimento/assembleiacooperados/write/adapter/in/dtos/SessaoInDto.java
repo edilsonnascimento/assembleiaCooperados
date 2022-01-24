@@ -7,5 +7,7 @@ public record SessaoInDto(
         @NotNull
         UUID uuid,
         @NotNull
-        UUID uuidPauta) {
+        UUID uuidPauta,
+        @NotNull
+        Long limiteSessao) {
 }
