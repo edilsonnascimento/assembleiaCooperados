@@ -1,7 +1,7 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.CedulaOutDto;
-import br.org.enascimento.assembleiacooperados.red.domain.core.ReadUrnaRepository;
+import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCedulaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cedula;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -9,13 +9,14 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public class ReadCedulaRepositoryImpl implements ReadUrnaRepository {
+public class ReadCedulaRepositoryImpl implements ReadCedulaRepository {
 
-    private NamedParameterJdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate jdbcTemplate;
 
     public ReadCedulaRepositoryImpl(DataSource dataSource) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -74,4 +75,29 @@ public class ReadCedulaRepositoryImpl implements ReadUrnaRepository {
             return Optional.empty();
         });
     }
+
+    @Override
+    public Optional<List<CedulaOutDto>> findAll() {
+        var sql = """
+               SELECT ced.uuid AS uuid_cedula,
+                      ses.uuid AS uuid_sessao,
+                      cop.uuid AS uuid_cooperado,
+                      ced.voto,
+                      ced.created_at AS data_voto
+               FROM cedula AS ced
+                        JOIN cooperado AS cop ON cop.id = ced.id_cooperado
+                        JOIN sessao AS ses ON ses.id = ced.id_sessao
+               ORDER BY ced.created_at""";
+
+       return Optional.of(
+               jdbcTemplate.query(sql, (resultSet, rowNum) ->
+                   new CedulaOutDto().
+                           setUuidCedula(UUID.fromString(resultSet.getString("uuid_cedula"))).
+                           setUuidSessao(UUID.fromString(resultSet.getString("uuid_sessao"))).
+                           setUuidCooperado(UUID.fromString(resultSet.getString("uuid_cooperado"))).
+                           setVoto(Voto.valueOf(resultSet.getString("voto"))).
+                           setDataVoto(resultSet.getTimestamp("data_voto").toLocalDateTime()))
+       );
+    }
+
 }

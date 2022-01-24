@@ -1,20 +1,21 @@
 package br.org.enascimento.assembleiacooperados.red.adapter.out;
 
-import br.org.enascimento.assembleiacooperados.red.domain.core.ReadUrnaRepository;
+import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.CedulaOutDto;
+import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCedulaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cedula;
 import helper.DataSourceHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import static br.org.enascimento.assembleiacooperados.write.domain.core.Voto.FAVORAVEL;
+import static java.util.UUID.fromString;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ReadCedulaRepositoryImplTest extends DataSourceHelper {
 
-    private ReadUrnaRepository repository;
+    private ReadCedulaRepository repository;
 
     @BeforeEach
     void setup() {
@@ -28,10 +29,10 @@ public class ReadCedulaRepositoryImplTest extends DataSourceHelper {
         //given
         var data = LocalDateTime.of(2021,12,8, 5,55, 0);
         var actual = new Cedula();
-        actual.setId(1l);
-        actual.setUuid(UUID.fromString("0d28786f-8dbd-41f7-8a77-59ea8bed7d8c"));
-        actual.setIdSessao(1l);
-        actual.setIdCoopereado(1l);
+        actual.setId(1L);
+        actual.setUuid(fromString("0d28786f-8dbd-41f7-8a77-59ea8bed7d8c"));
+        actual.setIdSessao(1L);
+        actual.setIdCoopereado(1L);
         actual.setVoto(FAVORAVEL);
         actual.setCreatedAt(data);
         actual.setUpdatedAt(data);
@@ -50,23 +51,15 @@ public class ReadCedulaRepositoryImplTest extends DataSourceHelper {
     }
 
     @Test
-    void WHEN_QueryFindUrnaUiid_MUST_RetrieveSuccessfulUrnaDto(){
-
-        //given
-        var data = LocalDateTime.of(2021,12,8, 5,55, 0);
-        var actual = new Cedula();
-        actual.setId(1l);
-        actual.setUuid(UUID.fromString("0d28786f-8dbd-41f7-8a77-59ea8bed7d8c"));
-        actual.setIdSessao(1l);
-        actual.setIdCoopereado(1l);
-        actual.setVoto(FAVORAVEL);
-        actual.setCreatedAt(data);
-        actual.setUpdatedAt(data);
-
-        //then
-        var expected = repository.findByUuidDto(actual.getUuid());
+    void WHEN_QueryAllCedulas_MUST_RetriveSuccessful(){
 
         //when
+        var actual = repository.findAll().get();
 
+        //then
+        assertThat(actual).extracting(CedulaOutDto::getUuidCedula)
+                .contains(fromString("0d28786f-8dbd-41f7-8a77-59ea8bed7d8c"),
+                          fromString("147e966b-7b4a-4702-b322-ba0d5b707d18"));
     }
+
 }
