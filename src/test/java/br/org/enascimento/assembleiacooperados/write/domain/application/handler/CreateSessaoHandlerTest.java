@@ -59,4 +59,32 @@ public class CreateSessaoHandlerTest extends TestHelper {
         var actualDate= captor.getValue().getFimSessao();
         assertThat(actualDate).isEqualToIgnoringNanos(expectedDate);
     }
+
+    @Test
+    void Given_ValidCreateSessaoLimiteEmptyCommand_Must_DelegateToHeadler(){
+        var captor = ArgumentCaptor.forClass(Sessao.class);
+
+        //given
+        Long limiteSessao = null;
+        var dto = new SessaoInDto(UUID.randomUUID(), UUID.randomUUID(), limiteSessao);
+        var expectedDate = LocalDateTime.now().plusMinutes(1L);
+        var command = new CreateSessaoCommand(dto);
+        var pauta = new Pauta()
+                .setId(1l)
+                .setUuid(UUID.randomUUID())
+                .setTitulo("PRIMEIRO-TITULO")
+                .setDescricao("PRIMEIRA-DESCICAO");
+        when(repositoryRead.findByUuid(any())).thenReturn(Optional.of(pauta));
+        var status = new Status().setId(1l);
+        when(repository.findStatus(anyLong())).thenReturn(Optional.of(status));
+
+        //when
+        handler.handle(command);
+
+        //then
+        verify(repositoryRead, timeout(1)).findByUuid(any());
+        verify(repository, timeout(1)).create(captor.capture());
+        var actualDate= captor.getValue().getFimSessao();
+        assertThat(actualDate).isEqualToIgnoringNanos(expectedDate);
+    }
 }

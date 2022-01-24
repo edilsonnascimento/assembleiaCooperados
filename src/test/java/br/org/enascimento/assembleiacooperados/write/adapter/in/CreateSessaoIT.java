@@ -40,6 +40,29 @@ public class CreateSessaoIT extends IntegrationHelper {
     }
 
     @Test
+    void GIVEN_ValidEmptyLimiteSessaoPayload_MUST_ReturnCreated() throws Exception {
+        //given
+        var uuid = UUID.randomUUID();
+        var uuidPauta = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
+        Long limiteSessao = null;
+        var payload =
+                """
+                   {
+                       "%s" : "%s",
+                       "%s" : "%s",
+                       "%s" : %s
+                   }
+                """.formatted("uuid", uuid,"uuidPauta", uuidPauta, "limiteSessao", limiteSessao);
+        //when
+        mockMvc
+                .perform(post(URI_PATH)
+                        .contentType(APPLICATION_JSON)
+                        .content(payload))
+                .andExpect(status().isCreated())
+                .andExpect(header().string("Location", "v1/sessao/" + uuid));
+    }
+
+    @Test
     void GIVEN_InValidPayloadDuplicate_MUST_ReturnBadRequest() throws Exception {
         //given
         var uuid = UUID.fromString("91459bb4-07e9-47ab-85c5-4af513db36a3");
