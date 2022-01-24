@@ -4,9 +4,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static java.time.temporal.ChronoUnit.MINUTES;
+
 public class Sessao {
 
-    private static final long CINCO_MINUTOS = 5l;
+    private static final long LIMITE_MAXIMO_SESSAO = 60L;
+    private static final long LIMITE_MINIMO_SESSAO = 1L;
 
     private Long id;
     private UUID uuid;
@@ -21,7 +24,7 @@ public class Sessao {
 
     public Sessao() {
         this.inicioSessao = LocalDateTime.now();
-        this.fimSessao = LocalDateTime.now().plusMinutes(CINCO_MINUTOS);
+        this.fimSessao = LocalDateTime.now();
         this.totalVotosFavor = BigDecimal.ZERO;
         this.totalVotosContra = BigDecimal.ZERO;
         this.idStatus = 1l;
@@ -117,4 +120,18 @@ public class Sessao {
         this.updatedAt = updatedAt;
         return this;
     }
+
+    private boolean estaAcimaLimite() {
+        return MINUTES.between(inicioSessao, fimSessao)  > LIMITE_MAXIMO_SESSAO;
+    }
+
+    private boolean estaAbaixoLimite() {
+        return MINUTES.between(inicioSessao, fimSessao) < LIMITE_MINIMO_SESSAO;
+    }
+
+    public boolean verificaLimite(){
+        return estaAbaixoLimite() || estaAcimaLimite();
+    }
+
+
 }

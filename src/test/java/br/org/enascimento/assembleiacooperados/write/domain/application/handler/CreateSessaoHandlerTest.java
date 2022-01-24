@@ -1,6 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application.handler;
 
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.SessaoInvalidaException;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.SessaoInDto;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateSessaoCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
@@ -17,6 +18,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
@@ -62,9 +64,9 @@ public class CreateSessaoHandlerTest extends TestHelper {
 
     @Test
     void Given_ValidCreateSessaoLimiteEmptyCommand_Must_DelegateToHeadler(){
-        var captor = ArgumentCaptor.forClass(Sessao.class);
 
         //given
+        var captor = ArgumentCaptor.forClass(Sessao.class);
         Long limiteSessao = null;
         var dto = new SessaoInDto(UUID.randomUUID(), UUID.randomUUID(), limiteSessao);
         var expectedDate = LocalDateTime.now().plusMinutes(1L);
@@ -87,4 +89,27 @@ public class CreateSessaoHandlerTest extends TestHelper {
         var actualDate= captor.getValue().getFimSessao();
         assertThat(actualDate).isEqualToIgnoringNanos(expectedDate);
     }
+
+    @Test
+    void Given_InValidCreateSessaoLimiteOver_Must_ReturnException(){
+        //given
+        var dto = new SessaoInDto(UUID.randomUUID(), UUID.randomUUID(), 61L);
+        var command = new CreateSessaoCommand(dto);
+        var pauta = new Pauta()
+                .setId(1l)
+                .setUuid(UUID.randomUUID())
+                .setTitulo("PRIMEIRO-TITULO")
+                .setDescricao("PRIMEIRA-DESCICAO");
+        when(repositoryRead.findByUuid(any())).thenReturn(Optional.of(pauta));
+        var status = new Status().setId(1l);
+        when(repository.findStatus(anyLong())).thenReturn(Optional.of(status));
+
+        //when
+        var expectedExcepetion = assertThrows(SessaoInvalidaException.class, ()->
+                handler.handle(command));
+
+        //then
+        assertThat(expectedExcepetion.getMessage()).isEqualTo("Out of session limit");
+    }
+
 }
