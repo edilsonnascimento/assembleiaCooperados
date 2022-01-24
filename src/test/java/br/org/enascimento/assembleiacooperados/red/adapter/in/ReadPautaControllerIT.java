@@ -16,6 +16,7 @@ class ReadPautaControllerIT extends IntegrationHelper {
 
     private final static String PATH_URI = "/v1/pautas";
     private final static String PATH_URI_UUID = "/v1/pautas/{uuid}";
+
     @Test
     void WHEN_GetAllPautas_MUST_ListByCreated_atOrder() throws Exception {
         mockMvc
