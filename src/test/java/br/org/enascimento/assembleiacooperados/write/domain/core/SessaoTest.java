@@ -34,7 +34,6 @@ public class SessaoTest extends TestHelper {
         assertThat(sessao.getIdPauta()).isEqualTo(idPauta);
         assertThat(sessao.getIdStatus()).isEqualTo(1l);
         assertThat(sessao.getInicioSessao()).isNotNull();
-        assertThat(sessao.getFimSessao()).isAfter(sessao.getInicioSessao());
         assertThat(sessao.getTotalVotosContra()).isEqualTo(BigDecimal.ZERO);
         assertThat(sessao.getTotalVotosFavor()).isEqualTo(BigDecimal.ZERO);
     }
