@@ -3,6 +3,7 @@ package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.SessaoOutDto;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindSessaoByUuidDtoOutQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadSessaoRepository;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.SessaoNotExistedException;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
@@ -59,6 +61,23 @@ public class FindSessaoByUuidDtoOutResolverTest extends TestHelper {
         assertThat(actual.dataInicioSessao()).isEqualTo(expected.dataInicioSessao());
         assertThat(actual.dataFimSessao()).isEqualTo(expected.dataFimSessao());
         assertThat(actual.estadoSessao()).isEqualTo(expected.estadoSessao());
+    }
+
+    @Test
+    void GIVEN_UuidValidFindbySessaoUuid_ReturnException() {
+
+        //given
+        var uuid = UUID.randomUUID();
+        var query = new FindSessaoByUuidDtoOutQuery();
+        query.setUuid(uuid);
+        when(repository.findByUuidReturnDto(query.getUuid())).thenReturn(Optional.empty());
+
+        //when
+        var exception = assertThrows(SessaoNotExistedException.class, ()->
+                resolver.resolve(query));
+
+        //then
+        org.assertj.core.api.Assertions.assertThat(exception.getMessage()).isEqualTo("Sessao not exist");
     }
 
 }

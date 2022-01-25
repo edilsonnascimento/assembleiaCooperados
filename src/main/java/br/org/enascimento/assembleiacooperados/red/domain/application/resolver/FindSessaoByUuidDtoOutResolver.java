@@ -2,6 +2,7 @@ package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindSessaoByUuidDtoOutQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadSessaoRepository;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.SessaoNotExistedException;
 import br.org.enascimento.assembleiacooperados.red.domain.exception.StatusNotExistedException;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class FindSessaoByUuidDtoOutResolver implements Resolver<FindSessaoByUuid
         var sessaoOutDtoOptional = repository.findByUuidReturnDto(query.getUuid());
 
         if(!sessaoOutDtoOptional.isPresent())
-            throw new StatusNotExistedException(SESSAO_NOT_EXIST);
+            throw new SessaoNotExistedException(SESSAO_NOT_EXIST);
 
         var sessaoOutDto = sessaoOutDtoOptional.get();
         query.setResult(sessaoOutDto);
