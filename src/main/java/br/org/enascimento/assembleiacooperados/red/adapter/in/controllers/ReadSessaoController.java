@@ -3,12 +3,14 @@ package br.org.enascimento.assembleiacooperados.red.adapter.in.controllers;
 import br.org.enascimento.assembleiacooperados.common.DomainController;
 import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.SessaoOutDto;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindSessaoByUuidDtoOutQuery;
+import br.org.enascimento.assembleiacooperados.red.domain.application.query.ListAllSessaoQuery;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -19,6 +21,13 @@ public class ReadSessaoController extends DomainController {
     public ResponseEntity<SessaoOutDto> findByUuid(@PathVariable UUID uuid){
         var query = new FindSessaoByUuidDtoOutQuery();
         query.setUuid(uuid);
+        serviceBus.execute(query);
+        return ResponseEntity.ok(query.getResult());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<SessaoOutDto>> findAll(){
+        var query = new ListAllSessaoQuery();
         serviceBus.execute(query);
         return ResponseEntity.ok(query.getResult());
     }
