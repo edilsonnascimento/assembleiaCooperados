@@ -27,7 +27,6 @@ public class WriteSessaoRepositoryImpl implements WriteSessaoRepository {
     @Override
     public boolean create(Sessao sessao) {
         try {
-
             var sql = """
                       INSERT INTO sessao(
                               uuid,
@@ -85,5 +84,19 @@ public class WriteSessaoRepositoryImpl implements WriteSessaoRepository {
             }
             return Optional.empty();
         });
+    }
+
+    @Override
+    public void fecharSessoes() {
+        Long status = 2L;
+        var sql = """
+                  UPDATE sessao SET id_status = :status
+                  WHERE TO_CHAR(now() AT TIME ZONE 'America/Sao_Paulo', 'dd/MM/yyyy HH24:MI:SS')::date >
+                        TO_CHAR(fim_sessao AT TIME ZONE 'America/Sao_Paulo', 'dd/MM/yyyy HH24:MI:SS')::date AND
+                        id_status <> 2                           
+                  """;
+        var parameters = new MapSqlParameterSource()
+                .addValue("status", status);
+        jdbcTemplate.update(sql, parameters);
     }
 }
