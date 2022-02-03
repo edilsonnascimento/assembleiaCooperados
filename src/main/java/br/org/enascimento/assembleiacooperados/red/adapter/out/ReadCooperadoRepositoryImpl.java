@@ -85,6 +85,4 @@ public class ReadCooperadoRepositoryImpl implements ReadCooperadoRepository {
             return Optional.empty();
         });
     }
-
 }
-

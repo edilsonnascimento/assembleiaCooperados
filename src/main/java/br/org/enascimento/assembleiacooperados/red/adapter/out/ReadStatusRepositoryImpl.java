@@ -46,13 +46,11 @@ public class ReadStatusRepositoryImpl implements ReadStatusRepository {
     public Optional<List<Status>> findAll() {
         var sql = "SELECT id, descricao, created_at, updated_at FROM status ORDER BY created_at";
 
-        return Optional.of(
-                    jdbcTemplate.query(sql, (resultSet, rowNum) ->
-                        new Status().
-                                  setId(resultSet.getLong("id")).
-                                  setDescricao(resultSet.getString("descricao")).
-                                  setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
-                                  setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime()))
-                );
+        return Optional.of(jdbcTemplate.query(sql, (resultSet, rowNum) ->
+                    new Status().
+                          setId(resultSet.getLong("id")).
+                          setDescricao(resultSet.getString("descricao")).
+                          setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
+                          setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime())));
     }
 }

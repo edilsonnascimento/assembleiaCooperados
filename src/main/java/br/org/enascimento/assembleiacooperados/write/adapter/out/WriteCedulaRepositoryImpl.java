@@ -116,16 +116,3 @@ public class WriteCedulaRepositoryImpl implements WriteCedulaRepository {
         return Optional.empty();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -133,8 +133,6 @@ public class ReadSessaoRepositoryImpl implements ReadSessaoRepository {
                         result.getTimestamp("data_fim_sessao").toLocalDateTime(),
                         BigDecimal.valueOf(result.getInt("quantiade_votos_favoraveis")),
                         BigDecimal.valueOf(result.getInt("quantiade_votos_contra")),
-                        result.getString("estado_sessao"))
-        ));
+                        result.getString("estado_sessao"))));
     }
-
 }

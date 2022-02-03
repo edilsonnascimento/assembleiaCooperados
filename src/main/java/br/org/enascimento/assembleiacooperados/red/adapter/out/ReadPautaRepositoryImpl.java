@@ -83,6 +83,4 @@ public class ReadPautaRepositoryImpl implements ReadPautaRepository {
             return Optional.empty();
         });
     }
-
-
 }

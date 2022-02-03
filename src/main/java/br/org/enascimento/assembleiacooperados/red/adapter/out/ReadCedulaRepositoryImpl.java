@@ -96,8 +96,6 @@ public class ReadCedulaRepositoryImpl implements ReadCedulaRepository {
                            setUuidSessao(UUID.fromString(resultSet.getString("uuid_sessao"))).
                            setUuidCooperado(UUID.fromString(resultSet.getString("uuid_cooperado"))).
                            setVoto(Voto.valueOf(resultSet.getString("voto"))).
-                           setDataVoto(resultSet.getTimestamp("data_voto").toLocalDateTime()))
-       );
+                           setDataVoto(resultSet.getTimestamp("data_voto").toLocalDateTime())));
     }
-
 }
