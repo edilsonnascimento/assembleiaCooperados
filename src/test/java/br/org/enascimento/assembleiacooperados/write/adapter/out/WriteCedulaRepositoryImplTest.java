@@ -31,10 +31,9 @@ public class WriteCedulaRepositoryImplTest extends DataSourceHelper {
     @Test
     void WHEN_CreatingUrna_GIVEN_ValidData_MUST_PersistOnDatabase() {
         //given
-        var uuidUrna = UUID.fromString("3b54e51d-6340-47b3-a15d-0d28e4272551");
         var dto = new CedulaInDto(
-                uuidUrna,
-                2l,
+                UUID.randomUUID(),
+                3l,
                 1L,
                 Voto.FAVORAVEL);
 
@@ -83,5 +82,4 @@ public class WriteCedulaRepositoryImplTest extends DataSourceHelper {
                 arguments(uuidNovo, idSessaoExistente, idCooperadoExistente, voto, Map.of("cooperado", uuidNovo))
         );
     }
-
 }
