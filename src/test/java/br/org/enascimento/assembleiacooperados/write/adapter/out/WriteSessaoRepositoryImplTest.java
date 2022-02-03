@@ -71,4 +71,9 @@ public class WriteSessaoRepositoryImplTest extends DataSourceHelper {
         assertThat(exception.getMessage()).isEqualTo("Invalid duplicated data");
     }
 
+    @Test
+    void WHEN_findSessoesInvalidates_ReturnListOfLong(){
+        //then
+        repositoryWrite.fecharSessoes();
+    }
 }

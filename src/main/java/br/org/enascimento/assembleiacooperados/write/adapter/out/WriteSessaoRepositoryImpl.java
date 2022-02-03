@@ -10,13 +10,15 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-
+import java.util.List;
 import java.util.Optional;
 
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.INVALID_DUPLICATE_DATA;
 
 @Repository
 public class WriteSessaoRepositoryImpl implements WriteSessaoRepository {
+
+    private final static Long STATUS_SESSAO = 2L;
 
     private NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -88,15 +90,63 @@ public class WriteSessaoRepositoryImpl implements WriteSessaoRepository {
 
     @Override
     public void fecharSessoes() {
-        Long status = 2L;
+        var idsSessoesVencidas = findSessoesInvalidates();
+        for (Long idSessao : idsSessoesVencidas) fecharSessao(idSessao);
+    }
+
+    private void fecharSessao(Long idSessao) {
+        var sqlVotosContra = """                
+            SELECT voto, COUNT(1) AS quantidade_votos
+            FROM cedula
+            WHERE id_sessao = :idSessao AND voto = 'CONTRA'
+            GROUP BY voto""";
+
+        var paramVotosContra = new MapSqlParameterSource()
+                .addValue("idSessao", idSessao);
+        var votosContra =
+                jdbcTemplate.query(sqlVotosContra, paramVotosContra, resultSet -> {
+                    if (resultSet.next()) return resultSet.getInt("quantidade_votos");
+                    return Integer.valueOf(0);
+                });
+
+        var sqlVotosFavoraveis = """                
+            SELECT voto, COUNT(1) AS quantidade_votos
+            FROM cedula
+            WHERE id_sessao = :idSessao AND voto = 'FAVORAVEL'
+            GROUP BY voto""";
+        var paramVotosFavoraveis = new MapSqlParameterSource()
+                .addValue("idSessao", idSessao);
+        var votosFavoraveis =
+                jdbcTemplate.query(sqlVotosFavoraveis, paramVotosFavoraveis, resultSet -> {
+                    if (resultSet.next()) return resultSet.getInt("quantidade_votos");
+                    return Integer.valueOf(0);
+                });
+
         var sql = """
-                  UPDATE sessao SET id_status = :status
-                  WHERE TO_CHAR(now() AT TIME ZONE 'America/Sao_Paulo', 'dd/MM/yyyy HH24:MI:SS')::date >
-                        TO_CHAR(fim_sessao AT TIME ZONE 'America/Sao_Paulo', 'dd/MM/yyyy HH24:MI:SS')::date AND
-                        id_status <> 2                           
+                  UPDATE sessao
+                  SET id_status = :statusSessao, 
+                      total_votos_favor = :votosFavoraveis, 
+                      total_votos_contra = :votosContra
+                  WHERE id = :idSessao
                   """;
         var parameters = new MapSqlParameterSource()
-                .addValue("status", status);
+                .addValue("statusSessao", STATUS_SESSAO)
+                .addValue("votosFavoraveis", votosFavoraveis)
+                .addValue("votosContra", votosContra)
+                .addValue("idSessao", idSessao);
         jdbcTemplate.update(sql, parameters);
+    }
+
+    private List<Long> findSessoesInvalidates() {
+        var sql =
+                """
+                    SELECT id
+                    FROM sessao AS ses
+                    WHERE id_status <> :statusSessao AND
+                          (now() AT TIME ZONE 'America/Sao_Paulo') > fim_sessao;""";
+        var parameters = new MapSqlParameterSource()
+                .addValue("statusSessao", STATUS_SESSAO);
+
+        return jdbcTemplate.query(sql, parameters, (resultSet, rowNum) -> resultSet.getLong("id"));
     }
 }
