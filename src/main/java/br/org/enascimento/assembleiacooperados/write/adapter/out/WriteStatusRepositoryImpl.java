@@ -26,7 +26,7 @@ public class WriteStatusRepositoryImpl implements WriteStatusRepositoy {
     public boolean create(Status status) {
         var sql = "INSERT INTO status(descricao) VALUES(:descricao)";
         var parameters = new MapSqlParameterSource()
-                .addValue("descricao", status.getDescricao());
+                .addValue(DESCRICAO_FIELD, status.getDescricao());
         jdbcTemplate.update(sql, parameters);
         return true;
     }

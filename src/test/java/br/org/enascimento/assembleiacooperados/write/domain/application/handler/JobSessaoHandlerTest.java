@@ -9,7 +9,7 @@ import static org.mockito.Mockito.*;
 
 
 @Tag("unit")
-public class JobSessaoHandlerTest extends TestHelper {
+class JobSessaoHandlerTest extends TestHelper {
 
     @Test
     void WHEN_Cron_invoke_executeRepositoryCloseSessions(){

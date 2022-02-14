@@ -16,7 +16,7 @@ import static java.math.BigInteger.TEN;
 import static java.math.BigInteger.TWO;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class WriteSessaoRepositoryImplTest extends DataSourceHelper {
+class WriteSessaoRepositoryImplTest extends DataSourceHelper {
 
     private WriteSessaoRepository repositoryWrite;
 
@@ -69,11 +69,5 @@ public class WriteSessaoRepositoryImplTest extends DataSourceHelper {
 
         //then
         assertThat(exception.getMessage()).isEqualTo("Invalid duplicated data");
-    }
-
-    @Test
-    void WHEN_findSessoesInvalidates_ReturnListOfLong(){
-        //then
-        repositoryWrite.fecharSessoes();
     }
 }

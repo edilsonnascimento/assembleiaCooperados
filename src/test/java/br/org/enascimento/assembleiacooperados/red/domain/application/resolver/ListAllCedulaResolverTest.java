@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
-public class ListAllCedulaResolverTest extends TestHelper {
+class ListAllCedulaResolverTest extends TestHelper {
 
     private final ReadCedulaRepository repository;
     private final ListAllCedulaResolver resolver;

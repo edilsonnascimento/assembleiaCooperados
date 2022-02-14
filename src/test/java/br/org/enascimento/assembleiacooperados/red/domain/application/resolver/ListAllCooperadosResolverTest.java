@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
-public class ListAllCooperadosResolverTest extends TestHelper {
+class ListAllCooperadosResolverTest extends TestHelper {
 
     private final ReadCooperadoRepository repository;
     private final ListAllCooperadosResolver resolver;

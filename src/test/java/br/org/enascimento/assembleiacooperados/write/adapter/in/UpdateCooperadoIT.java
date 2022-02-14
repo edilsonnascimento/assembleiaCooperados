@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class UpdateCooperadoIT extends IntegrationHelper {
+class UpdateCooperadoIT extends IntegrationHelper {
 
     private static final String ENDPOINT_PATH_UUID = "/v1/cooperados/{uuid}";
     private static final String ENDPOINT_PATH = "/v1/cooperados";

@@ -12,7 +12,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("unit")
-public class FindSessaoUuidDtoOutQueryTest extends TestHelper {
+class FindSessaoUuidDtoOutQueryTest extends TestHelper {
 
     @Test
     void GIVEN_QueryUuidSessao_MUST_RetrieveListDto() {

@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
-public class UpdateStatusHandlerTest extends TestHelper {
+class UpdateStatusHandlerTest extends TestHelper {
 
     private final UpdateStatusHandler handler;
     private final WriteStatusRepositoy repositoy;

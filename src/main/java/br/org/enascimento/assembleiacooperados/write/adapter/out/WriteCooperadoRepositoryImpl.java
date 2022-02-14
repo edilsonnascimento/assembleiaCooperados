@@ -1,6 +1,7 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.CooperadoNotExistentException;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteCooperadoRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
@@ -10,9 +11,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.util.Optional;
-import java.util.UUID;
 
+import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.COOPERADO_NOT_EXIST;
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.INVALID_DUPLICATE_DATA;
 
 @Repository
@@ -48,15 +48,16 @@ public class WriteCooperadoRepositoryImpl implements WriteCooperadoRepository {
         } catch (DuplicateKeyException exception) {
 
             DuplicatedDataException duplicatedDataException = new DuplicatedDataException(INVALID_DUPLICATE_DATA, exception);
-            var existentCooperado = repositoryRead.findByUuidOrCpf(cooperado.getUuid(), cooperado.getCpf()).get();
+            var optionalCooperado = repositoryRead.findByUuidOrCpf(cooperado.getUuid(), cooperado.getCpf());
+            if(!optionalCooperado.isPresent())
+                throw new CooperadoNotExistentException(COOPERADO_NOT_EXIST);
+            var existentCooperado = optionalCooperado.get();
 
-            if (existentCooperado.getCpf().equals(cooperado.getCpf())) {
+            if (existentCooperado.getCpf().equals(cooperado.getCpf()))
                 duplicatedDataException.addErrors("cpf", cooperado.getCpf());
-            }
 
-            if (existentCooperado.getUuid().equals(cooperado.getUuid())) {
+            if (existentCooperado.getUuid().equals(cooperado.getUuid()))
                 duplicatedDataException.addErrors("uuid", cooperado.getUuid());
-            }
 
             throw duplicatedDataException;
         }

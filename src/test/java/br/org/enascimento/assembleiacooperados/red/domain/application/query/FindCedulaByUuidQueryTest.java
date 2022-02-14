@@ -12,7 +12,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("unit")
-public class FindCedulaByUuidQueryTest extends TestHelper {
+class FindCedulaByUuidQueryTest extends TestHelper {
 
     @Test
     void GIVEN_QueryAll_MUST_RetrieveListDto(){

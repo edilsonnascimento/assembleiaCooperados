@@ -8,7 +8,7 @@ import static java.util.UUID.randomUUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("unit")
-public class CooperadoTest extends TestHelper {
+class CooperadoTest extends TestHelper {
 
     @Test
     void GIVEN_ValidDataCooperado_MUST_RestrieveSameData(){

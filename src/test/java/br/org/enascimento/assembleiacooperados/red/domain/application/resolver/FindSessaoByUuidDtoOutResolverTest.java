@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
-public class FindSessaoByUuidDtoOutResolverTest extends TestHelper {
+class FindSessaoByUuidDtoOutResolverTest extends TestHelper {
 
     private ReadSessaoRepository repository;
     private FindSessaoByUuidDtoOutResolver resolver;

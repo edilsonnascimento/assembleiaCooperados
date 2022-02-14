@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
-public class UpdatePautaHandlerTest extends TestHelper {
+class UpdatePautaHandlerTest extends TestHelper {
 
     private final WritePautaRepository repositoryWrite;
     private final ReadPautaRepository repositoryRead;

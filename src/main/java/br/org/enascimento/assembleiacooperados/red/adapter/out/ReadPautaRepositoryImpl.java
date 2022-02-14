@@ -15,6 +15,13 @@ import java.util.UUID;
 @Repository
 public class ReadPautaRepositoryImpl implements ReadPautaRepository {
 
+    private static final String ID = "id";
+    private static final String CAMPO_UUID = "uuid";
+    private static final String TITULO = "titulo";
+    private static final String DESCRICAO = "descricao";
+    private static final String DATA_CRIACAO = "created_at";
+    private static final String DATA_ALTERACAO = "updated_at";
+
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     public ReadPautaRepositoryImpl(DataSource dataSource) {
@@ -27,9 +34,9 @@ public class ReadPautaRepositoryImpl implements ReadPautaRepository {
 
         return jdbcTemplate.query(sql, (rs, rowNum) ->
                 new PautaInDto(
-                        UUID.fromString(rs.getString("uuid")),
-                        rs.getString("titulo"),
-                        rs.getString("descricao"))
+                        UUID.fromString(rs.getString(CAMPO_UUID)),
+                        rs.getString(TITULO),
+                        rs.getString(DESCRICAO))
         );
     }
 
@@ -41,17 +48,17 @@ public class ReadPautaRepositoryImpl implements ReadPautaRepository {
                 WHERE uuid = :uuid""";
 
         var parameters = new MapSqlParameterSource()
-                .addValue("uuid", uuid);
+                .addValue(CAMPO_UUID, uuid);
 
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
                 return Optional.of(new Pauta().
-                        setId(resultSet.getLong("id")).
-                        setUuid(UUID.fromString(resultSet.getString("uuid"))).
-                        setTitulo(resultSet.getString("titulo")).
-                        setDescricao(resultSet.getString("descricao")).
-                        setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
-                        setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime())
+                        setId(resultSet.getLong(ID)).
+                        setUuid(UUID.fromString(resultSet.getString(CAMPO_UUID))).
+                        setTitulo(resultSet.getString(TITULO)).
+                        setDescricao(resultSet.getString(DESCRICAO)).
+                        setCreatedAt(resultSet.getTimestamp(DATA_CRIACAO).toLocalDateTime()).
+                        setUpdatedAt(resultSet.getTimestamp(DATA_ALTERACAO).toLocalDateTime())
                 );
             }
             return Optional.empty();
@@ -66,18 +73,18 @@ public class ReadPautaRepositoryImpl implements ReadPautaRepository {
                 WHERE uuid = :uuid OR titulo = :titulo """;
 
         var parameters = new MapSqlParameterSource()
-                .addValue("uuid", uuid)
-                .addValue("titulo", titulo);
+                .addValue(CAMPO_UUID, uuid)
+                .addValue(TITULO, titulo);
 
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
                 return Optional.of(new Pauta().
-                        setId(resultSet.getLong("id")).
-                        setUuid(UUID.fromString(resultSet.getString("uuid"))).
-                        setTitulo(resultSet.getString("titulo")).
-                        setDescricao(resultSet.getString("descricao")).
-                        setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
-                        setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime())
+                        setId(resultSet.getLong(ID)).
+                        setUuid(UUID.fromString(resultSet.getString(CAMPO_UUID))).
+                        setTitulo(resultSet.getString(TITULO)).
+                        setDescricao(resultSet.getString(DESCRICAO)).
+                        setCreatedAt(resultSet.getTimestamp(DATA_CRIACAO).toLocalDateTime()).
+                        setUpdatedAt(resultSet.getTimestamp(DATA_ALTERACAO).toLocalDateTime())
                 );
             }
             return Optional.empty();

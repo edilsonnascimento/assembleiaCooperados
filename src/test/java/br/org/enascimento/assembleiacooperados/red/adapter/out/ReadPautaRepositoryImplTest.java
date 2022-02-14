@@ -14,7 +14,7 @@ import static java.util.UUID.fromString;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class ReadPautaRepositoryImplTest extends DataSourceHelper {
+class ReadPautaRepositoryImplTest extends DataSourceHelper {
 
     private ReadPautaRepository repository;
 

@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
-public class CreateCedulaHandlerTest extends TestHelper {
+class CreateCedulaHandlerTest extends TestHelper {
 
     @Test
     void Given_ValidCommand_Must_DelegateToHeadler(){

@@ -10,7 +10,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("unit")
-public class SessaoTest extends TestHelper {
+class SessaoTest extends TestHelper {
 
     private Sessao sessao = new Sessao();
 

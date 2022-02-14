@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-public class CreateCedulaHandlerIT extends IntegrationHelper {
+class CreateCedulaHandlerIT extends IntegrationHelper {
 
     @MockBean
     private ValidaCPFConsumer serverValidaCPF;
@@ -36,7 +36,7 @@ public class CreateCedulaHandlerIT extends IntegrationHelper {
         actual.setCpf(new CPFHelper().cpf());
         when(repository.retrieveCedulaDto(any())).thenReturn(Optional.of(actual));
         var dto = mock(EleitorDto.class);
-        when(serverValidaCPF.isAbleToVote(eq(dto.getCpf()))).thenReturn(true);
+        when(serverValidaCPF.isAbleToVote(dto.getCpf())).thenReturn(true);
 
         //when
          handler.handle(command);
@@ -62,7 +62,7 @@ public class CreateCedulaHandlerIT extends IntegrationHelper {
         actual.setCpf(new CPFHelper().cpf());
         when(repository.retrieveCedulaDto(any())).thenReturn(Optional.of(actual));
         var dto = mock(EleitorDto.class);
-        when(serverValidaCPF.isAbleToVote(eq(dto.getCpf()))).thenReturn(true);
+        when(serverValidaCPF.isAbleToVote(dto.getCpf())).thenReturn(true);
 
         //when
         handler.handle(command);

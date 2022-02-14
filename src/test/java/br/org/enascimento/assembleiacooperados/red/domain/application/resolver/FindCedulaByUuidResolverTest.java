@@ -19,7 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
-public class FindCedulaByUuidResolverTest extends TestHelper {
+class FindCedulaByUuidResolverTest extends TestHelper {
 
     @Test
     void GIVEN_UuidValidFindbyUrnaUuid_ReturnDto() {

@@ -8,7 +8,7 @@ import static java.util.UUID.randomUUID;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @Tag("unit")
-public class CreateCooperadoCommandTest extends TestHelper {
+class CreateCooperadoCommandTest extends TestHelper {
 
     @Test
     void GIVEN_ValidDataCooperado_Must_RetrieveSameDate(){

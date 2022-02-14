@@ -21,13 +21,13 @@ public class WritePautaController {
     private ServiceBus serviceBus;
 
     @PostMapping
-    public ResponseEntity create(@RequestBody @Validated PautaDto pautaDto) throws URISyntaxException {
+    public ResponseEntity<String> create(@RequestBody @Validated PautaDto pautaDto) throws URISyntaxException {
 
         serviceBus.execute(new CreatePautaCommand(pautaDto.uuid(),
                                                      pautaDto.titulo(),
                                                      pautaDto.descricao()));
 
-        return (ResponseEntity) ResponseEntity.created(new URI("v1/pautas/"+ pautaDto.uuid())).build();
+        return ResponseEntity.created(new URI("v1/pautas/"+ pautaDto.uuid())).build();
     }
 
     @PutMapping("/{uuid}")

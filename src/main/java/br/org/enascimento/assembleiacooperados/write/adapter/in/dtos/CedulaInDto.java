@@ -53,4 +53,9 @@ public class CedulaInDto {
     public void setVoto(Voto voto) {
         this.voto = voto;
     }
+
+    public boolean isNull(){
+        return this == null;
+    }
+
 }

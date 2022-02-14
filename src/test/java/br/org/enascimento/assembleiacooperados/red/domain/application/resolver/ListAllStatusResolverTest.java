@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
-public class ListAllStatusResolverTest extends TestHelper {
+class ListAllStatusResolverTest extends TestHelper {
 
     private final ReadStatusRepository repository;
     private final ListAllStatusResolver resolver;

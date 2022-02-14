@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
-public class UpdateCooperadoHandlerTest extends TestHelper {
+class UpdateCooperadoHandlerTest extends TestHelper {
 
     private WriteCooperadoRepository repositoryWrite;
     private ReadCooperadoRepository repositoryRead;

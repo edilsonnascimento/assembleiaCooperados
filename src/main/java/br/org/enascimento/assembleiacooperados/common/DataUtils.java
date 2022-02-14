@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 
 public class DataUtils {
 
+
+    private DataUtils(){}
+
     public static boolean isMesmaData(LocalDateTime data1, LocalDateTime data2) {
         return data1.getYear() == data2.getYear() &&
                 data1.getMonth() == data2.getMonth() &&

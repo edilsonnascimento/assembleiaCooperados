@@ -1,19 +1,19 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.PautaNotExistentException;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WritePautaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.util.List;
 
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.INVALID_DUPLICATE_DATA;
+import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.PAUTA_NOT_EXIST;
 
 @Repository
 public class WritePautaRepositoryImpl implements WritePautaRepository {
@@ -38,22 +38,24 @@ public class WritePautaRepositoryImpl implements WritePautaRepository {
                     values (:uuid, :titulo, :descricao)""";
 
             var parameters = new MapSqlParameterSource()
-                    .addValue("uuid", pauta.getUuid())
-                    .addValue("titulo", pauta.getTitulo())
-                    .addValue("descricao", pauta.getDescricao());
+                    .addValue(UUID_FIELD, pauta.getUuid())
+                    .addValue(TITULO_FIELD, pauta.getTitulo())
+                    .addValue(DESCRICAO_FIELD, pauta.getDescricao());
 
             jdbcTemplate.update(sql, parameters);
         } catch (DuplicateKeyException exception) {
 
             var duplicatedDataException = new DuplicatedDataException(INVALID_DUPLICATE_DATA, exception);
-            var existentPauta = repositoryRead.findByUuidOrTitulo(pauta.getUuid(), pauta.getTitulo()).get();
+            var optionalPauta = repositoryRead.findByUuidOrTitulo(pauta.getUuid(), pauta.getTitulo());
+            if(!optionalPauta.isPresent()) throw new PautaNotExistentException(PAUTA_NOT_EXIST);
+            var existentPauta = optionalPauta.get();
 
             if(existentPauta.getTitulo().equals(pauta.getTitulo())) {
-                duplicatedDataException.addErrors("titulo", pauta.getTitulo());
+                duplicatedDataException.addErrors(TITULO_FIELD, pauta.getTitulo());
             }
 
             if(existentPauta.getUuid().equals(pauta.getUuid())) {
-                duplicatedDataException.addErrors("uuid", pauta.getUuid());
+                duplicatedDataException.addErrors(UUID_FIELD, pauta.getUuid());
             }
 
             throw duplicatedDataException;

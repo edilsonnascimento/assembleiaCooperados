@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class WriteStatusRepositoryImplTest extends DataSourceHelper {
+class WriteStatusRepositoryImplTest extends DataSourceHelper {
 
     private WriteStatusRepositoy repositoy;
     private ReadStatusRepository repositoryRead;

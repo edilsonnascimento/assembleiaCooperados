@@ -15,7 +15,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @Tag("unit")
-public class CreateCooperadoHandlerTest extends TestHelper {
+class CreateCooperadoHandlerTest extends TestHelper {
 
     @Test
     void GIVEN_ValidCommand_MUST_CreateCooperado() {

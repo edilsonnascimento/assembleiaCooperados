@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static java.lang.String.valueOf;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -52,7 +51,7 @@ public class WriteExceptionHandler {
                 .getFieldErrors()
                 .stream()
                 .map(fieldError -> new FieldValidationError(fieldError.getField(), fieldError.getDefaultMessage()))
-                .collect(Collectors.toList());
+                .toList();
 
         return getResponseEntity("invalid data", mapErrors);
     }

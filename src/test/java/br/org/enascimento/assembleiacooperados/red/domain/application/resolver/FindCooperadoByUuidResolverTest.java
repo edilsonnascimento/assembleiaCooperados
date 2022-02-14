@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
-public class FindCooperadoByUuidResolverTest extends TestHelper {
+class FindCooperadoByUuidResolverTest extends TestHelper {
 
     private final ReadCooperadoRepository repository;
     private final FindCooperadoByUuidResolver resolver;

@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-public class CreateSessaoIT extends IntegrationHelper {
+class CreateSessaoIT extends IntegrationHelper {
 
     private static final String URI_PATH = "/v1/sessao/";
 

@@ -6,10 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Tag("unit")
-public class CreatePautaCommandTest extends TestHelper {
+class CreatePautaCommandTest extends TestHelper {
 
     @Test
     void GIVEN_ValidData_Must_RetrieveSameDate(){
@@ -22,8 +23,8 @@ public class CreatePautaCommandTest extends TestHelper {
         var command = new CreatePautaCommand(uuid, titulo, descricao);
 
         //then
-        assertTrue(command.uuid().equals(uuid));
-        assertTrue(command.descricao().equals(descricao));
-        assertTrue(command.titulo().equals(titulo));
+        assertEquals(command.uuid(), uuid);
+        assertEquals(command.descricao(), descricao);
+        assertEquals(command.titulo(), titulo);
     }
 }

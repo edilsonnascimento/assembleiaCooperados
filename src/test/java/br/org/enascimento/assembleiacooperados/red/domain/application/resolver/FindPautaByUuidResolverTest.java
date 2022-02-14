@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
-public class FindPautaByUuidResolverTest extends TestHelper {
+class FindPautaByUuidResolverTest extends TestHelper {
 
     private final ReadPautaRepository repository;
     private final FindPautaByUuidResolver resolver;

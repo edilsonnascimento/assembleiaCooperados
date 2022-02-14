@@ -1,5 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
+import br.org.enascimento.assembleiacooperados.red.domain.exception.CedulaNotExistentException;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.EleitorDto;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.CedulaDto;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.CedulaInDto;
@@ -17,6 +18,7 @@ import javax.sql.DataSource;
 import java.util.Optional;
 import java.util.UUID;
 
+import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.CEDULA_NOT_EXIST;
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.INVALID_DUPLICATE_DATA;
 
 @Repository
@@ -45,7 +47,10 @@ public class WriteCedulaRepositoryImpl implements WriteCedulaRepository {
             jdbcTemplate.update(sql, parameters);
         } catch (DuplicateKeyException exception) {
             var duplicatedDataException = new DuplicatedDataException(INVALID_DUPLICATE_DATA, exception);
-            var cedulaDuplicated = findCedula(cedulaInDto).orElse(new Cedula());
+            var optionalCedula = findCedula(cedulaInDto);
+            if(!optionalCedula.isPresent())
+                throw new CedulaNotExistentException(CEDULA_NOT_EXIST);
+            var cedulaDuplicated = optionalCedula.get();
 
             if(cedulaDuplicated.getUuid().equals(cedulaInDto.getUuid()))
                 duplicatedDataException.addErrors("uuid", cedulaInDto.getUuid());
@@ -108,7 +113,7 @@ public class WriteCedulaRepositoryImpl implements WriteCedulaRepository {
                     return null;
                 });
 
-        if(cooperado.getId() != null && idSessao != null) {
+        if(cooperado != null && idSessao != null) {
             var eleitor =  new EleitorDto(dtoUrna.uuidCedula(),idSessao, cooperado.getId(), dtoUrna.voto());
             eleitor.setCpf(cooperado.getCpf());
             return Optional.of(eleitor);

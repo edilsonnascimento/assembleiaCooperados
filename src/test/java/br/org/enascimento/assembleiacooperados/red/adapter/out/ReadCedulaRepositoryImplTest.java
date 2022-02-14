@@ -13,7 +13,7 @@ import static br.org.enascimento.assembleiacooperados.write.domain.core.Voto.FAV
 import static java.util.UUID.fromString;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ReadCedulaRepositoryImplTest extends DataSourceHelper {
+class ReadCedulaRepositoryImplTest extends DataSourceHelper {
 
     private ReadCedulaRepository repository;
 

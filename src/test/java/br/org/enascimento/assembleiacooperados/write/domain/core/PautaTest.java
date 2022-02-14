@@ -9,7 +9,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("unit")
-public class PautaTest extends TestHelper {
+class PautaTest extends TestHelper {
 
     @Test
     void GIVEN_ValidData_MUST_RestrieveSameData(){

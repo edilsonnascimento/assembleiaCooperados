@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag("unit")
-public class CreateStatusCommandTest extends TestHelper {
+class CreateStatusCommandTest extends TestHelper {
 
     @Test
     void GIVEN_ValidData_Must_RetrieveSameDate(){

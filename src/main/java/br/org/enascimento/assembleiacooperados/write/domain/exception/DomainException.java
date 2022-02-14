@@ -5,7 +5,7 @@ import java.util.Map;
 
 public abstract class DomainException extends RuntimeException{
 
-   private int code;
+   private final int code;
 
     public enum Error{
         INVALID_DUPLICATE_DATA("Invalid duplicated data", 1000),
@@ -29,14 +29,14 @@ public abstract class DomainException extends RuntimeException{
         }
     }
 
-    private Map<String, Object> errors = new LinkedHashMap<>();
+    private final transient Map<String, Object> errors = new LinkedHashMap<>();
 
-    public DomainException(Error error){
+    protected DomainException(Error error){
         super(error.message);
         code = error.code;
 
     }
-    public DomainException(Error error, Throwable cause) {
+    protected DomainException(Error error, Throwable cause) {
         super(error.message , cause);
         code = error.code;
     }

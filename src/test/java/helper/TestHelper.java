@@ -14,6 +14,7 @@ public abstract class TestHelper {
         return mvcResult -> {
             String json = mvcResult.getResponse().getContentAsString();
             assertThat(json.contains(expectedFieldValue)).isTrue();
+
         };
     }
 }

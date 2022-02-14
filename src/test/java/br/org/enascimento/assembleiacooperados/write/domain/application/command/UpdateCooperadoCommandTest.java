@@ -9,7 +9,7 @@ import java.util.UUID;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Tag("unit")
-public class UpdateCooperadoCommandTest extends TestHelper {
+class UpdateCooperadoCommandTest extends TestHelper {
 
     @Test
     void GIVEN_ValidData_Must_RetrieveSameDate(){

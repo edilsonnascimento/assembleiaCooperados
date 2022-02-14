@@ -19,24 +19,28 @@ public class ValidaCPFConsumer{
     private WebClient webClientCpf;
 
     public boolean isAbleToVote(String cpf) throws ValidationException {
+        var statusCPF = sendWebServiceValidar(cpf);
+        return isAbilitadoVotar(statusCPF);
+    }
+
+    private StatusCPF sendWebServiceValidar(String cpf) throws ValidationException{
         try {
-            var statusCPF = this.webClientCpf
+            return this.webClientCpf
                     .get()
                     .uri("users/{cpf}", cpf)
                     .retrieve()
-                        .onStatus(HttpStatus::is4xxClientError,
-                                error -> Mono.error(new RuntimeException("API not Found")))
-                        .onStatus(HttpStatus::is5xxServerError,
-                                error -> Mono.error(new RuntimeException("Server is not responding")))
+                    .onStatus(HttpStatus::is4xxClientError,
+                            error -> Mono.error(new RuntimeException("API not Found")))
+                    .onStatus(HttpStatus::is5xxServerError,
+                            error -> Mono.error(new RuntimeException("Server is not responding")))
                     .bodyToMono(StatusCPF.class)
                     .block();
-            return isAbilitadoVotar(statusCPF);
         }catch (RuntimeException exception){
             throw new ValidaCPFException(CPF_INVALID);
         }
     }
 
     private boolean isAbilitadoVotar(StatusCPF retorno){
-        return retorno.status().equals("ABLE_TO_VOTE");
+        return (retorno != null && retorno.equals("ABLE_TO_VOTE"));
     }
 }

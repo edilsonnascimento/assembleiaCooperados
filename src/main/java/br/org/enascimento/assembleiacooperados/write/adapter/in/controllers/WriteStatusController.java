@@ -27,7 +27,7 @@ public class WriteStatusController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody @Validated StatusInDto dto) throws URISyntaxException{
+    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody @Validated StatusInDto dto){
         serviceBus.execute(new UpdateStatusCommand(id, dto.descricao()));
         return ResponseEntity.noContent().build();
     }

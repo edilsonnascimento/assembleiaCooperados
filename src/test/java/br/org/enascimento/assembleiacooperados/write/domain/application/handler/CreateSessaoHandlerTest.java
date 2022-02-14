@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
-public class CreateSessaoHandlerTest extends TestHelper {
+class CreateSessaoHandlerTest extends TestHelper {
 
     private CreateSessaoHandler handler;
     private WriteSessaoRepository repository;

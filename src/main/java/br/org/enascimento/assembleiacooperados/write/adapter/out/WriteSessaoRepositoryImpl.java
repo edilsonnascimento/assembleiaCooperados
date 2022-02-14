@@ -18,7 +18,8 @@ import static br.org.enascimento.assembleiacooperados.write.domain.exception.Dom
 @Repository
 public class WriteSessaoRepositoryImpl implements WriteSessaoRepository {
 
-    private final static Long STATUS_SESSAO = 2L;
+    private static final Long STATUS_SESSAO = 2L;
+    private static final String ID_SESSAO = "idSessao";
 
     private NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -59,8 +60,7 @@ public class WriteSessaoRepositoryImpl implements WriteSessaoRepository {
 
             jdbcTemplate.update(sql, parameters);
         } catch (DuplicateKeyException exception) {
-            var duplicateException = new DuplicatedDataException(INVALID_DUPLICATE_DATA, exception);
-            throw duplicateException;
+            throw new DuplicatedDataException(INVALID_DUPLICATE_DATA, exception);
         }
         return true;
     }
@@ -94,6 +94,19 @@ public class WriteSessaoRepositoryImpl implements WriteSessaoRepository {
         for (Long idSessao : idsSessoesVencidas) fecharSessao(idSessao);
     }
 
+    private List<Long> findSessoesInvalidates() {
+        var sql =
+                """
+                    SELECT id
+                    FROM sessao AS ses
+                    WHERE id_status <> :statusSessao AND
+                          (now() AT TIME ZONE 'America/Sao_Paulo') > fim_sessao;""";
+        var parameters = new MapSqlParameterSource()
+                .addValue("statusSessao", STATUS_SESSAO);
+
+        return jdbcTemplate.query(sql, parameters, (resultSet, rowNum) -> resultSet.getLong("id"));
+    }
+
     private void fecharSessao(Long idSessao) {
         var sqlVotosContra = """                
             SELECT voto, COUNT(1) AS quantidade_votos
@@ -102,7 +115,7 @@ public class WriteSessaoRepositoryImpl implements WriteSessaoRepository {
             GROUP BY voto""";
 
         var paramVotosContra = new MapSqlParameterSource()
-                .addValue("idSessao", idSessao);
+                .addValue(ID_SESSAO, idSessao);
         var votosContra =
                 jdbcTemplate.query(sqlVotosContra, paramVotosContra, resultSet -> {
                     if (resultSet.next()) return resultSet.getInt("quantidade_votos");
@@ -115,7 +128,7 @@ public class WriteSessaoRepositoryImpl implements WriteSessaoRepository {
             WHERE id_sessao = :idSessao AND voto = 'FAVORAVEL'
             GROUP BY voto""";
         var paramVotosFavoraveis = new MapSqlParameterSource()
-                .addValue("idSessao", idSessao);
+                .addValue(ID_SESSAO, idSessao);
         var votosFavoraveis =
                 jdbcTemplate.query(sqlVotosFavoraveis, paramVotosFavoraveis, resultSet -> {
                     if (resultSet.next()) return resultSet.getInt("quantidade_votos");
@@ -133,20 +146,7 @@ public class WriteSessaoRepositoryImpl implements WriteSessaoRepository {
                 .addValue("statusSessao", STATUS_SESSAO)
                 .addValue("votosFavoraveis", votosFavoraveis)
                 .addValue("votosContra", votosContra)
-                .addValue("idSessao", idSessao);
+                .addValue(ID_SESSAO, idSessao);
         jdbcTemplate.update(sql, parameters);
-    }
-
-    private List<Long> findSessoesInvalidates() {
-        var sql =
-                """
-                    SELECT id
-                    FROM sessao AS ses
-                    WHERE id_status <> :statusSessao AND
-                          (now() AT TIME ZONE 'America/Sao_Paulo') > fim_sessao;""";
-        var parameters = new MapSqlParameterSource()
-                .addValue("statusSessao", STATUS_SESSAO);
-
-        return jdbcTemplate.query(sql, parameters, (resultSet, rowNum) -> resultSet.getLong("id"));
     }
 }

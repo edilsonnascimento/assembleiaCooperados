@@ -11,7 +11,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ReadCooperadoRepositoryImplTest extends DataSourceHelper {
+class ReadCooperadoRepositoryImplTest extends DataSourceHelper {
 
     private ReadCooperadoRepository repository;
 

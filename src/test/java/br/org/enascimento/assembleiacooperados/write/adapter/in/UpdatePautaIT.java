@@ -10,7 +10,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class UpdatePautaIT extends IntegrationHelper {
+class UpdatePautaIT extends IntegrationHelper {
 
     private static final String ENDPOINT_PATH = "/v1/pautas/{uuid}";
 

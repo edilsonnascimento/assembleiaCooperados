@@ -13,7 +13,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("unit")
-public class ListAllSessaoQueryTest extends TestHelper {
+class ListAllSessaoQueryTest extends TestHelper {
 
     @Test
     void GIVEN_QueryAllSessoes_MUST_RetrieveListDto(){

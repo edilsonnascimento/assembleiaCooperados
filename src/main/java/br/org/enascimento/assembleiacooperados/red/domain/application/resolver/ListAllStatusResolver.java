@@ -5,7 +5,7 @@ import br.org.enascimento.assembleiacooperados.red.domain.core.ReadStatusReposit
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.StatusDto;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 @Service
 public class ListAllStatusResolver implements Resolver<ListAllStatusQuery>{
@@ -19,11 +19,11 @@ public class ListAllStatusResolver implements Resolver<ListAllStatusQuery>{
     @Override
     public void resolve(ListAllStatusQuery query) {
         var optional = repository.findAll();
-        var listStatus = optional.get();
+        var listStatus = optional.orElse(new ArrayList<>());
         var listStatusDto = listStatus
                                         .stream()
                                         .map(status -> new StatusDto(status.getDescricao()))
-                                        .collect(Collectors.toList());
+                                        .toList();
         query.setResult(listStatusDto);
     }
 }

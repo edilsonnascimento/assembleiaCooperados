@@ -7,7 +7,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class UpdateStatusIT extends IntegrationHelper {
+class UpdateStatusIT extends IntegrationHelper {
 
     private final static String PATH_URI_ID = "/v1/status/{id}";
 

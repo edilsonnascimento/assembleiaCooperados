@@ -11,7 +11,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class ReadCedulaControllerIT extends IntegrationHelper {
+class ReadCedulaControllerIT extends IntegrationHelper {
 
     private final static String PATH_URI_UUID = "/v1/cedulas/{uuid}";
     private final static String PATH_URI = "/v1/cedulas";

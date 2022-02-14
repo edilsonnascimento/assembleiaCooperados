@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Tag("unit")
-public class CreateCedulaCommandTest extends TestHelper {
+class CreateCedulaCommandTest extends TestHelper {
 
     @Test
     void GIVEN_ValidData_Must_RetrieveSameDate() {

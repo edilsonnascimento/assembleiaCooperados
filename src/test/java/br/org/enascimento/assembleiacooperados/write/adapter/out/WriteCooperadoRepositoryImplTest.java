@@ -52,8 +52,8 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
         //then
         var createdCooperado = repositoryRead.findByUuidOrCpf(uuid, null);
         var actual = createdCooperado.get();
-        assertThat(isMesmaData(actual.getCreatedAt(), otherDate));
-        assertThat(isMesmaData(actual.getCreatedAt(), otherDate));
+        assertThat(isMesmaData(actual.getCreatedAt(), otherDate)).isTrue();
+        assertThat(isMesmaData(actual.getCreatedAt(), otherDate)).isTrue();
     }
 
     @ParameterizedTest
@@ -83,9 +83,9 @@ class WriteCooperadoRepositoryImplTest extends DataSourceHelper {
         var nomeActual = "NOME-EXISTENTE-1";
         var cpfActual = "55595585080";
         var actualCooperado = repositoryRead.findByUuidOrCpf(uuid, cpfActual).get();
-        assertThat(actualCooperado.getUuid().equals(uuid));
-        assertThat(actualCooperado.getNome().equals(nomeActual));
-        assertThat(actualCooperado.getCpf().equals(cpfActual));
+        assertThat(actualCooperado.getUuid()).isEqualTo(uuid);
+        assertThat(actualCooperado.getNome()).isEqualTo(nomeActual);
+        assertThat(actualCooperado.getCpf()).isEqualTo(cpfActual);
 
         var nomeExpected = "NOVO NOME";
         var cpfExpected = "00000000000";

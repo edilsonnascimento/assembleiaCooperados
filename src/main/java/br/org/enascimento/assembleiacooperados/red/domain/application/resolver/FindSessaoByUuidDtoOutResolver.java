@@ -3,7 +3,6 @@ package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindSessaoByUuidDtoOutQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadSessaoRepository;
 import br.org.enascimento.assembleiacooperados.red.domain.exception.SessaoNotExistedException;
-import br.org.enascimento.assembleiacooperados.red.domain.exception.StatusNotExistedException;
 import org.springframework.stereotype.Service;
 
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.SESSAO_NOT_EXIST;

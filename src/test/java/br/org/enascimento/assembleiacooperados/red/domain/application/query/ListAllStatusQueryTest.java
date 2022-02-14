@@ -10,7 +10,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("unit")
-public class ListAllStatusQueryTest extends TestHelper {
+class ListAllStatusQueryTest extends TestHelper {
 
     @Test
     void GIVEN_QueryAllStatus_MUST_RetrieveListDto(){

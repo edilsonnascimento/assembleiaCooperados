@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
 @Tag("unit")
-public class ListAllSessaoResolverTest extends TestHelper {
+class ListAllSessaoResolverTest extends TestHelper {
 
     private final ReadSessaoRepository repository;
     private final ListAllSessaoResolver resolver;

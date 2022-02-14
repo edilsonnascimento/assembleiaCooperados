@@ -8,7 +8,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class ReadStatusControllerIT extends IntegrationHelper {
+class ReadStatusControllerIT extends IntegrationHelper {
 
     private final static String PATH_URI_UUID = "/v1/status/{uuid}";
     private static final String PATH_URI = "/v1/status";

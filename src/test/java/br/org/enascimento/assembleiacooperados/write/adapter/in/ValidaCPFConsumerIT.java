@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public class ValidaCPFConsumerIT extends IntegrationHelper {
+class ValidaCPFConsumerIT extends IntegrationHelper {
 
     @Autowired
     private ValidaCPFConsumer validaCPF;
@@ -26,7 +26,7 @@ public class ValidaCPFConsumerIT extends IntegrationHelper {
         var actual = validaCPF.isAbleToVote(cpf);
 
         //then
-        assertNotNull(actual);
+        assertThat(actual).isTrue();
 
     }
 

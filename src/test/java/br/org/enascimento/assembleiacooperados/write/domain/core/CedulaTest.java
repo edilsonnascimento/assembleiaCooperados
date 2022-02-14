@@ -11,7 +11,7 @@ import static br.org.enascimento.assembleiacooperados.write.domain.core.Voto.FAV
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("unit")
-public class CedulaTest extends TestHelper {
+class CedulaTest extends TestHelper {
 
     @Test
     void GIVEN_ValidData_MUST_RestrieveSameData(){
