@@ -48,6 +48,7 @@ public class WriteCedulaRepositoryImpl implements WriteCedulaRepository {
         } catch (DuplicateKeyException exception) {
             var duplicatedDataException = new DuplicatedDataException(INVALID_DUPLICATE_DATA, exception);
             var optionalCedula = findCedula(cedulaInDto);
+
             if(!optionalCedula.isPresent())
                 throw new CedulaNotExistentException(CEDULA_NOT_EXIST);
             var cedulaDuplicated = optionalCedula.get();

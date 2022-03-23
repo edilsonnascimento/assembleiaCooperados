@@ -25,9 +25,9 @@ public class CreateCedulaHandler implements Handler<CreateCedulaCommand>{
     @Override
     public void handle(CreateCedulaCommand command) {
         var cedulaDto = new CedulaDto(command.uuidCedula(),
-                                           command.uuidSessao(),
-                                           command.uuidCooperado(),
-                                             command.voto());
+                                      command.uuidSessao(),
+                                      command.uuidCooperado(),
+                                      command.voto());
         var optionalCedulaInDto = repository.retrieveCedulaDto(cedulaDto);
         if(optionalCedulaInDto.isEmpty()) throw new CedualNotExistedExcepetion(CEDULA_INVALID);
         var dto = optionalCedulaInDto.get();
