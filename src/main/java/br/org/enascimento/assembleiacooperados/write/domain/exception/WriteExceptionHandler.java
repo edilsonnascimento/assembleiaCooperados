@@ -1,6 +1,5 @@
-package br.org.enascimento.assembleiacooperados.write.adapter.in.controllers;
+package br.org.enascimento.assembleiacooperados.write.domain.exception;
 
-import br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;

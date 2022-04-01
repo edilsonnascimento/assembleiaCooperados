@@ -1,19 +1,14 @@
 package helper;
 
-public class CPFHelper {
+public class GeradorCPF {
 
     private boolean	comPontos	= false;
 
-    private int randomiza(int n) {
-        int ranNum = (int) (Math.random() * n);
-        return ranNum;
+    public String gerar(){
+        return cpf();
     }
 
-    private int mod(int dividendo, int divisor) {
-        return (int) Math.round(dividendo - (Math.floor(dividendo / divisor) * divisor));
-    }
-
-    public String cpf() {
+    private String cpf() {
         int n = 9;
         int n1 = randomiza(n);
         int n2 = randomiza(n);
@@ -47,5 +42,14 @@ public class CPFHelper {
             retorno = "" + n1 + n2 + n3 + n4 + n5 + n6 + n7 + n8 + n9 + d1 + d2;
 
         return retorno;
+    }
+
+    private int randomiza(int n) {
+        int ranNum = (int) (Math.random() * n);
+        return ranNum;
+    }
+
+    private int mod(int dividendo, int divisor) {
+        return (int) Math.round(dividendo - (Math.floor(dividendo / divisor) * divisor));
     }
 }

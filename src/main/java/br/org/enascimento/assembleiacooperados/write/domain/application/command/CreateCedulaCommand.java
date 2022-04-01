@@ -9,7 +9,4 @@ public record CreateCedulaCommand(
         UUID uuidSessao,
         UUID uuidCooperado,
         Voto voto
-        ) implements Command{
-
-
-}
+        ) implements Command{}

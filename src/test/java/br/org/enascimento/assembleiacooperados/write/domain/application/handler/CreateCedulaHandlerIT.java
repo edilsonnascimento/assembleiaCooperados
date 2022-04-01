@@ -6,7 +6,7 @@ import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.CedulaInDto
 import br.org.enascimento.assembleiacooperados.write.adapter.out.WriteCedulaRepositoryImpl;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateCedulaCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
-import helper.CPFHelper;
+import helper.GeradorCPF;
 import helper.IntegrationHelper;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -33,7 +33,7 @@ class CreateCedulaHandlerIT extends IntegrationHelper {
         var handler = new CreateCedulaHandler(repository, serverValidaCPF);
         var command = new CreateCedulaCommand(UUID.randomUUID(), UUID.randomUUID(),UUID.randomUUID(), Voto.FAVORAVEL);
         var actual = new EleitorDto(command.uuidCedula(), 1l, 1l, command.voto());
-        actual.setCpf(new CPFHelper().cpf());
+        actual.setCpf(new GeradorCPF().gerar());
         when(repository.retrieveCedulaDto(any())).thenReturn(Optional.of(actual));
         var dto = mock(EleitorDto.class);
         when(serverValidaCPF.isAbleToVote(dto.getCpf())).thenReturn(true);
@@ -59,7 +59,7 @@ class CreateCedulaHandlerIT extends IntegrationHelper {
         var handler = new CreateCedulaHandler(repository, serverValidaCPF);
         var command = new CreateCedulaCommand(UUID.randomUUID(), UUID.randomUUID(),UUID.randomUUID(), Voto.FAVORAVEL);
         var actual = new EleitorDto(command.uuidCedula(), 1l, 1l, command.voto());
-        actual.setCpf(new CPFHelper().cpf());
+        actual.setCpf(new GeradorCPF().gerar());
         when(repository.retrieveCedulaDto(any())).thenReturn(Optional.of(actual));
         var dto = mock(EleitorDto.class);
         when(serverValidaCPF.isAbleToVote(dto.getCpf())).thenReturn(true);

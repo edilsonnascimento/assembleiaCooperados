@@ -2,13 +2,12 @@ package br.org.enascimento.assembleiacooperados.write.adapter.in;
 
 import br.org.enascimento.assembleiacooperados.write.adapter.in.consummers.validacpf.ValidaCPFConsumer;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.ValidaCPFException;
-import helper.CPFHelper;
+import helper.GeradorCPF;
 import helper.IntegrationHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -20,13 +19,13 @@ class ValidaCPFConsumerIT extends IntegrationHelper {
     @Test
     void GIVEN_ValidDataCpf_MUST_ReturnSucess(){
         //given
-        var cpf = new CPFHelper().cpf();
+        var cpf = new GeradorCPF().gerar();
 
         //when
         var actual = validaCPF.isAbleToVote(cpf);
 
         //then
-        assertThat(actual).isTrue();
+        assertThat(actual).isNotNull();
 
     }
 
