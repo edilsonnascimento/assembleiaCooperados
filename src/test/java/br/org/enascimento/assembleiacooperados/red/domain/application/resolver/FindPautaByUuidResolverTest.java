@@ -3,11 +3,16 @@ package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 import br.org.enascimento.assembleiacooperados.red.adapter.in.dtos.PautaInDto;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindPautaByUuidQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
-import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.red.domain.exception.PautaNotExistentException;
+import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -20,13 +25,10 @@ import static org.mockito.Mockito.*;
 @Tag("unit")
 class FindPautaByUuidResolverTest extends TestHelper {
 
-    private final ReadPautaRepository repository;
-    private final FindPautaByUuidResolver resolver;
-
-    public FindPautaByUuidResolverTest() {
-        this.repository = mock(ReadPautaRepository.class);
-        this.resolver = new FindPautaByUuidResolver(repository);
-    }
+    @Mock
+    private ReadPautaRepository repository;
+    @InjectMocks
+    private FindPautaByUuidResolver resolver;
 
     @Test
     void GIVEN_UuidValidFindbyCooperadoUuid_ReturnDto() {
