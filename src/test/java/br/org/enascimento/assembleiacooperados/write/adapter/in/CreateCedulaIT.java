@@ -23,7 +23,7 @@ class CreateCedulaIT extends IntegrationHelper {
         var dto = new CedulaDto(
                 uuidCedula,
                 UUID.fromString("c97defa8-9451-4aa0-aaa1-a2eb1a90e6a1"),
-                UUID.fromString("9fd33037-09ad-4027-9ad7-6d2b83f2a5b4"),
+                UUID.fromString("3136a1bc-ef61-465c-bc0c-54a65785cfb3"),
                 Voto.FAVORAVEL);
 
         //when
