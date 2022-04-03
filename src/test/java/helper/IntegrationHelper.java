@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 public class IntegrationHelper extends TestHelper{
     @Autowired
     protected MockMvc mockMvc;
-
     protected static String[] args(String... items) {
         return items;
     }

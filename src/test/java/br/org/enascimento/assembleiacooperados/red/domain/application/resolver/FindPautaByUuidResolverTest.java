@@ -8,11 +8,8 @@ import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -71,6 +68,5 @@ class FindPautaByUuidResolverTest extends TestHelper {
         //then
         assertThat(exception.getMessage()).isEqualTo("Pauta not exist");
         verify(repository, times(1)).findByUuid(uuid);
-
     }
 }

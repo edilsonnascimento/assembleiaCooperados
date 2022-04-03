@@ -4,6 +4,7 @@ import br.org.enascimento.assembleiacooperados.red.domain.application.query.Find
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadStatusRepository;
 import br.org.enascimento.assembleiacooperados.red.domain.exception.StatusNotExistedException;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.StatusDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.STATUS_NOT_EXIST;
@@ -11,20 +12,14 @@ import static br.org.enascimento.assembleiacooperados.write.domain.exception.Dom
 @Service
 public class FindStatusByIdResolver implements Resolver<FindStatusByIdQuery>{
 
-
-    private final ReadStatusRepository repository;
-
-    public FindStatusByIdResolver(ReadStatusRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private ReadStatusRepository repository;
 
     @Override
     public void resolve(FindStatusByIdQuery query) {
         var statusOptional = repository.findById(query.getId());
-
         if(!statusOptional.isPresent())
             throw new StatusNotExistedException(STATUS_NOT_EXIST);
-
         var status = statusOptional.get();
         var statusDto = new StatusDto(status.getDescricao());
         query.setResult(statusDto);

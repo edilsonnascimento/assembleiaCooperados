@@ -7,6 +7,8 @@ import br.org.enascimento.assembleiacooperados.write.domain.core.Status;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,17 +20,13 @@ import static org.mockito.Mockito.*;
 @Tag("unit")
 class ListAllStatusResolverTest extends TestHelper {
 
-    private final ReadStatusRepository repository;
-    private final ListAllStatusResolver resolver;
-
-    public ListAllStatusResolverTest() {
-        this.repository = mock(ReadStatusRepository.class);
-        this.resolver = new ListAllStatusResolver(repository);
-    }
+    @Mock
+    private ReadStatusRepository repository;
+    @InjectMocks
+    private ListAllStatusResolver resolver;
 
     @Test
     void WHEN_QueryAllStatus_MUST_RetriveSuccessfull(){
-
         //given
         var query = new ListAllStatusQuery();
         var dataAtual = LocalDateTime.now();
@@ -45,11 +43,9 @@ class ListAllStatusResolverTest extends TestHelper {
         var listStatus = List.of(aberta, encerrada);
         var expected = List.of(new StatusDto("ABERTA"), new StatusDto("ENCERRADA"));
         when(repository.findAll()).thenReturn(Optional.of(listStatus));
-
         //when
         resolver.resolve(query);
         var actual = query.getResult();
-
         //then
         verify(repository, times(1)).findAll();
         assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);

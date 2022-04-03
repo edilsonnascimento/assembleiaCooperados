@@ -3,6 +3,7 @@ package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.ListAllSessaoQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadSessaoRepository;
 import br.org.enascimento.assembleiacooperados.red.domain.exception.SessaoNotExistedException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.SESSAO_NOT_EXIST;
@@ -10,11 +11,8 @@ import static br.org.enascimento.assembleiacooperados.write.domain.exception.Dom
 @Service
 public class ListAllSessaoResolver implements Resolver<ListAllSessaoQuery>{
 
-    private final ReadSessaoRepository repository;
-
-    public ListAllSessaoResolver(ReadSessaoRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private ReadSessaoRepository repository;
 
     @Override
     public void resolve(ListAllSessaoQuery query) {

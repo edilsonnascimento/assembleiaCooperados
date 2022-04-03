@@ -7,6 +7,8 @@ import br.org.enascimento.assembleiacooperados.red.domain.exception.SessaoNotExi
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -20,17 +22,13 @@ import static org.mockito.Mockito.*;
 @Tag("unit")
 class FindSessaoByUuidDtoOutResolverTest extends TestHelper {
 
+    @Mock
     private ReadSessaoRepository repository;
+    @InjectMocks
     private FindSessaoByUuidDtoOutResolver resolver;
-
-    public FindSessaoByUuidDtoOutResolverTest() {
-        this.repository = mock(ReadSessaoRepository.class);
-        this.resolver = new FindSessaoByUuidDtoOutResolver(repository);
-    }
 
     @Test
     void GIVEN_UuidValidFindbySessaoUuid_ReturnDto(){
-
         //given
         var uuid = UUID.randomUUID();
         var query = new FindSessaoByUuidDtoOutQuery();
@@ -46,11 +44,9 @@ class FindSessaoByUuidDtoOutResolverTest extends TestHelper {
                 BigDecimal.ZERO,
                 faker.lorem().characters());
         when(repository.findByUuidReturnDto(query.getUuid())).thenReturn(Optional.of(actual));
-
         //when
         resolver.resolve(query);
         var expected = query.getResult();
-
         //then
         verify(repository, timeout(1)).findByUuidReturnDto(any());
         assertThat(actual.uuid()).isEqualTo(expected.uuid());
@@ -65,19 +61,15 @@ class FindSessaoByUuidDtoOutResolverTest extends TestHelper {
 
     @Test
     void GIVEN_UuidValidFindbySessaoUuid_ReturnException() {
-
         //given
         var uuid = UUID.randomUUID();
         var query = new FindSessaoByUuidDtoOutQuery();
         query.setUuid(uuid);
         when(repository.findByUuidReturnDto(query.getUuid())).thenReturn(Optional.empty());
-
         //when
         var exception = assertThrows(SessaoNotExistedException.class, ()->
                 resolver.resolve(query));
-
         //then
         org.assertj.core.api.Assertions.assertThat(exception.getMessage()).isEqualTo("Sessao not exist");
     }
-
 }

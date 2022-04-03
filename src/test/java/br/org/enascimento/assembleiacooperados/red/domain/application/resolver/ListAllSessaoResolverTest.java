@@ -6,6 +6,8 @@ import br.org.enascimento.assembleiacooperados.red.domain.core.ReadSessaoReposit
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -21,17 +23,13 @@ import static org.mockito.Mockito.times;
 @Tag("unit")
 class ListAllSessaoResolverTest extends TestHelper {
 
-    private final ReadSessaoRepository repository;
-    private final ListAllSessaoResolver resolver;
-
-    public ListAllSessaoResolverTest() {
-        this.repository = mock(ReadSessaoRepository.class);
-        this.resolver = new ListAllSessaoResolver(repository);
-    }
+    @Mock
+    private ReadSessaoRepository repository;
+    @InjectMocks
+    private ListAllSessaoResolver resolver;
 
     @Test
     void WHEN_QueryAllSessao_MUST_RetriveSuccessfull() {
-
         //given
         var query = new ListAllSessaoQuery();
         var expected = List.of(new SessaoOutDto(
@@ -45,11 +43,9 @@ class ListAllSessaoResolverTest extends TestHelper {
                 BigDecimal.ZERO,
                 faker.name().firstName()));
         when(repository.findAll()).thenReturn(Optional.of(expected));
-
         //when
         resolver.resolve(query);
         var actual = query.getResult();
-
         //then
         verify(repository, times(1)).findAll();
         assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);
@@ -57,16 +53,13 @@ class ListAllSessaoResolverTest extends TestHelper {
 
     @Test
     void WHEN_QueryAllSessao_MUST_RetriveListEmpty() {
-
         //given
         var query = new ListAllSessaoQuery();
         var expected = new ArrayList<SessaoOutDto>();
         when(repository.findAll()).thenReturn(Optional.of(expected));
-
         //when
         resolver.resolve(query);
         var actual = query.getResult();
-
         //then
         verify(repository, times(1)).findAll();
         assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);

@@ -3,6 +3,7 @@ package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.FindCedulaByUuidQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCedulaRepository;
 import br.org.enascimento.assembleiacooperados.red.domain.exception.CedulaNotExistentException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.CEDULA_NOT_EXIST;
@@ -10,11 +11,8 @@ import static br.org.enascimento.assembleiacooperados.write.domain.exception.Dom
 @Service
 public class FindCedulaByUuidResolver implements Resolver<FindCedulaByUuidQuery>{
 
+    @Autowired
     private ReadCedulaRepository repository;
-
-    public FindCedulaByUuidResolver(ReadCedulaRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public void resolve(FindCedulaByUuidQuery query) {

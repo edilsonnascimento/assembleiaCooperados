@@ -1,6 +1,5 @@
 package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 
-import br.org.enascimento.assembleiacooperados.red.adapter.out.ReadCedulaRepositoryImpl;
 import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.CedulaOutDto;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.ListAllCedulaQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCedulaRepository;
@@ -8,7 +7,8 @@ import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,13 +21,10 @@ import static org.mockito.Mockito.*;
 @Tag("unit")
 class ListAllCedulaResolverTest extends TestHelper {
 
-    private final ReadCedulaRepository repository;
-    private final ListAllCedulaResolver resolver;
-
-    public ListAllCedulaResolverTest() {
-        this.repository = Mockito.mock(ReadCedulaRepositoryImpl.class);
-        this.resolver = new ListAllCedulaResolver(repository);
-    }
+    @Mock
+    private ReadCedulaRepository repository;
+    @InjectMocks
+    private ListAllCedulaResolver resolver;
 
     @Test
     void WHEN_QueryAllCedula_MUST_RetriveSuccessfull(){
