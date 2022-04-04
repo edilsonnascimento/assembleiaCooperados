@@ -38,7 +38,6 @@ class CreateCedulaCommandTest extends TestHelper {
 
     @Test
     void MUST_ImplementInterface(){
-
         //given
         var uuidUrna = UUID.randomUUID();
         var uuidSessao = UUID.randomUUID();
