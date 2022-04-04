@@ -1,10 +1,12 @@
 package br.org.enascimento.assembleiacooperados.write.adapter.in.consummers.validacpf;
 
+import br.org.enascimento.assembleiacooperados.write.domain.core.ValidaCPF;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
@@ -17,7 +19,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Configuration
 public class ValidaCpfConfig{
-
     private static final String BASE_URL = "https://user-info.herokuapp.com/";
     public static final int TIMEOUT = 1000;
 
@@ -31,7 +32,6 @@ public class ValidaCpfConfig{
                     connection.addHandlerLast(new ReadTimeoutHandler(TIMEOUT, TimeUnit.MILLISECONDS));
                     connection.addHandlerLast(new WriteTimeoutHandler(TIMEOUT, TimeUnit.MILLISECONDS));
                 });
-
         return builder
                 .baseUrl(BASE_URL)
                 .clientConnector(new ReactorClientHttpConnector(HttpClient.from(tcpClient)))
@@ -39,4 +39,15 @@ public class ValidaCpfConfig{
                 .build();
     }
 
+    @Primary
+    @Bean
+    public ValidaCPFServiceAdapter validaCPFServiceAdapter(){
+        return new ValidaCPFService();
+    }
+
+    @Primary
+    @Bean
+    public ValidaCPF validaCPF(){
+        return new ValidaCPFImpl();
+    }
 }

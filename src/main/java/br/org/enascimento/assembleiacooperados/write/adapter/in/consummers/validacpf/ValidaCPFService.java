@@ -13,17 +13,12 @@ import javax.validation.ValidationException;
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.CPF_INVALID;
 
 @Service
-public class ValidaCPFConsumer{
+public class ValidaCPFService implements ValidaCPFServiceAdapter{
 
     @Autowired
     private WebClient webClientCpf;
 
-    public boolean isAbleToVote(String cpf) throws ValidationException {
-        var statusCPF = sendWebServiceValidar(cpf);
-        return isAbilitadoVotar(statusCPF);
-    }
-
-    private StatusCPF sendWebServiceValidar(String cpf) throws ValidationException{
+    public StatusCPF sendWebServiceValidar(String cpf) throws ValidationException {
         try {
             return this.webClientCpf
                     .get()
@@ -38,9 +33,5 @@ public class ValidaCPFConsumer{
         }catch (RuntimeException exception){
             throw new ValidaCPFException(CPF_INVALID);
         }
-    }
-
-    private boolean isAbilitadoVotar(StatusCPF retorno){
-        return (retorno != null && retorno.equals("ABLE_TO_VOTE"));
     }
 }
