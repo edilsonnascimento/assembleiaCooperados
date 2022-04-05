@@ -4,19 +4,23 @@ import br.org.enascimento.assembleiacooperados.write.domain.core.WriteSessaoRepo
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 
 @Tag("unit")
 class JobSessaoHandlerTest extends TestHelper {
 
+    @Mock
+    private WriteSessaoRepository repository;
+    @InjectMocks
+    private JobSessaoHandler handler;
+
     @Test
     void WHEN_Cron_invoke_executeRepositoryCloseSessions(){
-        //given
-        var repository = mock(WriteSessaoRepository.class);
-        var handler = new JobSessaoHandler(repository);
-
         //when
         handler.handle();
 

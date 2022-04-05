@@ -12,6 +12,8 @@ import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -24,15 +26,12 @@ import static org.mockito.Mockito.*;
 @Tag("unit")
 class CreateSessaoHandlerTest extends TestHelper {
 
-    private CreateSessaoHandler handler;
+    @Mock
     private WriteSessaoRepository repository;
+    @Mock
     private ReadPautaRepository repositoryRead;
-
-    public CreateSessaoHandlerTest() {
-        this.repository = mock(WriteSessaoRepository.class);
-        this.repositoryRead = mock(ReadPautaRepository.class);
-        this.handler = new CreateSessaoHandler(repository, repositoryRead);
-    }
+    @InjectMocks
+    private CreateSessaoHandler handler;
 
     @Test
     void Given_ValidCreateSessaoCommand_Must_DelegateToHeadler(){

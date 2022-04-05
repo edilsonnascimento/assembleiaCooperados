@@ -6,6 +6,7 @@ import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteCooperadoRepository;
 import br.org.enascimento.assembleiacooperados.red.domain.exception.CooperadoNotExistentException;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.CooperadoUpdateInvalidException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,13 +17,10 @@ import static br.org.enascimento.assembleiacooperados.write.domain.exception.Dom
 @Service
 public class UpdateCooperadoHandler implements Handler<UpdateCooperadoCommand> {
 
+    @Autowired
     private WriteCooperadoRepository repositoryWrite;
+    @Autowired
     private ReadCooperadoRepository repositoryRead;
-
-    public UpdateCooperadoHandler(WriteCooperadoRepository repositoryWrite, ReadCooperadoRepository repositoryRead) {
-        this.repositoryWrite = repositoryWrite;
-        this.repositoryRead = repositoryRead;
-    }
 
     @Override
     public void handle(UpdateCooperadoCommand command) {

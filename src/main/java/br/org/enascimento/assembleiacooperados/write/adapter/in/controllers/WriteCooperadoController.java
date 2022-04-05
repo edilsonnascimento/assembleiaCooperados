@@ -23,21 +23,17 @@ public class WriteCooperadoController {
 
     @PostMapping
     public ResponseEntity<String> create(@RequestBody @Validated CooperadoDto cooperadoDto) throws URISyntaxException {
-
         serviceBus.execute(new CreateCooperadoCommand(cooperadoDto.uuid(),
                                                      cooperadoDto.nome(),
                                                      cooperadoDto.cpf()));
-
         return ResponseEntity.created(new URI("v1/cooperados/" + cooperadoDto.uuid())).build();
     }
 
     @PutMapping("/{uuid}")
     public ResponseEntity<String> update(@PathVariable UUID uuid, @RequestBody CooperadoInDto cooperadoInDto){
-
         serviceBus.execute(new UpdateCooperadoCommand(uuid,
                                                       cooperadoInDto.nome(),
                                                       cooperadoInDto.cpf()));
         return ResponseEntity.noContent().build();
     }
-
 }

@@ -9,6 +9,8 @@ import br.org.enascimento.assembleiacooperados.write.domain.exception.PautaUpdat
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -20,19 +22,15 @@ import static org.mockito.Mockito.*;
 @Tag("unit")
 class UpdatePautaHandlerTest extends TestHelper {
 
-    private final WritePautaRepository repositoryWrite;
-    private final ReadPautaRepository repositoryRead;
-    private final UpdatePautaHandler handler;
-
-    public UpdatePautaHandlerTest() {
-        repositoryWrite = mock(WritePautaRepository.class);
-        repositoryRead = mock(ReadPautaRepository.class);
-        handler = new UpdatePautaHandler(repositoryWrite, repositoryRead);
-    }
+    @Mock
+    private WritePautaRepository repositoryWrite;
+    @Mock
+    private ReadPautaRepository repositoryRead;
+    @InjectMocks
+    private UpdatePautaHandler handler;
 
     @Test
     void GIVEN_InvalidCommandPauta_MUST_TrowException(){
-
         //given
         var uuid = UUID.randomUUID();
         var command = new UpdatePautaCommand(uuid, null, null);
@@ -48,13 +46,13 @@ class UpdatePautaHandlerTest extends TestHelper {
 
     @Test
     void GIVEN_NotExistPauta_MUST_ThrowException() {
-
         // given
         var titulo = faker.team().name();
         var descricao = faker.lorem().characters();
         var uuid = UUID.randomUUID();
         var command = new UpdatePautaCommand(uuid, titulo, descricao);
         when(repositoryRead.findByUuid(any())).thenReturn(Optional.empty());
+
         // when
         var exceptionExpected =
                 assertThrows(PautaNotExistentException.class, ()-> handler.handle(command));
@@ -66,7 +64,6 @@ class UpdatePautaHandlerTest extends TestHelper {
 
     @Test
     void GIVEN_ValidCommand_MUST_UpdatePautaTitulo_DelegateRepository() {
-
         // given
         var titulo = "TITULO-NOVO";
         var uuid = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
@@ -90,7 +87,6 @@ class UpdatePautaHandlerTest extends TestHelper {
 
     @Test
     void GIVEN_ValidCommand_MUST_UpdatePautaDescricao_DelegateRepository() {
-
         // given
         var descricao = "DESCRICAO-NOVA";
         var uuid = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
@@ -114,7 +110,6 @@ class UpdatePautaHandlerTest extends TestHelper {
 
     @Test
     void GIVEN_ValidCommand_MUST_UpdatePauta_DelegateRepository() {
-
         // given
         var titulo = "TITULO-NOVO";
         var descricao = "DESCRICAO-NOVA";
@@ -136,5 +131,4 @@ class UpdatePautaHandlerTest extends TestHelper {
         assertThat(pautaMock.getTitulo()).isEqualTo(titulo);
         assertThat(pautaMock.getDescricao()).isEqualTo(descricao);
     }
-
 }

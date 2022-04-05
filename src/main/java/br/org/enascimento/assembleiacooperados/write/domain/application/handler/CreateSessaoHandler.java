@@ -8,6 +8,7 @@ import br.org.enascimento.assembleiacooperados.write.domain.application.command.
 import br.org.enascimento.assembleiacooperados.write.domain.core.Sessao;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteSessaoRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.PAUTA_NOT_EXIST;
@@ -17,13 +18,10 @@ import static br.org.enascimento.assembleiacooperados.write.domain.exception.Dom
 public class CreateSessaoHandler implements Handler<CreateSessaoCommand>{
 
     private static final Long UMA_HORA = 1L;
+    @Autowired
     private WriteSessaoRepository repository;
+    @Autowired
     private ReadPautaRepository repositoryRead;
-
-    public CreateSessaoHandler(WriteSessaoRepository repository, ReadPautaRepository repositoryRead) {
-        this.repository = repository;
-        this.repositoryRead = repositoryRead;
-    }
 
     @Override
     public void handle(CreateSessaoCommand command) {

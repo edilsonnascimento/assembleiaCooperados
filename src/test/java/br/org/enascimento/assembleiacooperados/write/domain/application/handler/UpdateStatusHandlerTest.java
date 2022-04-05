@@ -9,6 +9,8 @@ import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import java.util.Optional;
 
@@ -19,16 +21,12 @@ import static org.mockito.Mockito.*;
 @Tag("unit")
 class UpdateStatusHandlerTest extends TestHelper {
 
-    private final UpdateStatusHandler handler;
-    private final WriteStatusRepositoy repositoy;
-    private final ReadStatusRepository repositoyRead;
-
-    public UpdateStatusHandlerTest() {
-        this.repositoy = mock(WriteStatusRepositoy.class);
-        this.repositoyRead = mock(ReadStatusRepository.class);
-        this.handler = new UpdateStatusHandler(repositoy, repositoyRead);
-
-    }
+    @Mock
+    private WriteStatusRepositoy repositoy;
+    @Mock
+    private ReadStatusRepository repositoyRead;
+    @InjectMocks
+    private UpdateStatusHandler handler;
 
     @Test
     void Given_ValidCommand_Must_DelegateToRepository(){
@@ -60,7 +58,6 @@ class UpdateStatusHandlerTest extends TestHelper {
         //when
         var expection = assertThrows(StatusNotExistedException.class, ()->
             handler.handle(command));
-
 
         //then
         verify(repositoyRead, timeout(1)).findById(command.id());

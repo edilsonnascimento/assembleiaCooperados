@@ -3,6 +3,7 @@ package br.org.enascimento.assembleiacooperados.write.domain.application.handler
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadCooperadoRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.UpdateCooperadoCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Cooperado;
+import br.org.enascimento.assembleiacooperados.write.domain.core.Status;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteCooperadoRepository;
 import br.org.enascimento.assembleiacooperados.red.domain.exception.CooperadoNotExistentException;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.CooperadoUpdateInvalidException;
@@ -10,6 +11,8 @@ import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -21,16 +24,12 @@ import static org.mockito.Mockito.*;
 @Tag("unit")
 class UpdateCooperadoHandlerTest extends TestHelper {
 
+    @Mock
     private WriteCooperadoRepository repositoryWrite;
+    @Mock
     private ReadCooperadoRepository repositoryRead;
-    private final UpdateCooperadoHandler handler;
-    private final ArgumentCaptor<Cooperado> captor = ArgumentCaptor.forClass(Cooperado.class);
-
-    public UpdateCooperadoHandlerTest() {
-        this.repositoryWrite = mock(WriteCooperadoRepository.class);
-        this.repositoryRead = mock(ReadCooperadoRepository.class);
-        this.handler = new UpdateCooperadoHandler(repositoryWrite, repositoryRead);
-    }
+    @InjectMocks
+    private UpdateCooperadoHandler handler;
 
     @Test
     void GIVEN_InvalidCommandCooperado_MUST_TrowException(){
@@ -69,6 +68,7 @@ class UpdateCooperadoHandlerTest extends TestHelper {
     @Test
     void Given_ValidCommand_Must_DelegateToHeadler(){
         //given
+        var captor = ArgumentCaptor.forClass(Cooperado.class);
         var uuid = UUID.randomUUID();
         var nome = faker.name().fullName();
         var cpf = faker.number().digits(11);
@@ -93,6 +93,7 @@ class UpdateCooperadoHandlerTest extends TestHelper {
     @Test
     void Given_ValidCommandOnlyNome_Must_DelegateToHeadler(){
         //given
+        var captor = ArgumentCaptor.forClass(Cooperado.class);
         var uuid = UUID.randomUUID();
         var nome = faker.name().fullName();
         var cpf = faker.number().digits(11);
@@ -118,6 +119,7 @@ class UpdateCooperadoHandlerTest extends TestHelper {
     @Test
     void Given_ValidCommandOnlyCpf_Must_DelegateToHeadler(){
         //given
+        var captor = ArgumentCaptor.forClass(Cooperado.class);
         var uuid = UUID.randomUUID();
         var nome = faker.name().fullName();
         var cpf = faker.number().digits(11);

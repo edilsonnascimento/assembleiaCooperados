@@ -6,6 +6,7 @@ import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WritePautaRepository;
 import br.org.enascimento.assembleiacooperados.red.domain.exception.PautaNotExistentException;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.PautaUpdateInvalidException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,29 +17,22 @@ import static br.org.enascimento.assembleiacooperados.write.domain.exception.Dom
 @Service
 public class UpdatePautaHandler implements Handler<UpdatePautaCommand> {
 
-    private final WritePautaRepository repositoryWrite;
-    private final ReadPautaRepository repositoryRead;
+    @Autowired
+    private WritePautaRepository repositoryWrite;
+    @Autowired
+    private ReadPautaRepository repositoryRead;
 
-    public UpdatePautaHandler(WritePautaRepository repositoryWrite, ReadPautaRepository repositoryRead) {
-        this.repositoryWrite = repositoryWrite;
-        this.repositoryRead = repositoryRead;
-    }
-
-    @Override
     public void handle(UpdatePautaCommand command) {
         repositoryWrite.update(commandAccurate(command));
     }
 
     private Pauta commandAccurate(UpdatePautaCommand command) {
-
         if (command.titulo() == null && command.descricao() == null)
             throw new PautaUpdateInvalidException(PAUTA_NOT_UPDATE);
 
         var pautaOptional = repositoryRead.findByUuid(command.uuid());
-
         if (!pautaOptional.isPresent())
             throw new PautaNotExistentException(PAUTA_NOT_EXIST);
-
         var pauta = pautaOptional.get();
 
         if(command.titulo() != null && command.descricao() == null) {

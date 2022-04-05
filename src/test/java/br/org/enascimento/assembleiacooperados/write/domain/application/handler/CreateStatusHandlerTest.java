@@ -7,6 +7,8 @@ import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -14,14 +16,18 @@ import static org.mockito.Mockito.verify;
 
 @Tag("unit")
 class CreateStatusHandlerTest extends TestHelper {
+
+    @Mock
+    private WriteStatusRepositoryImpl repository;
+    @InjectMocks
+    private CreateStatusHandler handler;
+
     @Test
     void Given_ValidCommand_Must_DelegateToHeadler(){
         // given
         var captor = ArgumentCaptor.forClass(Status.class);
         var descricao = faker.lorem().characters(50);
         var command = new CreateStatusCommand(descricao);
-        var repository = mock(WriteStatusRepositoryImpl.class);
-        var handler = new CreateStatusHandler(repository);
 
         // when
         handler.handle(command);
