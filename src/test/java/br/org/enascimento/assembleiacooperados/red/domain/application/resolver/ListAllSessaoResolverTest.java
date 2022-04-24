@@ -3,6 +3,7 @@ package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.SessaoOutDto;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.ListAllSessaoQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadSessaoRepository;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.SessaoNotExistedException;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -17,8 +18,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @Tag("unit")
 class ListAllSessaoResolverTest extends TestHelper {
@@ -63,5 +64,19 @@ class ListAllSessaoResolverTest extends TestHelper {
         //then
         verify(repository, times(1)).findAll();
         assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);
+    }
+
+    @Test
+    void DADO_QueryAllSessao_Invalida_DEVE_LancarExeception() {
+        //given
+        var query = new ListAllSessaoQuery();
+        when(repository.findAll()).thenReturn(Optional.empty());
+
+        //when
+        var exception = assertThrows(SessaoNotExistedException.class, () ->
+                resolver.resolve(query));
+        //then
+        verify(repository, times(1)).findAll();
+        assertThat(exception.getMessage()).isEqualTo("Sessao not exist");
     }
 }

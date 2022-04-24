@@ -26,9 +26,12 @@ public class CreateCedulaHandler implements Handler<CreateCedulaCommand>{
                                       command.uuidCooperado(),
                                       command.voto());
         var optionalCedulaInDto = repository.retrieveCedulaDto(cedulaDto);
-        if(optionalCedulaInDto.isEmpty()) throw new CedualNotExistedExcepetion(CEDULA_INVALID);
+        if(optionalCedulaInDto.isEmpty())
+            throw new CedualNotExistedExcepetion(CEDULA_INVALID);
         var eleitor = optionalCedulaInDto.get();
-        if(serverValidaCPF.isAbleToVote(eleitor.getCpf())) throw new ValidaCPFException(CPF_INVALID);
+
+        if(serverValidaCPF.isAbleToVote(eleitor.getCpf()))
+            throw new ValidaCPFException(CPF_INVALID);
         repository.create(eleitor);
     }
 }

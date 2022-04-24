@@ -23,7 +23,6 @@ import static br.org.enascimento.assembleiacooperados.write.domain.exception.Dom
 
 @Repository
 public class WriteCedulaRepositoryImpl implements WriteCedulaRepository {
-
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     public WriteCedulaRepositoryImpl(DataSource dataSource) {
@@ -43,21 +42,18 @@ public class WriteCedulaRepositoryImpl implements WriteCedulaRepository {
                     .addValue("idSessao", cedulaInDto.getIdSessao())
                     .addValue("idCooperado", cedulaInDto.getIdCooperado())
                     .addValue("voto", cedulaInDto.getVoto().toString());
-
             jdbcTemplate.update(sql, parameters);
         } catch (DuplicateKeyException exception) {
             var duplicatedDataException = new DuplicatedDataException(INVALID_DUPLICATE_DATA, exception);
             var optionalCedula = findCedula(cedulaInDto);
-
-            if(!optionalCedula.isPresent())
+            if(optionalCedula.isEmpty())
                 throw new CedulaNotExistentException(CEDULA_NOT_EXIST);
             var cedulaDuplicated = optionalCedula.get();
 
             if(cedulaDuplicated.getUuid().equals(cedulaInDto.getUuid()))
                 duplicatedDataException.addErrors("uuid", cedulaInDto.getUuid());
 
-            if(cedulaDuplicated.getIdCoopereado().equals(cedulaInDto.getIdCooperado()) &&
-               cedulaDuplicated.getIdSessao().equals(cedulaInDto.getIdSessao()))
+            if(cedulaDuplicated.getIdCoopereado().equals(cedulaInDto.getIdCooperado()) && cedulaDuplicated.getIdSessao().equals(cedulaInDto.getIdSessao()))
                 duplicatedDataException.addErrors("cooperado", cedulaInDto.getUuid());
 
             throw duplicatedDataException;
@@ -71,7 +67,6 @@ public class WriteCedulaRepositoryImpl implements WriteCedulaRepository {
             FROM cedula 
             WHERE uuid = :uuid OR 
                   (id_sessao = :idSessao AND id_cooperado = :idCooperado)""";
-
         var parameters = new MapSqlParameterSource()
                 .addValue("uuid", cedulaInDto.getUuid())
                 .addValue("idSessao", cedulaInDto.getIdSessao())
@@ -91,7 +86,6 @@ public class WriteCedulaRepositoryImpl implements WriteCedulaRepository {
     }
 
     public Optional<EleitorDto> retrieveCedulaDto(CedulaDto dtoUrna){
-
         var sqlBuscaIdCooperado = "SELECT id, cpf FROM cooperado WHERE uuid = :uuid";
         var paraCooperado = new MapSqlParameterSource()
                 .addValue("uuid", dtoUrna.uuidCooperado());

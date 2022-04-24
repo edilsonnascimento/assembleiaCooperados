@@ -66,10 +66,11 @@ class FindSessaoByUuidDtoOutResolverTest extends TestHelper {
         var query = new FindSessaoByUuidDtoOutQuery();
         query.setUuid(uuid);
         when(repository.findByUuidReturnDto(query.getUuid())).thenReturn(Optional.empty());
+
         //when
         var exception = assertThrows(SessaoNotExistedException.class, ()->
                 resolver.resolve(query));
         //then
-        org.assertj.core.api.Assertions.assertThat(exception.getMessage()).isEqualTo("Sessao not exist");
+        assertThat(exception.getMessage()).isEqualTo("Sessao not exist");
     }
 }

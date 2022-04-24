@@ -33,7 +33,6 @@ class UpdateCooperadoHandlerTest extends TestHelper {
 
     @Test
     void GIVEN_InvalidCommandCooperado_MUST_TrowException(){
-
         //given
         var uuid = UUID.randomUUID();
 
@@ -49,7 +48,6 @@ class UpdateCooperadoHandlerTest extends TestHelper {
 
     @Test
     void WHEN_CooperadoNotExistent_MUST_TrowException(){
-
         //given
         var uuid = UUID.randomUUID();
         var nome = faker.name().fullName();
@@ -141,5 +139,4 @@ class UpdateCooperadoHandlerTest extends TestHelper {
         assertThat(cooperadoCapter.getCpf()).isEqualTo(cpfAlterado);
         assertThat(cooperadoCapter.getUpdatedAt()).isNotNull();
     }
-
 }

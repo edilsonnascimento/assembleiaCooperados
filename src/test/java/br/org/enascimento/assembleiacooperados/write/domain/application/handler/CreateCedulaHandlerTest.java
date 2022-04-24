@@ -7,6 +7,7 @@ import br.org.enascimento.assembleiacooperados.write.domain.core.ValidaCPF;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteCedulaRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.exception.CedualNotExistedExcepetion;
+import br.org.enascimento.assembleiacooperados.write.domain.exception.ValidaCPFException;
 import helper.GeradorCPF;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
@@ -18,6 +19,7 @@ import org.mockito.Mock;
 import java.util.Optional;
 import java.util.UUID;
 
+import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.CPF_INVALID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -68,5 +70,25 @@ class CreateCedulaHandlerTest extends TestHelper {
         //then
         verify(repository, never()).create(any());
         assertThat(exceptionExpected.getMessage()).isEqualTo("Invalid Cedula");
+    }
+
+    @Test
+    void DADO_CPF_Invalido_DEVE_Lancar_Exception() {
+        //given
+        var command = new CreateCedulaCommand(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), Voto.FAVORAVEL);
+        var actual = new EleitorDto(UUID.randomUUID(), 1L, 1L, Voto.FAVORAVEL);
+        actual.setCpf(new GeradorCPF().gerar());
+        when(repository.retrieveCedulaDto(any())).thenReturn(Optional.of(actual));
+        when(serverValidaCPF.isAbleToVote(actual.getCpf())).thenReturn(true);
+
+        //when
+        var exceptionExpected =
+                assertThrows(ValidaCPFException.class, ()-> handler.handle(command));
+
+        //then
+        verify(repository, never()).create(any());
+        verify(repository, timeout(1)).retrieveCedulaDto(any());
+        verify(serverValidaCPF, timeout(1)).isAbleToVote(anyString());
+        assertThat(exceptionExpected.getMessage()).isEqualTo("invalid cpf for voting");
     }
 }

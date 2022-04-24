@@ -17,13 +17,11 @@ public class HttpLoggerInterceptor extends HandlerInterceptorAdapter {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-
         if (logger.isInfoEnabled()) {
             logger.info("REQUEST::{}:{}",
                     request.getMethod(),
                     request.getRequestURI());
         }
-
         return true;
     }
 }

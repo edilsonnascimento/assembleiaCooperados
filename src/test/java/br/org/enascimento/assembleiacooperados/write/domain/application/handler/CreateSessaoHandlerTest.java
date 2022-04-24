@@ -1,7 +1,9 @@
 package br.org.enascimento.assembleiacooperados.write.domain.application.handler;
 
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadPautaRepository;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.PautaNotExistentException;
 import br.org.enascimento.assembleiacooperados.red.domain.exception.SessaoInvalidaException;
+import br.org.enascimento.assembleiacooperados.red.domain.exception.StatusNotExistedException;
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.SessaoInDto;
 import br.org.enascimento.assembleiacooperados.write.domain.application.command.CreateSessaoCommand;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Pauta;
@@ -111,4 +113,41 @@ class CreateSessaoHandlerTest extends TestHelper {
         assertThat(expectedExcepetion.getMessage()).isEqualTo("Out of session limit");
     }
 
+    @Test
+    void DADO_CommandInvalid_DEVE_LancarExcessaoPauta(){
+        //given
+        var dto = new SessaoInDto(UUID.randomUUID(), UUID.randomUUID(), 61L);
+        var command = new CreateSessaoCommand(dto);
+        when(repositoryRead.findByUuid(any())).thenReturn(Optional.empty());
+
+        //when
+        var expectedExcepetion = assertThrows(PautaNotExistentException.class, ()->
+                handler.handle(command));
+
+        //then
+        verify(repositoryRead, timeout(1)).findByUuid(any());
+        verify(repository, never()).findStatus(anyLong());
+        verify(repository, never()).create(any());
+        assertThat(expectedExcepetion.getMessage()).isEqualTo("Pauta not exist");
+    }
+
+    @Test
+    void DADO_CommandInvalid_DEVE_LancarExcessaoStatus() {
+        //given
+        var dto = new SessaoInDto(UUID.randomUUID(), UUID.randomUUID(), 61L);
+        var command = new CreateSessaoCommand(dto);
+        var pauta = mock(Pauta.class);
+        when(repositoryRead.findByUuid(any())).thenReturn(Optional.of(pauta));
+        when(repository.findStatus(anyLong())).thenReturn(Optional.empty());
+
+        //when
+        var expectedExcepetion = assertThrows(StatusNotExistedException.class, ()->
+                handler.handle(command));
+
+        //then
+        verify(repositoryRead, timeout(1)).findByUuid(any());
+        verify(repository, timeout(1)).findStatus(anyLong());
+        verify(repository, never()).create(any());
+        assertThat(expectedExcepetion.getMessage()).isEqualTo("Status not exist");
+    }
 }
