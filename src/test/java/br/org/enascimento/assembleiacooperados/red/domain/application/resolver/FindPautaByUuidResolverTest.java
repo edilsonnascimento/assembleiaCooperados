@@ -34,7 +34,7 @@ class FindPautaByUuidResolverTest extends TestHelper {
         var query = new FindPautaByUuidQuery();
         query.setUuid(uuid);
         var data = LocalDateTime.now();
-        var pauta = new Pauta()
+        var pauta = (Pauta) new Pauta()
                 .setId(1l)
                 .setUuid(uuid)
                 .setTitulo(faker.team().name())

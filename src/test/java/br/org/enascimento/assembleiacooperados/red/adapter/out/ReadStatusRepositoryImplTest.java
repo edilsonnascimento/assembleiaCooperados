@@ -40,12 +40,12 @@ class ReadStatusRepositoryImplTest extends DataSourceHelper {
     void WHEN_QueryFindAllStatus_MUST_RetrieveSuccessful() {
         //given
         var dataAtual = LocalDateTime.now();
-        var aberta = new Status()
+        var aberta = (Status) new Status()
                 .setId(1l)
                 .setDescricao("ABERTA")
                 .setCreatedAt(dataAtual)
                 .setUpdatedAt(dataAtual);
-        var encerrada = new Status()
+        var encerrada = (Status) new Status()
                 .setId(2l)
                 .setDescricao("ENCERRADA")
                 .setCreatedAt(dataAtual.plusSeconds(1l))
@@ -56,6 +56,9 @@ class ReadStatusRepositoryImplTest extends DataSourceHelper {
          var expected = repository.findAll().get();
 
         //then
-        assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);
+        assertThat(expected)
+                .extracting(Status::getDescricao)
+                .contains(actual.get(0).getDescricao(), actual.get(1).getDescricao());
+
     }
 }

@@ -30,12 +30,12 @@ class ListAllStatusResolverTest extends TestHelper {
         //given
         var query = new ListAllStatusQuery();
         var dataAtual = LocalDateTime.now();
-        var aberta = new Status()
+        var aberta = (Status) new Status()
                                    .setId(1l)
                                    .setDescricao("ABERTA")
                                    .setCreatedAt(dataAtual)
                                    .setUpdatedAt(dataAtual);
-        var encerrada = new Status()
+        var encerrada = (Status) new Status()
                                    .setId(2l)
                                    .setDescricao("ENCERRADA")
                                    .setCreatedAt(dataAtual.plusSeconds(1l))

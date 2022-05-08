@@ -35,7 +35,7 @@ public class ReadSessaoRepositoryImpl implements ReadSessaoRepository {
 
         return jdbcTemplate.query(sql, parameters, result -> {
             if (result.next()) {
-                return Optional.of(new Sessao().
+                return Optional.of((Sessao) new Sessao().
                         setId(result.getLong("id")).
                         setUuid(UUID.fromString(result.getString("uuid"))).
                         setIdPauta(result.getLong("id_pauta")).
@@ -43,9 +43,9 @@ public class ReadSessaoRepositoryImpl implements ReadSessaoRepository {
                         setFimSessao(result.getTimestamp("fim_sessao").toLocalDateTime()).
                         setTotalVotosFavor(BigDecimal.valueOf(result.getInt("total_votos_favor"))).
                         setTotalVotosContra(BigDecimal.valueOf(result.getInt("total_votos_contra"))).
+                        setIdStatus(result.getLong("id_status")).
                         setCreatedAt(result.getTimestamp("created_at").toLocalDateTime()).
-                        setUpdatedAt(result.getTimestamp("updated_at").toLocalDateTime()).
-                        setIdStatus(result.getLong("id_status"))
+                        setUpdatedAt(result.getTimestamp("updated_at").toLocalDateTime())
                 );
 
             }

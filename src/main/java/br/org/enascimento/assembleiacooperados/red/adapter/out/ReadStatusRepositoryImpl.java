@@ -31,7 +31,7 @@ public class ReadStatusRepositoryImpl implements ReadStatusRepository {
 
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
-                return Optional.of(new Status().
+                return Optional.of( (Status) new Status().
                         setId(resultSet.getLong("id")).
                         setDescricao(resultSet.getString("descricao")).
                         setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
@@ -47,7 +47,7 @@ public class ReadStatusRepositoryImpl implements ReadStatusRepository {
         var sql = "SELECT id, descricao, created_at, updated_at FROM status ORDER BY created_at";
 
         return Optional.of(jdbcTemplate.query(sql, (resultSet, rowNum) ->
-                    new Status().
+                (Status) new Status().
                           setId(resultSet.getLong("id")).
                           setDescricao(resultSet.getString("descricao")).
                           setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).

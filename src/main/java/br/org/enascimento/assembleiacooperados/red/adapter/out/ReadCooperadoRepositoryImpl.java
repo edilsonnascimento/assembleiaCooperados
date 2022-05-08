@@ -48,7 +48,7 @@ public class ReadCooperadoRepositoryImpl implements ReadCooperadoRepository {
 
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
-                return Optional.of(new Cooperado().
+                return Optional.of((Cooperado) new Cooperado().
                         setUuid(UUID.fromString(resultSet.getString("uuid"))).
                         setNome(resultSet.getString("nome")).
                         setCpf(resultSet.getString("cpf")).
@@ -73,7 +73,7 @@ public class ReadCooperadoRepositoryImpl implements ReadCooperadoRepository {
 
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
-                return Optional.of(new Cooperado().
+                return Optional.of((Cooperado) new Cooperado().
                         setId(resultSet.getLong("id")).
                         setUuid(UUID.fromString(resultSet.getString("uuid"))).
                         setNome(resultSet.getString("nome")).

@@ -52,7 +52,7 @@ public class ReadPautaRepositoryImpl implements ReadPautaRepository {
 
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
-                return Optional.of(new Pauta().
+                return Optional.of((Pauta) new Pauta().
                         setId(resultSet.getLong(ID)).
                         setUuid(UUID.fromString(resultSet.getString(CAMPO_UUID))).
                         setTitulo(resultSet.getString(TITULO)).
@@ -78,7 +78,7 @@ public class ReadPautaRepositoryImpl implements ReadPautaRepository {
 
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
-                return Optional.of(new Pauta().
+                return Optional.of((Pauta) new Pauta().
                         setId(resultSet.getLong(ID)).
                         setUuid(UUID.fromString(resultSet.getString(CAMPO_UUID))).
                         setTitulo(resultSet.getString(TITULO)).
