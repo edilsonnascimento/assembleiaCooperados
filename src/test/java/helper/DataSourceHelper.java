@@ -18,6 +18,7 @@ public abstract class DataSourceHelper extends TestHelper{
         String url = "jdbc:h2:mem:UNIT_TEST;" +
                 "MODE=PostgreSQL;" +
                 "INIT=RUNSCRIPT FROM 'src/main/resources/db/migration/V001__Initial_setup.sql'\\;" +
+                "RUNSCRIPT FROM 'src/main/resources/db/migration/V002__Create_table_contato.sql'\\;" +
                 "RUNSCRIPT FROM 'classpath:fixture/" + dataSetName + ".sql'\\;";
 
         dataSource.setUrl(url);
