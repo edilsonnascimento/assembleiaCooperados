@@ -3,6 +3,7 @@ package br.org.enascimento.assembleiacooperados.red.domain.application.resolver;
 import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.ContatoOutDTO;
 import br.org.enascimento.assembleiacooperados.red.domain.application.query.ListAllContatoQuery;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadContatoRepository;
+import br.org.enascimento.assembleiacooperados.write.domain.core.Operadora;
 import helper.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ public class ListAllContatoResolverTest extends TestHelper {
         //given
          var query = new ListAllContatoQuery();
          var actual = List.of(
-                 new ContatoOutDTO(faker.name().fullName(), faker.number().digits(11), "GVT", LocalDateTime.now()));
+                 new ContatoOutDTO(faker.name().fullName(), faker.number().digits(11), Operadora.GVT, LocalDateTime.now()));
         when(repository.findAll()).thenReturn(Optional.of(actual));
 
          //when
@@ -40,5 +41,4 @@ public class ListAllContatoResolverTest extends TestHelper {
         verify(repository, times(1)).findAll();
         assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);
     }
-
 }

@@ -18,7 +18,9 @@ public class ReadContatoControllerIT extends IntegrationHelper {
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$[*].nomeContato", containsInRelativeOrder("Brandi Morissette", "Lynda Grady")))
                 .andExpect(jsonPath("$[*].telefone", containsInRelativeOrder("4199487497", "45871259476")))
-                .andExpect(jsonPath("$[*].nomeOperadora", containsInRelativeOrder("TIM", "OI")))
+                .andExpect(jsonPath("$[*].operadora.nome", containsInRelativeOrder("TIM", "OI")))
+                .andExpect(jsonPath("$[*].operadora.codigo", containsInRelativeOrder(41, 14)))
+                .andExpect(jsonPath("$[*].operadora.categoria", containsInRelativeOrder("Celular", "Celular")))
                 .andExpect(jsonPath("$[*].dataCadastro", containsInRelativeOrder("2022-05-08T04:38:54.577823", "2022-05-08T04:40:53.110967")));
     }
 }

@@ -19,7 +19,7 @@ public class JobSessaoHandler{
 
     Logger logger = LoggerFactory.getLogger(JobSessaoHandler.class);
 
-    @Scheduled(cron = "0/5 * *  * * *", zone = TIME_ZONE)
+    @Scheduled(cron = "* 1 *  * * *", zone = TIME_ZONE)
     public void handle() {
         repository.fecharSessoes();
         if(logger.isInfoEnabled()) logger.info("Sheduled fechar sessao");    }

@@ -2,6 +2,8 @@ package br.org.enascimento.assembleiacooperados.red.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.ContatoOutDTO;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadContatoRepository;
+import br.org.enascimento.assembleiacooperados.write.domain.core.Operadora;
+import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +26,7 @@ public class ReadContatoRepositoryImpl implements ReadContatoRepository {
                 new ContatoOutDTO(
                         rs.getString("nome"),
                         rs.getString("telefone"),
-                        rs.getString("operadora"),
+                        Operadora.valueOf(rs.getString("operadora")),
                         rs.getTimestamp("created_at").toLocalDateTime()));
         return dto.isEmpty() ? Optional.empty() : Optional.of(dto);
     }
