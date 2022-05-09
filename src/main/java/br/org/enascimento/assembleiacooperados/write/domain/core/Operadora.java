@@ -10,7 +10,5 @@ public enum Operadora {
     EMBRATEL(21, "Fixo", BigDecimal.valueOf(2));
 
     Operadora(Integer codigo, String categoria, BigDecimal preco) {
-
     }
-
 }

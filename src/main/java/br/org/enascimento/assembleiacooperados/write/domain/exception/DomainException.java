@@ -19,7 +19,8 @@ public abstract class DomainException extends RuntimeException{
         CPF_INVALID("invalid cpf for voting", 1008),
         UNABLE_TO_VOTE("Unable to vote", 1009),
         CEDULA_NOT_EXIST("Cedula not exist", 1010),
-        LIMIT_SESSAO("Out of session limit", 1011);
+        LIMIT_SESSAO("Out of session limit", 1011),
+        CONTATO_NOT_EXIST("Contato not exist", 1012);
 
         private String message;
         private int code;

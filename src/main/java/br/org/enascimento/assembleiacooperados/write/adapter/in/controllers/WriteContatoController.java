@@ -8,17 +8,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import static br.org.enascimento.assembleiacooperados.common.PathURI.*;
+
 @RestController
-@RequestMapping("/v1/contatos")
+@RequestMapping(value= PATH_CONTATOS)
 public class WriteContatoController extends WriteDomainController {
 
     @PostMapping
     public ResponseEntity<String> create(@RequestBody @Validated ContatoDTO dto) throws URISyntaxException {
         serviceBus.execute(new CreateContatoCommand(dto.telefone(), dto.operadora(), dto.nome()));
-        return ResponseEntity.created(new URI("/v1/contatos/")).build();
+        return ResponseEntity.created(new URI(PATH_CONTATOS)).build();
     }
 }

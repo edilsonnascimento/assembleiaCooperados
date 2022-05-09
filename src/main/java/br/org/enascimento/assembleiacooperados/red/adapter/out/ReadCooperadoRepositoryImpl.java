@@ -21,12 +21,9 @@ public class ReadCooperadoRepositoryImpl implements ReadCooperadoRepository {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
-
     @Override
     public List<CooperadoInDto> findAll() {
-
         var sql = "SELECT uuid, nome, cpf, created_at FROM cooperado ORDER BY created_at";
-
         return jdbcTemplate.query(sql, (rs, rowNum) ->
                 new CooperadoInDto(
                         UUID.fromString(rs.getString("uuid")),
