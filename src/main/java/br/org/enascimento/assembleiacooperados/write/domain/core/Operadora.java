@@ -1,16 +1,20 @@
 package br.org.enascimento.assembleiacooperados.write.domain.core;
 
+import br.org.enascimento.assembleiacooperados.common.Consts;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 
+import static br.org.enascimento.assembleiacooperados.common.Consts.TIPO_TELEFONE_CELULAR;
+import static br.org.enascimento.assembleiacooperados.common.Consts.TIPO_TELEFONE_FIXO;
+
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Operadora {
-    OI(14, "Celular", BigDecimal.valueOf(2)),
-    VIVO(15, "Celular", BigDecimal.valueOf(1)),
-    TIM(41, "Celular", BigDecimal.valueOf(3)),
-    GVT(25, "Fixo", BigDecimal.valueOf(1)),
-    EMBRATEL(21, "Fixo", BigDecimal.valueOf(2));
+    OI(14, TIPO_TELEFONE_CELULAR, BigDecimal.valueOf(2)),
+    VIVO(15, TIPO_TELEFONE_CELULAR, BigDecimal.valueOf(1)),
+    TIM(41, TIPO_TELEFONE_CELULAR, BigDecimal.valueOf(3)),
+    GVT(25, TIPO_TELEFONE_FIXO, BigDecimal.valueOf(1)),
+    EMBRATEL(21, TIPO_TELEFONE_FIXO, BigDecimal.valueOf(2));
 
     private Integer codigo;
     private String categoria;
@@ -29,5 +33,8 @@ public enum Operadora {
     }
     public String getCategoria() {
         return categoria;
+    }
+    public BigDecimal getPreco() {
+        return preco;
     }
 }

@@ -3,11 +3,12 @@ package br.org.enascimento.assembleiacooperados.red.adapter.in;
 import helper.IntegrationHelper;
 import org.junit.jupiter.api.Test;
 
-import static br.org.enascimento.assembleiacooperados.common.PathURI.PATH_CONTATOS;
+import static br.org.enascimento.assembleiacooperados.common.Consts.PATH_CONTATOS;
 import static org.hamcrest.Matchers.containsInRelativeOrder;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 public class ReadContatoControllerIT extends IntegrationHelper {
 
     @Test
