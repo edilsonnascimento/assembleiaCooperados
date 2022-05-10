@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static br.org.enascimento.assembleiacooperados.common.PathURI.PATH_CONTATOS;
+import static br.org.enascimento.assembleiacooperados.common.Consts.PATH_CONTATOS;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;

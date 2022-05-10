@@ -45,6 +45,7 @@ public class WriteCedulaRepositoryImpl implements WriteCedulaRepository {
             jdbcTemplate.update(sql, parameters);
         } catch (DuplicateKeyException exception) {
             var duplicatedDataException = new DuplicatedDataException(INVALID_DUPLICATE_DATA, exception);
+
             var optionalCedula = findCedula(cedulaInDto);
             if(optionalCedula.isEmpty())
                 throw new CedulaNotExistentException(CEDULA_NOT_EXIST);

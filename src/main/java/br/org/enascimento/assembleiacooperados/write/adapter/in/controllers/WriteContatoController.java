@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import static br.org.enascimento.assembleiacooperados.common.PathURI.*;
+import static br.org.enascimento.assembleiacooperados.common.Consts.*;
 
 @RestController
 @RequestMapping(value= PATH_CONTATOS)

@@ -3,7 +3,6 @@ package br.org.enascimento.assembleiacooperados.red.adapter.out;
 import br.org.enascimento.assembleiacooperados.red.adapter.out.dtos.ContatoOutDTO;
 import br.org.enascimento.assembleiacooperados.red.domain.core.ReadContatoRepository;
 import br.org.enascimento.assembleiacooperados.write.domain.core.Operadora;
-import br.org.enascimento.assembleiacooperados.write.domain.core.Voto;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static br.org.enascimento.assembleiacooperados.common.PathURI.PATH_CONTATOS;
+import static br.org.enascimento.assembleiacooperados.common.Consts.PATH_CONTATOS;
 
 @RestController
 @RequestMapping(PATH_CONTATOS)
