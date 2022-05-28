@@ -51,7 +51,6 @@ public class UpdateCooperadoHandler implements Handler<UpdateCooperadoCommand> {
                     .setCpf(command.cpf());
         }
         cooperado.setUpdatedAt(LocalDateTime.now());
-
         return cooperado;
     }
 }

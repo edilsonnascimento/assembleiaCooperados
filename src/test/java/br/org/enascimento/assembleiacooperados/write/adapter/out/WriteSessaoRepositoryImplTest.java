@@ -35,14 +35,14 @@ class WriteSessaoRepositoryImplTest extends DataSourceHelper {
         var fimSessao = LocalDateTime.now().minusMinutes(5l);
         var totalVotosFavor = new BigDecimal(TEN);
         var totalVotosContra = new BigDecimal(TWO);
-        var sessao = new Sessao()
-                .setUuid(uuid)
-                .setIdPauta(idPauta)
-                .setIdStatus(idStatus)
-                .setInicioSessao(inicioSessao)
-                .setFimSessao(fimSessao)
-                .setTotalVotosContra(totalVotosContra)
-                .setTotalVotosFavor(totalVotosFavor);
+        var sessao = new Sessao();
+        sessao.setUuid(uuid);
+        sessao.setIdPauta(idPauta);
+        sessao.setIdStatus(idStatus);
+        sessao.setInicioSessao(inicioSessao);
+        sessao.setFimSessao(fimSessao);
+        sessao.setTotalVotosContra(totalVotosContra);
+        sessao.setTotalVotosFavor(totalVotosFavor);
         //when
         var expected = repositoryWrite.create(sessao);
 
@@ -54,14 +54,13 @@ class WriteSessaoRepositoryImplTest extends DataSourceHelper {
     void Given_InvalidEntityDuplicate_Must_ThrowException() {
         //given
         var sessao = new Sessao();
-        sessao
-                .setUuid(UUID.fromString("91459bb4-07e9-47ab-85c5-4af513db36a3"))
-                .setIdPauta(faker.number().randomNumber())
-                .setInicioSessao(LocalDateTime.now())
-                .setFimSessao(LocalDateTime.now())
-                .setTotalVotosFavor(BigDecimal.ZERO)
-                .setTotalVotosContra(BigDecimal.ZERO)
-                .setIdStatus(faker.number().randomNumber());
+        sessao.setUuid(UUID.fromString("91459bb4-07e9-47ab-85c5-4af513db36a3"));
+        sessao.setIdPauta(faker.number().randomNumber());
+        sessao.setInicioSessao(LocalDateTime.now());
+        sessao.setFimSessao(LocalDateTime.now());
+        sessao.setTotalVotosFavor(BigDecimal.ZERO);
+        sessao.setTotalVotosContra(BigDecimal.ZERO);
+        sessao.setIdStatus(faker.number().randomNumber());
 
         //when
         var exception = Assertions.assertThrows(DuplicatedDataException.class, () ->

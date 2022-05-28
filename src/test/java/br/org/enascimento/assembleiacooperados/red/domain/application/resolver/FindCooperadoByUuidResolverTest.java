@@ -32,13 +32,13 @@ class FindCooperadoByUuidResolverTest extends TestHelper {
         var query = new FindCooperadoByUuidQuery();
         query.setUuid(UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20"));
         var dataAtual = LocalDateTime.now();
-        var cooperado = (Cooperado) new Cooperado()
-                .setId(1L)
-                .setUuid(UUID.randomUUID())
-                .setNome(faker.name().fullName())
-                .setCpf("00000000000")
-                .setCreatedAt(dataAtual)
-                .setUpdatedAt(dataAtual);
+        var cooperado = new Cooperado();
+        cooperado.setId(1L);
+        cooperado.setUuid(UUID.randomUUID());
+        cooperado.setNome(faker.name().fullName());
+        cooperado.setCpf("00000000000");
+        cooperado.setCreatedAt(dataAtual);
+        cooperado.setUpdatedAt(dataAtual);
         when(repository.findByUuid(query.getUuid())).thenReturn(Optional.of((Cooperado) cooperado));
         //when
         resolver.resolve(query);

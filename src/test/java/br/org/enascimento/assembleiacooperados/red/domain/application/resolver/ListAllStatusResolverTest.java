@@ -30,16 +30,16 @@ class ListAllStatusResolverTest extends TestHelper {
         //given
         var query = new ListAllStatusQuery();
         var dataAtual = LocalDateTime.now();
-        var aberta = (Status) new Status()
-                                   .setId(1l)
-                                   .setDescricao("ABERTA")
-                                   .setCreatedAt(dataAtual)
-                                   .setUpdatedAt(dataAtual);
-        var encerrada = (Status) new Status()
-                                   .setId(2l)
-                                   .setDescricao("ENCERRADA")
-                                   .setCreatedAt(dataAtual.plusSeconds(1l))
-                                   .setUpdatedAt(dataAtual.plusSeconds(1l));
+        var aberta = new Status();
+        aberta.setId(1l);
+        aberta.setDescricao("ABERTA");
+        aberta.setCreatedAt(dataAtual);
+        aberta.setUpdatedAt(dataAtual);
+        var encerrada = new Status() ;
+        encerrada.setId(2l) ;
+        encerrada.setDescricao("ENCERRADA") ;
+        encerrada.setCreatedAt(dataAtual.plusSeconds(1l));
+        encerrada.setUpdatedAt(dataAtual.plusSeconds(1l));
         var listStatus = List.of(aberta, encerrada);
         var expected = List.of(new StatusDto("ABERTA"), new StatusDto("ENCERRADA"));
         when(repository.findAll()).thenReturn(Optional.of(listStatus));

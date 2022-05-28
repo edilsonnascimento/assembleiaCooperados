@@ -52,14 +52,13 @@ public class ReadPautaRepositoryImpl implements ReadPautaRepository {
 
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
-                return Optional.of((Pauta) new Pauta().
-                        setId(resultSet.getLong(ID)).
-                        setUuid(UUID.fromString(resultSet.getString(CAMPO_UUID))).
-                        setTitulo(resultSet.getString(TITULO)).
-                        setDescricao(resultSet.getString(DESCRICAO)).
-                        setCreatedAt(resultSet.getTimestamp(DATA_CRIACAO).toLocalDateTime()).
-                        setUpdatedAt(resultSet.getTimestamp(DATA_ALTERACAO).toLocalDateTime())
-                );
+                var pauta = new Pauta(resultSet.getLong(ID),
+                                 UUID.fromString(resultSet.getString(CAMPO_UUID)),
+                                 resultSet.getString(TITULO),
+                                 resultSet.getString(DESCRICAO),
+                                 resultSet.getTimestamp(DATA_CRIACAO).toLocalDateTime(),
+                                 resultSet.getTimestamp(DATA_ALTERACAO).toLocalDateTime());
+                return Optional.of(pauta);
             }
             return Optional.empty();
         });
@@ -78,14 +77,13 @@ public class ReadPautaRepositoryImpl implements ReadPautaRepository {
 
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
-                return Optional.of((Pauta) new Pauta().
-                        setId(resultSet.getLong(ID)).
-                        setUuid(UUID.fromString(resultSet.getString(CAMPO_UUID))).
-                        setTitulo(resultSet.getString(TITULO)).
-                        setDescricao(resultSet.getString(DESCRICAO)).
-                        setCreatedAt(resultSet.getTimestamp(DATA_CRIACAO).toLocalDateTime()).
-                        setUpdatedAt(resultSet.getTimestamp(DATA_ALTERACAO).toLocalDateTime())
-                );
+                var pauta = new Pauta(resultSet.getLong(ID),
+                        UUID.fromString(resultSet.getString(CAMPO_UUID)),
+                        resultSet.getString(TITULO),
+                        resultSet.getString(DESCRICAO),
+                        resultSet.getTimestamp(DATA_CRIACAO).toLocalDateTime(),
+                        resultSet.getTimestamp(DATA_ALTERACAO).toLocalDateTime());
+                return Optional.of(pauta);
             }
             return Optional.empty();
         });

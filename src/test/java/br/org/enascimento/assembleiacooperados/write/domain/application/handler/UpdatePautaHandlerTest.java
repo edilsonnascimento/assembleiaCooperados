@@ -68,11 +68,11 @@ class UpdatePautaHandlerTest extends TestHelper {
         var titulo = "TITULO-NOVO";
         var uuid = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
         var command = new UpdatePautaCommand(uuid, titulo, null);
-        var pautaMock = new Pauta()
-                .setId(1l)
-                .setUuid(uuid)
-                .setTitulo("TITULO-ATUAL")
-                .setDescricao("DESCRICAO-ATUAL");
+        var pautaMock = new Pauta();
+        pautaMock.setId(1l);
+        pautaMock.setUuid(uuid);
+        pautaMock.setTitulo("TITULO-ATUAL");
+        pautaMock.setDescricao("DESCRICAO-ATUAL");
         when(repositoryRead.findByUuid(uuid)).thenReturn(Optional.of(pautaMock));
 
         // when
@@ -91,11 +91,11 @@ class UpdatePautaHandlerTest extends TestHelper {
         var descricao = "DESCRICAO-NOVA";
         var uuid = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
         var command = new UpdatePautaCommand(uuid, null, descricao);
-        var pautaMock = new Pauta()
-                .setId(1l)
-                .setUuid(uuid)
-                .setTitulo("TITULO-ATUAL")
-                .setDescricao("DESCRICAO-ATUAL");
+        var pautaMock = new Pauta();
+        pautaMock.setId(1l);
+        pautaMock.setUuid(uuid);
+        pautaMock.setTitulo("TITULO-ATUAL");
+        pautaMock.setDescricao("DESCRICAO-ATUAL");
         when(repositoryRead.findByUuid(uuid)).thenReturn(Optional.of(pautaMock));
 
         // when
@@ -115,11 +115,11 @@ class UpdatePautaHandlerTest extends TestHelper {
         var descricao = "DESCRICAO-NOVA";
         var uuid = UUID.fromString("3731c747-ea27-42e5-a52b-1dfbfa9617db");
         var command = new UpdatePautaCommand(uuid, titulo, descricao);
-        var pautaMock = new Pauta()
-                .setId(1l)
-                .setUuid(uuid)
-                .setTitulo("TITULO-ATUAL")
-                .setDescricao("DESCRICAO-ATUAL");
+        var pautaMock = new Pauta();
+        pautaMock.setId(1l);
+        pautaMock.setUuid(uuid);
+        pautaMock.setTitulo("TITULO-ATUAL");
+        pautaMock.setDescricao("DESCRICAO-ATUAL");
         when(repositoryRead.findByUuid(uuid)).thenReturn(Optional.of(pautaMock));
 
         // when

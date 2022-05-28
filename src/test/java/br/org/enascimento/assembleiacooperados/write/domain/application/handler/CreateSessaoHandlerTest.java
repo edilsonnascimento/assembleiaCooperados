@@ -44,11 +44,11 @@ class CreateSessaoHandlerTest extends TestHelper {
         var dto = new SessaoInDto(UUID.randomUUID(), UUID.randomUUID(), limiteSessao);
         var expectedDate = LocalDateTime.now().plusMinutes(limiteSessao);
         var command = new CreateSessaoCommand(dto);
-        var pauta = new Pauta()
-                .setId(1l)
-                .setUuid(UUID.randomUUID())
-                .setTitulo("PRIMEIRO-TITULO")
-                .setDescricao("PRIMEIRA-DESCICAO");
+        var pauta = new Pauta();
+        pauta.setId(1l);
+        pauta.setUuid(UUID.randomUUID());
+        pauta.setTitulo("PRIMEIRO-TITULO");
+        pauta.setDescricao("PRIMEIRA-DESCICAO");
         when(repositoryRead.findByUuid(any())).thenReturn(Optional.of(pauta));
         var status = new Status().setId(1l);
         when(repository.findStatus(anyLong())).thenReturn(Optional.of(status));
@@ -72,11 +72,11 @@ class CreateSessaoHandlerTest extends TestHelper {
         var dto = new SessaoInDto(UUID.randomUUID(), UUID.randomUUID(), limiteSessao);
         var expectedDate = LocalDateTime.now().plusMinutes(1L);
         var command = new CreateSessaoCommand(dto);
-        var pauta = new Pauta()
-                .setId(1l)
-                .setUuid(UUID.randomUUID())
-                .setTitulo("PRIMEIRO-TITULO")
-                .setDescricao("PRIMEIRA-DESCICAO");
+        var pauta = new Pauta();
+        pauta.setId(1l);
+        pauta.setUuid(UUID.randomUUID());
+        pauta.setTitulo("PRIMEIRO-TITULO");
+        pauta.setDescricao("PRIMEIRA-DESCICAO");
         when(repositoryRead.findByUuid(any())).thenReturn(Optional.of(pauta));
         var status = new Status().setId(1l);
         when(repository.findStatus(anyLong())).thenReturn(Optional.of(status));
@@ -96,11 +96,11 @@ class CreateSessaoHandlerTest extends TestHelper {
         //given
         var dto = new SessaoInDto(UUID.randomUUID(), UUID.randomUUID(), 61L);
         var command = new CreateSessaoCommand(dto);
-        var pauta = new Pauta()
-                .setId(1l)
-                .setUuid(UUID.randomUUID())
-                .setTitulo("PRIMEIRO-TITULO")
-                .setDescricao("PRIMEIRA-DESCICAO");
+        var pauta = new Pauta();
+        pauta.setId(1l);
+        pauta.setUuid(UUID.randomUUID());
+        pauta.setTitulo("PRIMEIRO-TITULO");
+        pauta.setDescricao("PRIMEIRA-DESCICAO");
         when(repositoryRead.findByUuid(any())).thenReturn(Optional.of(pauta));
         var status = new Status().setId(1l);
         when(repository.findStatus(anyLong())).thenReturn(Optional.of(status));

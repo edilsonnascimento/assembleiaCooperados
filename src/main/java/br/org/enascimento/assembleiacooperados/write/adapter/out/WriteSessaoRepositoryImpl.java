@@ -77,12 +77,12 @@ public class WriteSessaoRepositoryImpl implements WriteSessaoRepository {
 
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
-                return Optional.of( (Status) new Status().
-                        setId(resultSet.getLong("id")).
-                        setDescricao(resultSet.getString("descricao")).
-                        setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
-                        setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime())
-                );
+                var status = new Status();
+                status.setId(resultSet.getLong("id"));
+                status.setDescricao(resultSet.getString("descricao"));
+                status.setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime());
+                status.setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime());
+                return Optional.of(status);
             }
             return Optional.empty();
         });

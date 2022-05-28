@@ -1,5 +1,6 @@
 package br.org.enascimento.assembleiacooperados.write.domain.core;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Pauta extends EntityDomain{
@@ -8,32 +9,37 @@ public class Pauta extends EntityDomain{
     private String titulo;
     private String descricao;
 
+    public Pauta() {
+    }
+    public Pauta(Long id, UUID uuid, String titulo, String descricao, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        super(createdAt, updatedAt);
+        this.id = id;
+        this.uuid = uuid;
+        this.titulo = titulo;
+        this.descricao = descricao;
+    }
     public Long getId() {
         return id;
     }
-    public Pauta setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
-        return this;
     }
     public UUID getUuid() {
         return uuid;
     }
-    public Pauta setUuid(UUID uuid) {
+    public void setUuid(UUID uuid) {
         this.uuid = uuid;
-        return this;
     }
     public String getTitulo() {
         return titulo;
     }
-    public Pauta setTitulo(String titulo) {
+    public void setTitulo(String titulo) {
         this.titulo = titulo;
-        return this;
     }
     public String getDescricao() {
         return descricao;
     }
-    public Pauta setDescricao(String descricao) {
+    public void setDescricao(String descricao) {
         this.descricao = descricao;
-        return this;
     }
 }

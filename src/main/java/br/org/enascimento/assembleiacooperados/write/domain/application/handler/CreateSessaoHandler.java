@@ -34,9 +34,9 @@ public class CreateSessaoHandler implements Handler<CreateSessaoCommand>{
         if(statusOptinal.isEmpty())
             throw new StatusNotExistedException(STATUS_NOT_EXIST);
 
-        var sessao = new Sessao()
-                .setUuid(command.dto().uuid())
-                .setIdPauta(idPauta);
+        var sessao = new Sessao();
+        sessao.setUuid(command.dto().uuid());
+        sessao.setIdPauta(idPauta);
 
         var limeteSessao = command.dto().limiteSessao() != null? command.dto().limiteSessao() : UMA_HORA;
         sessao.setFimSessao(sessao.getInicioSessao().plusMinutes(limeteSessao));

@@ -45,13 +45,13 @@ public class ReadCooperadoRepositoryImpl implements ReadCooperadoRepository {
 
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
-                return Optional.of((Cooperado) new Cooperado().
-                        setUuid(UUID.fromString(resultSet.getString("uuid"))).
-                        setNome(resultSet.getString("nome")).
-                        setCpf(resultSet.getString("cpf")).
-                        setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
-                        setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime())
-                );
+                var cooperado = new Cooperado();
+                        cooperado.setUuid(UUID.fromString(resultSet.getString("uuid")));
+                        cooperado.setNome(resultSet.getString("nome"));
+                        cooperado.setCpf(resultSet.getString("cpf"));
+                        cooperado.setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime());
+                        cooperado.setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime());
+                return Optional.of(cooperado);
             }
             return Optional.empty();
         });
@@ -70,14 +70,14 @@ public class ReadCooperadoRepositoryImpl implements ReadCooperadoRepository {
 
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
-                return Optional.of((Cooperado) new Cooperado().
-                        setId(resultSet.getLong("id")).
-                        setUuid(UUID.fromString(resultSet.getString("uuid"))).
-                        setNome(resultSet.getString("nome")).
-                        setCpf(resultSet.getString("cpf")).
-                        setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
-                        setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime())
-                );
+                var cooperado = new Cooperado();
+                        cooperado.setId(resultSet.getLong("id"));
+                        cooperado.setUuid(UUID.fromString(resultSet.getString("uuid")));
+                        cooperado.setNome(resultSet.getString("nome"));
+                        cooperado.setCpf(resultSet.getString("cpf"));
+                        cooperado.setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime());
+                        cooperado.setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime());
+                return Optional.of(cooperado);
             }
             return Optional.empty();
         });

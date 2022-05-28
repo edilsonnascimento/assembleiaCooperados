@@ -34,13 +34,13 @@ class FindPautaByUuidResolverTest extends TestHelper {
         var query = new FindPautaByUuidQuery();
         query.setUuid(uuid);
         var data = LocalDateTime.now();
-        var pauta = (Pauta) new Pauta()
-                .setId(1l)
-                .setUuid(uuid)
-                .setTitulo(faker.team().name())
-                .setDescricao(faker.lorem().characters(5, 100))
-                .setCreatedAt(data)
-                .setUpdatedAt(data);
+        var pauta = new Pauta();
+        pauta.setId(1l);
+        pauta.setUuid(uuid);
+        pauta.setTitulo(faker.team().name());
+        pauta.setDescricao(faker.lorem().characters(5, 100));
+        pauta.setCreatedAt(data);
+        pauta.setUpdatedAt(data);
         when(repository.findByUuid(uuid)).thenReturn(Optional.of(pauta));
         //when
         resolver.resolve(query);

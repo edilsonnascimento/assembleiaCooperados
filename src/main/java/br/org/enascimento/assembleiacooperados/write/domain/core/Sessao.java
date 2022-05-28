@@ -20,6 +20,19 @@ public class Sessao extends EntityDomain{
     private Long idStatus;
 
     public Sessao() {
+        super();
+        inicializaVariaveisMembro();
+    }
+
+    public Sessao(Long id, UUID uuid, Long idPauta, Long idStatus, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        super(createdAt, updatedAt);
+        this.id = id;
+        this.uuid = uuid;
+        this.idPauta = idPauta;
+        this.idStatus = idStatus;
+        inicializaVariaveisMembro();
+    }
+    private void inicializaVariaveisMembro(){
         this.inicioSessao = LocalDateTime.now();
         this.fimSessao = LocalDateTime.now();
         this.totalVotosFavor = BigDecimal.ZERO;
@@ -29,58 +42,50 @@ public class Sessao extends EntityDomain{
     public Long getId() {
         return id;
     }
-    public Sessao setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
-        return this;
     }
     public UUID getUuid() {
         return uuid;
     }
-    public Sessao setUuid(UUID uuid) {
+    public void setUuid(UUID uuid) {
         this.uuid = uuid;
-        return this;
-    }
-    public Sessao setIdPauta(Long idPauta) {
-        this.idPauta = idPauta;
-        return this;
     }
     public Long getIdPauta() {
         return idPauta;
     }
+    public void setIdPauta(Long idPauta) {
+        this.idPauta = idPauta;
+    }
     public LocalDateTime getInicioSessao() {
         return inicioSessao;
     }
-    public Sessao setInicioSessao(LocalDateTime inicioSessao) {
+    public void setInicioSessao(LocalDateTime inicioSessao) {
         this.inicioSessao = inicioSessao;
-        return this;
     }
     public LocalDateTime getFimSessao() {
         return fimSessao;
     }
-    public Sessao setFimSessao(LocalDateTime fimSessao) {
+    public void setFimSessao(LocalDateTime fimSessao) {
         this.fimSessao = fimSessao;
-        return this;
     }
     public BigDecimal getTotalVotosFavor() {
         return totalVotosFavor;
     }
-    public Sessao setTotalVotosFavor(BigDecimal totalVotosFavor) {
+    public void setTotalVotosFavor(BigDecimal totalVotosFavor) {
         this.totalVotosFavor = totalVotosFavor;
-        return this;
     }
     public BigDecimal getTotalVotosContra() {
         return totalVotosContra;
     }
-    public Sessao setTotalVotosContra(BigDecimal totalVotosContra) {
+    public void setTotalVotosContra(BigDecimal totalVotosContra) {
         this.totalVotosContra = totalVotosContra;
-        return this;
     }
     public Long getIdStatus() {
         return idStatus;
     }
-    public Sessao setIdStatus(Long idStatus) {
+    public void setIdStatus(Long idStatus) {
         this.idStatus = idStatus;
-        return this;
     }
     private boolean estaAcimaLimite() {
         return MINUTES.between(inicioSessao, fimSessao)  > LIMITE_MAXIMO_SESSAO;

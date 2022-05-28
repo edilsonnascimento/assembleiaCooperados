@@ -3,13 +3,16 @@ package br.org.enascimento.assembleiacooperados.write.domain.core;
 import java.util.List;
 import java.util.UUID;
 
-public class Cooperado extends EntityDomain{
+public class Cooperado extends EntityDomain {
     private Long id;
     private UUID uuid;
     private String nome;
     private String cpf;
     private List<Contato> contatos;
 
+    public Cooperado() {
+        super();
+    }
     public Long getId() {
         return id;
     }

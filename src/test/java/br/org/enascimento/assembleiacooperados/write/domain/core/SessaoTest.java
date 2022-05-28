@@ -23,10 +23,9 @@ class SessaoTest extends TestHelper {
         var idCedula = faker.number().numberBetween(0l, 100);
 
         //when
-        sessao
-                .setId(id)
-                .setUuid(uuid)
-                .setIdPauta(idPauta);
+        sessao.setId(id);
+        sessao.setUuid(uuid);
+        sessao.setIdPauta(idPauta);
 
         //then
         assertThat(sessao.getId()).isEqualTo(id);

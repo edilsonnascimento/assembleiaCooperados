@@ -48,11 +48,11 @@ class ReadPautaRepositoryImplTest extends DataSourceHelper {
     void WHEN_QueryPautaByUuid_MUST_RetriveSuccessful(){
         //given
         var uuid = UUID.fromString("1e73cdb3-0923-4452-a190-3c7eb7857e20");
-        var expected = new Pauta()
-                .setId(1l)
-                .setUuid(uuid)
-                .setTitulo("PRIMEIRO-TITULO")
-                .setDescricao("PRIMEIRA-DESCICAO");
+        var expected = new Pauta();
+                expected.setId(1l);
+                expected.setUuid(uuid);
+                expected.setTitulo("PRIMEIRO-TITULO");
+                expected.setDescricao("PRIMEIRA-DESCICAO");
         //when
         var actual = repository.findByUuid(uuid).get();
 

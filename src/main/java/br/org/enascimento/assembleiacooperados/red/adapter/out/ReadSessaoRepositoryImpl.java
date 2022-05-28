@@ -35,19 +35,18 @@ public class ReadSessaoRepositoryImpl implements ReadSessaoRepository {
 
         return jdbcTemplate.query(sql, parameters, result -> {
             if (result.next()) {
-                return Optional.of((Sessao) new Sessao().
-                        setId(result.getLong("id")).
-                        setUuid(UUID.fromString(result.getString("uuid"))).
-                        setIdPauta(result.getLong("id_pauta")).
-                        setInicioSessao(result.getTimestamp("inicio_sessao").toLocalDateTime()).
-                        setFimSessao(result.getTimestamp("fim_sessao").toLocalDateTime()).
-                        setTotalVotosFavor(BigDecimal.valueOf(result.getInt("total_votos_favor"))).
-                        setTotalVotosContra(BigDecimal.valueOf(result.getInt("total_votos_contra"))).
-                        setIdStatus(result.getLong("id_status")).
-                        setCreatedAt(result.getTimestamp("created_at").toLocalDateTime()).
-                        setUpdatedAt(result.getTimestamp("updated_at").toLocalDateTime())
-                );
-
+                var sessao = new Sessao();
+                       sessao.setId(result.getLong("id"));
+                       sessao.setUuid(UUID.fromString(result.getString("uuid")));
+                       sessao.setIdPauta(result.getLong("id_pauta"));
+                       sessao.setInicioSessao(result.getTimestamp("inicio_sessao").toLocalDateTime());
+                       sessao.setFimSessao(result.getTimestamp("fim_sessao").toLocalDateTime());
+                       sessao.setTotalVotosFavor(BigDecimal.valueOf(result.getInt("total_votos_favor")));
+                       sessao.setTotalVotosContra(BigDecimal.valueOf(result.getInt("total_votos_contra")));
+                       sessao.setIdStatus(result.getLong("id_status"));
+                       sessao.setCreatedAt(result.getTimestamp("created_at").toLocalDateTime());
+                       sessao.setUpdatedAt(result.getTimestamp("updated_at").toLocalDateTime());
+                return Optional.of(sessao);
             }
             return Optional.empty();
         });

@@ -13,10 +13,10 @@ public class CreatePautaHandler implements Handler<CreatePautaCommand> {
     private WritePautaRepository repository;
 
     public void handle(CreatePautaCommand pautaCommand) {
-        var pauta = new Pauta()
-                .setUuid(pautaCommand.uuid())
-                .setTitulo(pautaCommand.titulo())
-                .setDescricao(pautaCommand.descricao());
+        var pauta = new Pauta();
+        pauta.setUuid(pautaCommand.uuid());
+        pauta.setTitulo(pautaCommand.titulo());
+        pauta.setDescricao(pautaCommand.descricao());
         repository.create(pauta);
     }
 }

@@ -40,9 +40,8 @@ public class UpdatePautaHandler implements Handler<UpdatePautaCommand> {
         }else if(command.descricao() != null && command.titulo() == null){
             pauta.setDescricao(command.descricao());
         }else{
-            pauta
-                .setTitulo(command.titulo())
-                .setDescricao(command.descricao());
+            pauta.setTitulo(command.titulo());
+            pauta.setDescricao(command.descricao());
         }
         pauta.setUpdatedAt(LocalDateTime.now());
         return pauta;

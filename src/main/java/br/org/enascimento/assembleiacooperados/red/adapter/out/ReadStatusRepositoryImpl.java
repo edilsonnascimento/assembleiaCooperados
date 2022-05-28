@@ -13,7 +13,9 @@ import java.util.Optional;
 @Repository
 public class ReadStatusRepositoryImpl implements ReadStatusRepository {
 
-    private NamedParameterJdbcTemplate jdbcTemplate;
+    private static final String ID = "id";
+
+    private final NamedParameterJdbcTemplate jdbcTemplate;
 
     public ReadStatusRepositoryImpl(DataSource dataSource) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -27,16 +29,16 @@ public class ReadStatusRepositoryImpl implements ReadStatusRepository {
                 WHERE id = :id""";
 
         var parameters = new MapSqlParameterSource()
-                .addValue("id", id);
+                .addValue(ID, id);
 
         return jdbcTemplate.query(sql, parameters, resultSet -> {
             if (resultSet.next()) {
-                return Optional.of( (Status) new Status().
-                        setId(resultSet.getLong("id")).
-                        setDescricao(resultSet.getString("descricao")).
-                        setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
-                        setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime())
-                );
+                var status = new Status();
+                status.setId(resultSet.getLong(ID));
+                status.setDescricao(resultSet.getString("descricao"));
+                status.setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime());
+                status.setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime());
+                return Optional.of(status);
             }
             return Optional.empty();
         });
@@ -47,10 +49,10 @@ public class ReadStatusRepositoryImpl implements ReadStatusRepository {
         var sql = "SELECT id, descricao, created_at, updated_at FROM status ORDER BY created_at";
 
         return Optional.of(jdbcTemplate.query(sql, (resultSet, rowNum) ->
-                (Status) new Status().
-                          setId(resultSet.getLong("id")).
-                          setDescricao(resultSet.getString("descricao")).
-                          setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime()).
-                          setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime())));
+                new Status(resultSet.getLong(ID),
+                           resultSet.getString("descricao"),
+                           resultSet.getTimestamp("created_at").toLocalDateTime(),
+                           resultSet.getTimestamp("updated_at").toLocalDateTime())
+        ));
     }
 }

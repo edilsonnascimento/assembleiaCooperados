@@ -42,10 +42,10 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
                                                String titulo,
                                                String descricao) {
         //given
-        var expected = new Pauta()
-                .setUuid(uuid)
-                .setTitulo(titulo)
-                .setDescricao(descricao);
+        var expected = new Pauta();
+        expected.setUuid(uuid);
+        expected.setTitulo(titulo);
+        expected.setDescricao(descricao);
 
         //when
         repositoryWrite.create(expected);
@@ -70,7 +70,8 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
 
         var titulo = faker.pokemon().name();
         var descricao = faker.lorem().characters(5, 100);
-        actualPauta.setTitulo(titulo).setDescricao(descricao);
+        actualPauta.setTitulo(titulo);
+        actualPauta.setDescricao(descricao);
 
         // when
         repositoryWrite.update(actualPauta);
@@ -90,11 +91,10 @@ class WritePautaRepositoryImplTest extends DataSourceHelper {
                                                       String titulo,
                                                       Map<String, Object> expectedError) {
         //given
-        var expected = new Pauta()
-                .setUuid(uuid)
-                .setTitulo(titulo)
-                .setDescricao("Qualquer");
-
+        var expected = new Pauta();
+        expected.setUuid(uuid);
+        expected.setTitulo(titulo);
+        expected.setDescricao(faker.lorem().characters(30));
 
         //when
         var exception = assertThrows(DuplicatedDataException.class, () -> repositoryWrite.create(expected));

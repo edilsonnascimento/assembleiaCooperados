@@ -20,11 +20,11 @@ class PautaTest extends TestHelper {
         var descricao = faker.lorem().characters();;
 
         //when
-        var pauta = new Pauta()
-                .setId(id)
-                .setUuid(uuid)
-                .setTitulo(titulo)
-                .setDescricao(descricao);
+        var pauta = new Pauta();
+        pauta.setId(id);
+        pauta.setUuid(uuid);
+        pauta.setTitulo(titulo);
+        pauta.setDescricao(descricao);
 
         //then
         assertThat(pauta.getId()).isEqualTo(id);
