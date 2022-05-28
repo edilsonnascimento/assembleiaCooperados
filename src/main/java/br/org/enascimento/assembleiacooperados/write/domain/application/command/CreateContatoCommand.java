@@ -9,11 +9,13 @@ public class CreateContatoCommand implements Command{
     private BigDecimal telefone;
     private Operadora operadora;
     private String nome;
+    private String codigo;
 
-    public CreateContatoCommand(BigDecimal telefone, Operadora operadora, String nome) {
+    public CreateContatoCommand(BigDecimal telefone, Operadora operadora, String nome, String codigo) {
         this.telefone = telefone;
         this.operadora = operadora;
         this.nome = nome;
+        this.codigo = codigo;
     }
     public BigDecimal getTelefone() {
         return telefone;
@@ -23,5 +25,8 @@ public class CreateContatoCommand implements Command{
     }
     public String getNome() {
         return nome;
+    }
+    public String getCodigo() {
+        return codigo;
     }
 }

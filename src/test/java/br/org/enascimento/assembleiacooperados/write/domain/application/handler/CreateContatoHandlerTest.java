@@ -25,7 +25,7 @@ public class CreateContatoHandlerTest extends TestHelper {
     @Test
     void DADO_CreateContatoCommand_VALIDO_Criar_Contato() {
         //given
-        var command = new CreateContatoCommand(new BigDecimal("4135253225"), Operadora.GVT, "Contato");
+        var command = new CreateContatoCommand(new BigDecimal("4135253225"), Operadora.GVT, "Contato", faker.code().ean8());
         when(repository.create(any())).thenReturn(true);
 
         //when

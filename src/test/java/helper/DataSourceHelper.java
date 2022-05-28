@@ -19,6 +19,7 @@ public abstract class DataSourceHelper extends TestHelper{
                 "MODE=PostgreSQL;" +
                 "INIT=RUNSCRIPT FROM 'src/main/resources/db/migration/V001__Initial_setup.sql'\\;" +
                 "RUNSCRIPT FROM 'src/main/resources/db/migration/V002__Create_table_contato.sql'\\;" +
+                "RUNSCRIPT FROM 'src/main/resources/db/migration/V003__Alter_table_contato_criar_campo_codigo.sql'\\;" +
                 "RUNSCRIPT FROM 'classpath:fixture/" + dataSetName + ".sql'\\;";
 
         dataSource.setUrl(url);

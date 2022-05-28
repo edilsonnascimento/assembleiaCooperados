@@ -12,5 +12,7 @@ public record ContatoDTO(
         @NotNull
         Operadora operadora,
         @NotEmpty
-        String nome) {
+        String nomeContato,
+        @NotEmpty
+        String codigo) {
 }

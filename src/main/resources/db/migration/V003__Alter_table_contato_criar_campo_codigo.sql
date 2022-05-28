@@ -1,0 +1,1 @@
+ALTER TABLE contato ADD COLUMN codigo VARCHAR(255);

@@ -18,7 +18,7 @@ public class CreateContatoIT extends IntegrationHelper {
     @Test
     void DADO_Contato_VALIDO_Enviar_Criacao_RetornarCreate() throws Exception {
          //given
-         var dto = new ContatoDTO(new BigDecimal("416352535"), Operadora.GVT, "Contato");
+         var dto = new ContatoDTO(new BigDecimal("416352535"), Operadora.GVT, "Contato", faker.code().ean8());
 
         //when
         var payload =
@@ -26,9 +26,10 @@ public class CreateContatoIT extends IntegrationHelper {
                      {
                         "telefone": "%s",
                         "operadora": "%s",
-                        "nome": "%s"
+                        "nomeContato": "%s",
+                        "codigo": "%s"
                     }
-                """.formatted(dto.telefone(), dto.operadora(), dto.nome());
+                """.formatted(dto.telefone(), dto.operadora(), dto.nomeContato(), dto.codigo());
 
         //then
         mockMvc

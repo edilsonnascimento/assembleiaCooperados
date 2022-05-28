@@ -19,7 +19,7 @@ public class WriteContatoController extends WriteDomainController {
 
     @PostMapping
     public ResponseEntity<String> create(@RequestBody @Validated ContatoDTO dto) throws URISyntaxException {
-        serviceBus.execute(new CreateContatoCommand(dto.telefone(), dto.operadora(), dto.nome()));
+        serviceBus.execute(new CreateContatoCommand(dto.telefone(), dto.operadora(), dto.nomeContato(), dto.codigo()));
         return ResponseEntity.created(new URI(PATH_CONTATOS)).build();
     }
 }

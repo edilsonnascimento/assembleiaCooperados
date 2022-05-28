@@ -2,14 +2,14 @@ package br.org.enascimento.assembleiacooperados.write.adapter.out;
 
 import br.org.enascimento.assembleiacooperados.write.adapter.in.dtos.ContatoDTO;
 import br.org.enascimento.assembleiacooperados.write.domain.core.WriteContatoRepository;
-import br.org.enascimento.assembleiacooperados.write.domain.exception.DuplicatedDataException;
+import br.org.enascimento.assembleiacooperados.write.domain.exception.ContatoExcepetion;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 
-import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.PAUTA_NOT_EXIST;
+import static br.org.enascimento.assembleiacooperados.write.domain.exception.DomainException.Error.CONTATO_NOT_EXIST;
 
 @Repository
 public class WriteContatoRepositoryImpl implements WriteContatoRepository {
@@ -25,16 +25,17 @@ public class WriteContatoRepositoryImpl implements WriteContatoRepository {
         try {
             var sql =
                     """
-                        INSERT INTO contato(telefone, operadora, nome)
-                        VALUES(:telefone, :operadora, :nome)
+                        INSERT INTO contato(telefone, operadora, nome, codigo)
+                        VALUES(:telefone, :operadora, :nome, :codigo)
                     """;
             var parameters = new MapSqlParameterSource()
                     .addValue("telefone", dto.telefone())
                     .addValue("operadora", dto.operadora().toString())
-                    .addValue("nome", dto.nome());
+                    .addValue("nome", dto.nomeContato())
+                    .addValue("codigo", dto.codigo());
             jdbcTemplate.update(sql, parameters);
         }catch (Exception e){
-           throw new DuplicatedDataException(PAUTA_NOT_EXIST);
+           throw new ContatoExcepetion(CONTATO_NOT_EXIST, e.getCause());
         }
         return true;
     }

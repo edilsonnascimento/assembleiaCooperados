@@ -23,7 +23,7 @@ public class WriteContatoRepositoryImplTest extends DataSourceHelper {
     @Test
     void DADO_DTO_VALIDO_PERSISTIR_CONTATO_BASE(){
         //given
-        var dto = new ContatoDTO(new BigDecimal("4130784510"), Operadora.GVT, "Contato");
+        var dto = new ContatoDTO(new BigDecimal("4130784510"), Operadora.GVT, "Contato", faker.code().ean8());
 
         //when
         var resultado = repository.create(dto);

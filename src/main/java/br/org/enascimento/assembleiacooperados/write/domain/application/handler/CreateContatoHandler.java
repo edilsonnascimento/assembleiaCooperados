@@ -14,7 +14,7 @@ public class CreateContatoHandler implements Handler<CreateContatoCommand>{
 
     @Override
     public void handle(CreateContatoCommand command) {
-        var dto = new ContatoDTO(command.getTelefone(), command.getOperadora(), command.getNome());
+        var dto = new ContatoDTO(command.getTelefone(), command.getOperadora(), command.getNome(), command.getCodigo());
         repository.create(dto);
     }
 }
