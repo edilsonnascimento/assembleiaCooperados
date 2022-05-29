@@ -25,6 +25,6 @@ public class ReadContatoRepositoryImplTest extends DataSourceHelper {
         //then
         assertThat(actual)
                 .extracting(ContatoOutDTO::telefone)
-                .contains("4199487497","45871259476","45871259476","3330149785","5132541478");
+                .contains("45871259476","4688825947","4199487497");
     }
 }

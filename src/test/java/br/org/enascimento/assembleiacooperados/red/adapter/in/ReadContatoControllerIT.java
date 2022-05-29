@@ -17,12 +17,12 @@ public class ReadContatoControllerIT extends IntegrationHelper {
             .perform(get(PATH_CONTATOS))
             .andExpect(status().isOk())
             .andExpect(content().contentType(APPLICATION_JSON))
-            .andExpect(jsonPath("$[*].nomeContato", containsInRelativeOrder("Brandi Morissette", "Lynda Grady")))
-            .andExpect(jsonPath("$[*].telefone", containsInRelativeOrder("4199487497", "45871259476")))
-            .andExpect(jsonPath("$[*].operadora.nome", containsInRelativeOrder("TIM", "OI")))
-            .andExpect(jsonPath("$[*].operadora.codigo", containsInRelativeOrder(41, 14)))
+            .andExpect(jsonPath("$[*].nomeContato", containsInRelativeOrder("Miss Essie Hane", "Lynda Grady")))
+            .andExpect(jsonPath("$[*].telefone", containsInRelativeOrder("45871259476", "4688825947")))
+            .andExpect(jsonPath("$[*].operadora.nome", containsInRelativeOrder("VIVO", "OI")))
+            .andExpect(jsonPath("$[*].operadora.codigo", containsInRelativeOrder(15, 14)))
             .andExpect(jsonPath("$[*].operadora.categoria", containsInRelativeOrder("Celular", "Celular")))
-            .andExpect(jsonPath("$[*].dataCadastro", containsInRelativeOrder("2022-05-08T04:38:54.577823", "2022-05-08T04:40:53.110967")))
-            .andExpect(jsonPath("$[*].codigo", containsInRelativeOrder("53432231", "53432232")));
+            .andExpect(jsonPath("$[*].dataCadastro", containsInRelativeOrder("2022-05-09T04:41:31.910465", "2022-05-08T04:40:53.110967")))
+            .andExpect(jsonPath("$[*].codigo", containsInRelativeOrder("53432233", "53432232")));
     }
 }

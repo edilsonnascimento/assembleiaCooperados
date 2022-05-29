@@ -20,13 +20,20 @@ public class ReadContatoRepositoryImpl implements ReadContatoRepository {
 
     @Override
     public Optional<List<ContatoOutDTO>> findAll() {
-        var sql = "SELECT nome, telefone, operadora, created_at FROM contato";
+        var sql = """
+                     SELECT nome, telefone, operadora, created_at, codigo
+                     FROM contato 
+                     ORDER BY created_at DESC
+                     LIMIT 3
+                  """;
+
         var dto = jdbcTemplate.query(sql, (rs, rowNum) ->
                 new ContatoOutDTO(
                         rs.getString("nome"),
                         rs.getString("telefone"),
                         Operadora.valueOf(rs.getString("operadora")),
-                        rs.getTimestamp("created_at").toLocalDateTime()));
+                        rs.getTimestamp("created_at").toLocalDateTime(),
+                        rs.getString("codigo")));
         return dto.isEmpty() ? Optional.empty() : Optional.of(dto);
     }
 }

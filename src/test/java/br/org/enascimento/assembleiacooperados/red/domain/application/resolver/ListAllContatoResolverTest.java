@@ -30,7 +30,7 @@ public class ListAllContatoResolverTest extends TestHelper {
         //given
          var query = new ListAllContatoQuery();
          var actual = List.of(
-                 new ContatoOutDTO(faker.name().fullName(), faker.number().digits(11), Operadora.GVT, LocalDateTime.now()));
+                 new ContatoOutDTO(faker.name().fullName(), faker.number().digits(11), Operadora.GVT, LocalDateTime.now(), faker.code().ean8()));
         when(repository.findAll()).thenReturn(Optional.of(actual));
 
          //when

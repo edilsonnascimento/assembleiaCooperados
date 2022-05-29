@@ -9,5 +9,6 @@ public record ContatoOutDTO(
         String nomeContato,
         String telefone,
         Operadora operadora,
-        LocalDateTime dataCadastro) {
+        LocalDateTime dataCadastro,
+        String codigo) {
 }
