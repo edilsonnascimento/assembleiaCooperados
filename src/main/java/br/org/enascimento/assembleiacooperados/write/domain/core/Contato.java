@@ -3,6 +3,7 @@ package br.org.enascimento.assembleiacooperados.write.domain.core;
 public class Contato extends EntityDomain{
 
     private Long id;
+    private String nome;
     private String codigo;
     private String telefone;
     private Operadora operadora;
@@ -16,6 +17,13 @@ public class Contato extends EntityDomain{
     public void setId(Long id) {
         this.id = id;
     }
+    public String getNome() {
+        return nome;
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public String getCodigo() {
         return codigo;
     }

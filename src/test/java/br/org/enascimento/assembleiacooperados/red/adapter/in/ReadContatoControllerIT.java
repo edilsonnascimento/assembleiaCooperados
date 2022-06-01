@@ -25,4 +25,20 @@ public class ReadContatoControllerIT extends IntegrationHelper {
             .andExpect(jsonPath("$[*].dataCadastro", containsInRelativeOrder("2022-05-09T04:41:31.910465", "2022-05-08T04:40:53.110967")))
             .andExpect(jsonPath("$[*].codigo", containsInRelativeOrder("53432233", "53432232")));
     }
+
+    @Test
+    void DEVE_Retornar_Contato_Pelo_Codigo() throws Exception {
+        var codigo = "53432233";
+        mockMvc
+                .perform(get(PATH_CONTATOS + "/{codigo}", codigo))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(APPLICATION_JSON))
+                .andExpect(exists("Miss Essie Hane"))
+                .andExpect(exists("45871259476"))
+                .andExpect(exists("VIVO"))
+                .andExpect(exists("15"))
+                .andExpect(exists("Celular"))
+                .andExpect(exists("2022-05-09T04:41:31.910465"))
+                .andExpect(exists("53432233"));
+    }
 }

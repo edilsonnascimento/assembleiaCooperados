@@ -4,4 +4,7 @@ public class ContatoExcepetion extends DomainException{
     public ContatoExcepetion(Error error, Throwable cause) {
         super(error, cause);
     }
+    public ContatoExcepetion(Error error){
+        super(error);
+    }
 }
