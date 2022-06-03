@@ -10,7 +10,7 @@ public class FindContatoByCodigoDTOOutQuery implements Query{
     public String getCodigo() {
         return codigo;
     }
-    public void setCodigo(String codigo) {
+    public void  setCodigo(String codigo) {
         this.codigo = codigo;
     }
     public ContatoOutDTO getResult() {

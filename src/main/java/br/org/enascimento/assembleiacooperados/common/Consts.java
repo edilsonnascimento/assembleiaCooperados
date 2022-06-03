@@ -6,5 +6,4 @@ public class Consts {
     public static final String PATH_OPERADORAS = VERSAO + "/operadoras";
     public static final String TIPO_TELEFONE_CELULAR = "Celular";
     public static final String TIPO_TELEFONE_FIXO = "Fixo";
-
 }

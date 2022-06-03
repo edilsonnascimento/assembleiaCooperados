@@ -21,7 +21,7 @@ public class FindContatoByCodigoDTOOutResolver implements Resolver<FindContatoBy
         if(optinalContato.isEmpty())
             throw new ContatoExcepetion(CONTATO_NOT_EXIST);
         var contato = optinalContato.get();
-        var contatoDTO = new ContatoOutDTO(contato.getNome(), contato.getTelefone(), contato.getOperadora(), contato.getCreatedAt(), contato.getCodigo());
-        query.setResult(contatoDTO);
+        var contatoOutDTO = new ContatoOutDTO(contato.getNome(), contato.getTelefone(), contato.getOperadora(), contato.getCreatedAt(), contato.getCodigo());
+        query.setResult(contatoOutDTO);
     }
 }
